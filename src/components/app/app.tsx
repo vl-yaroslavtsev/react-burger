@@ -1,24 +1,18 @@
-import React from 'react';
-import logo from '../../images/logo.svg';
-import styles from './app.module.css';
+import React from "react";
+import styles from "./app.module.css";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import AppHeader from "../app-header/app-header";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function App() {
   return (
     <div className={styles.app}>
-      <header className={styles.header}>
-        <img src={logo} className={styles.logo} alt="logo" />
-        <p>
-          Редактируйте <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className={styles.link}
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppHeader />
+      <main>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
     </div>
   );
 }
