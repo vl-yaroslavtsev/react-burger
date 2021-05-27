@@ -1,0 +1,32 @@
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background);
+}
+
+.content {
+  list-style-type: none;
+  width: 100%;
+  max-width: 1280px;
+  height: 88px;
+
+  border: 1px solid green;
+
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+}
+
+.contentItem {
+  flex-grow: 1;
+}
+
+.contentItemCenter {
+  composes: contentItem;
+  text-align: center;
+}
+
+.contentItemRight {
+  composes: contentItem;
+  text-align: right;
+}
