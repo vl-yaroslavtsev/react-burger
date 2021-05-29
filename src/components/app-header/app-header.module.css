@@ -19,7 +19,7 @@
 }
 
 .contentItem {
-  flex-grow: 1;
+  flex: 0 1 33.33%;
 }
 
 .contentItemCenter {

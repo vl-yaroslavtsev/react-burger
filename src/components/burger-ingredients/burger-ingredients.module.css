@@ -1,8 +1,23 @@
 .container {
-  width: 600px;
   border: 1px solid blue;
+  width: 600px;
+  /* display: none; */
 }
 
 .tabs {
   display: flex;
+}
+
+.ingredientList {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.ingredient {
+  flex: 0 1 calc(50% - 3 * var(--offset-base-size));
+}
+
+.hidden {
+  display: none;
 }

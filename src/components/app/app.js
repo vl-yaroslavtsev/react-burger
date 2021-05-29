@@ -12,8 +12,8 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={cn(styles.main, "ml-15 mr-15")}>
-        <BurgerIngredients className="mr-10" />
-        <BurgerConstructor />
+        <BurgerIngredients className="mr-10" ingredients={data} />
+        <BurgerConstructor elements={data} />
       </main>
     </div>
   );

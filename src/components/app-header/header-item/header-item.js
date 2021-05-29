@@ -11,7 +11,7 @@ function HeaderItem({ icon: Icon, children, active = false }) {
       )}
     >
       <Icon type={active ? "primary" : "secondary"} />
-      <span class={cn({ text_color_inactive: !active }, "ml-2")}>
+      <span className={cn({ text_color_inactive: !active }, "ml-2")}>
         {children}
       </span>
     </div>

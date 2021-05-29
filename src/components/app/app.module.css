@@ -2,6 +2,7 @@
 }
 
 .main {
+  max-wigth: 1240px;
   display: flex;
   justify-content: center;
 }
