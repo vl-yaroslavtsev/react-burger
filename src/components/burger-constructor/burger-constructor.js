@@ -11,25 +11,40 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerConstructor({ className, elements = [] }) {
-  const topElement = elements.find(
+  const lockedElement = elements.find(
     ({ _id }) => _id === "60666c42cc7b410027a1a9b1"
   );
+  const freeElements = elements.filter(({ name }) =>
+    /(мясо|плоды|хрустящие)/i.test(name)
+  );
   return (
-    <section className={cn(styles.container, className, "mt-25")}>
+    <section className={cn(styles.container, className, "pt-25 pl-4")}>
       <section className={cn(styles.elements, "pl-8")}>
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={topElement.name + " (верх)"}
-          price={topElement.price}
-          thumbnail={topElement.image}
+          text={lockedElement.name + " (верх)"}
+          price={lockedElement.price}
+          thumbnail={lockedElement.image}
         />
+        <section className={styles.elementsScroll}>
+          {freeElements.map((el) => {
+            return (
+              <ConstructorElement
+                key={el._id}
+                text={el.name}
+                price={el.price}
+                thumbnail={el.image}
+              />
+            );
+          })}
+        </section>
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={topElement.name + " (низ)"}
-          price={topElement.price}
-          thumbnail={topElement.image}
+          text={lockedElement.name + " (низ)"}
+          price={lockedElement.price}
+          thumbnail={lockedElement.image}
         />
       </section>
       <footer className={cn(styles.footer, "mt-10")}>

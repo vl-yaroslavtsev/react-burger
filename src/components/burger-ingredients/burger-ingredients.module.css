@@ -1,7 +1,5 @@
 .container {
-  border: 1px solid blue;
   width: 600px;
-  /* display: none; */
 }
 
 .tabs {
@@ -12,6 +10,29 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+.ingredients {
+  max-height: calc(100vh - 324px);
+  overflow-y: auto;
+}
+
+@-moz-document url-prefix() {
+  .ingredients {
+    scrollbar-color: #8585ad #2f2f37;
+  }
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background: #8585ad;
 }
 
 .ingredient {

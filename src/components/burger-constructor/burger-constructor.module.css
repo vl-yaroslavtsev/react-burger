@@ -1,5 +1,4 @@
 .container {
-  border: 1px solid red;
   width: 600px;
 }
 
@@ -7,6 +6,30 @@
   display: flex;
   flex-direction: column;
   gap: calc(4 * var(--offset-base-size));
+}
+
+.elementsScroll {
+  composes: elements;
+  max-height: calc(100vh - 324px - 204px);
+  overflow-y: auto;
+}
+
+@-moz-document url-prefix() {
+  .elementsScroll {
+    scrollbar-color: #8585ad #2f2f37;
+  }
+}
+
+.elementsScroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.elementsScroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.elementsScroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
 }
 
 .footer {
