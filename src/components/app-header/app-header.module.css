@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: var(--background);
+}
+
+.content {
+  list-style-type: none;
+  width: 100%;
+  max-width: 1280px;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+}
+
+.contentItem {
+  flex: 0 1 33.33%;
+}
+
+.contentItemCenter {
+  composes: contentItem;
+  text-align: center;
+}
+
+.contentItemRight {
+  composes: contentItem;
+  text-align: right;
+}
+
+.navigation ul {
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+}
