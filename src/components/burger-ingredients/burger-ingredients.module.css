@@ -7,12 +7,17 @@
 }
 
 .ingredientList {
+  list-style: none;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .ingredients {
+  position: relative;
+  list-style: none;
+  padding: 0;
   max-height: calc(100vh - 324px);
   overflow-y: auto;
 }

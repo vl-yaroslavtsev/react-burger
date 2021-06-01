@@ -1,6 +1,6 @@
 import styles from "./burger-ingredients.module.css";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -15,6 +15,13 @@ const GROUP_NAME = {
 
 function BurgerIngredients({ className, ingredients = [] }) {
   let [currentTab, setCurrentTab] = useState("bun");
+  let ingredientsRef = useRef(null);
+
+  useEffect(() => {
+    const el = ingredientsRef.current;
+    el.scrollTop = el.querySelector(`[data-group="${currentTab}"]`).offsetTop;
+  }, [currentTab]);
+
   return (
     <section className={cn(styles.container, className)}>
       <h1 className="text text_type_main-large text mt-10 mb-5">
@@ -34,34 +41,30 @@ function BurgerIngredients({ className, ingredients = [] }) {
           );
         })}
       </section>
-      <section className={cn(styles.ingredients, "mt-10")}>
+      <ul className={cn(styles.ingredients, "mt-10")} ref={ingredientsRef}>
         {Object.entries(GROUP_NAME).map(([key, value]) => {
           return (
-            <section
-              key={key}
-              className={cn({ [styles.hidden]: key !== currentTab })}
-            >
+            <li key={key} data-group={key}>
               <h2 className="text text_type_main-medium">{value}</h2>
-              <section
-                className={cn(styles.ingredientList, "pl-4 pr-4 pt-6 pb-2")}
-              >
+              <ul className={cn(styles.ingredientList, "pl-4 pr-4 pt-6 pb-2")}>
                 {ingredients
                   .filter(({ type }) => type === key)
                   .map((item, index) => {
                     return (
-                      <Ingredient
-                        key={item._id}
-                        className={cn(styles.ingredient, "mb-8")}
-                        count={index === 0 ? 1 : 0}
-                        {...item}
-                      />
+                      <li className={cn(styles.ingredient, "mb-8")}>
+                        <Ingredient
+                          key={item._id}
+                          count={index === 0 ? 1 : 0}
+                          {...item}
+                        />
+                      </li>
                     );
                   })}
-              </section>
-            </section>
+              </ul>
+            </li>
           );
         })}
-      </section>
+      </ul>
     </section>
   );
 }

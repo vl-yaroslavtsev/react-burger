@@ -14,9 +14,7 @@ function BurgerConstructor({ className, elements = [] }) {
   const lockedElement = elements.find(
     ({ _id }) => _id === "60666c42cc7b410027a1a9b1"
   );
-  const freeElements = elements.filter(({ name }) =>
-    /(мясо|плоды|хрустящие)/i.test(name)
-  );
+  const freeElements = elements.filter(({ type }) => type !== "bun");
   return (
     <section className={cn(styles.container, className, "pt-25 pl-4")}>
       <section className={cn(styles.elements, "pl-8")}>
@@ -27,18 +25,19 @@ function BurgerConstructor({ className, elements = [] }) {
           price={lockedElement.price}
           thumbnail={lockedElement.image}
         />
-        <section className={styles.elementsScroll}>
+        <ul className={styles.elementsScroll}>
           {freeElements.map((el) => {
             return (
-              <ConstructorElement
-                key={el._id}
-                text={el.name}
-                price={el.price}
-                thumbnail={el.image}
-              />
+              <li key={el._id}>
+                <ConstructorElement
+                  text={el.name}
+                  price={el.price}
+                  thumbnail={el.image}
+                />
+              </li>
             );
           })}
-        </section>
+        </ul>
         <ConstructorElement
           type="bottom"
           isLocked={true}

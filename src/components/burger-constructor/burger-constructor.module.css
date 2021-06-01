@@ -10,8 +10,19 @@
 
 .elementsScroll {
   composes: elements;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
   max-height: calc(100vh - 324px - 204px);
   overflow-y: auto;
+}
+
+:global(.constructor-element) {
+  display: block;
+}
+
+:global(.constructor-element__text) {
+  flex-grow: 1;
 }
 
 @-moz-document url-prefix() {
