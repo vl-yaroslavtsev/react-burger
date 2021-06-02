@@ -12,7 +12,7 @@ import {
 
 function BurgerConstructor({ className, elements = [] }) {
   const lockedElement = elements.find(
-    ({ _id }) => _id === "60666c42cc7b410027a1a9b1"
+    ({ _id }) => _id === "60b646daabc9290027b206d7"
   );
   const freeElements = elements.filter(({ type }) => type !== "bun");
   return (
