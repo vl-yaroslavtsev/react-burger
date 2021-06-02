@@ -2,6 +2,7 @@ import styles from "./ingredient.module.css";
 
 import React from "react";
 import cn from "classnames";
+import PropTypes from "prop-types";
 import {
   Counter,
   CurrencyIcon,
@@ -20,5 +21,13 @@ function Ingredient({ className, name, price, image, count = 0 }) {
     </section>
   );
 }
+
+Ingredient.propTypes = {
+  className: PropTypes.string,
+  name: PropTypes.string,
+  image: PropTypes.string,
+  price: PropTypes.number,
+  count: PropTypes.number,
+};
 
 export default Ingredient;
