@@ -1,6 +1,6 @@
 import styles from "./ingredient.module.css";
 
-import React from "react";
+import { memo } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import {
@@ -8,7 +8,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function Ingredient({ className, name, price, image, count = 0 }) {
+const Ingredient = memo(({ className, name, price, image, count = 0 }) => {
   return (
     <section className={cn(styles.container, className)}>
       {count ? <Counter count={count} size="default" /> : null}
@@ -20,7 +20,7 @@ function Ingredient({ className, name, price, image, count = 0 }) {
       <p className={cn(styles.title, "text text_type_main-default")}>{name}</p>
     </section>
   );
-}
+});
 
 Ingredient.propTypes = {
   className: PropTypes.string,

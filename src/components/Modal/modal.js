@@ -32,7 +32,7 @@ function Modal({ children, header, visible, onClose = () => {} }) {
         className={cn(styles.container, "pt-10 pl-10 pr-10 pb-10", {
           [styles.hidden]: !visible,
         })}
-        onKeyDown={(e) => keyDownHandler(e)}
+        onKeyDown={keyDownHandler}
         ref={modalRef}
         tabIndex="0"
       >

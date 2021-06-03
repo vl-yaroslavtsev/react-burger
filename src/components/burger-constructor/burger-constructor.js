@@ -11,9 +11,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerConstructor({ className, elements = [] }) {
-  const lockedElement = elements.find(
-    ({ _id }) => _id === "60b646daabc9290027b206d7"
-  );
+  const lockedElement = elements.find(({ type }) => type === "bun");
   const freeElements = elements.filter(({ type }) => type !== "bun");
   return (
     <section className={cn(styles.container, className, "pt-25 pl-4")}>

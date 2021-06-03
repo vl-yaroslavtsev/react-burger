@@ -45,7 +45,7 @@ function App() {
       <AppHeader />
       <main className={cn(styles.main, "ml-15 mr-15")}>
         {error && (
-          <p className={cn(styles.error, "text text_type_main-default")}>
+          <p className={cn(styles.error, "text text_type_main-default mt-15")}>
             {error}
           </p>
         )}
