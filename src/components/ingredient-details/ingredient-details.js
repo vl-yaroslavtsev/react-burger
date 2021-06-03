@@ -1,49 +1,44 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import cn from "classnames";
 import Modal from "../modal/modal";
 
 import styles from "./ingredient-details.module.css";
 
-async function preloadImage(src) {
-  if (!src) return;
-  var img = new Image();
-  img.src = src;
+function useImagePreloader(src) {
+  const [isLoading, setLoading] = useState(true);
 
-  return new Promise((resolve, reject) => {
-    img.onload = () => resolve(src);
-    img.onerror = reject;
-  });
+  const preloadImage = async (src) => {
+    if (!src) return;
+    var img = new Image();
+    img.src = src;
+
+    return new Promise((resolve, reject) => {
+      img.onload = () => resolve(src);
+      img.onerror = reject;
+    });
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    if (src) {
+      preloadImage(src).then(() => setLoading(false));
+    }
+  }, [src]);
+
+  return isLoading;
 }
 
 function IngredientDetails({ ingredient, visible, onClose = () => {} }) {
-  const [imgLoading, setImgLoading] = useState(true);
-  const prevIngredient = useRef(ingredient);
-
-  useEffect(() => {
-    if (!visible) {
-      setImgLoading(true);
-    } else if (prevIngredient.current === ingredient) {
-      setImgLoading(false);
-    }
-  }, [visible]);
-
-  useEffect(() => {
-    prevIngredient.current = ingredient;
-
-    if (ingredient) {
-      setImgLoading(true);
-      preloadImage(ingredient.image_large).then(() => setImgLoading(false));
-    }
-  }, [ingredient]);
+  const imageLoading = useImagePreloader(ingredient?.image_large);
 
   return (
     ingredient && (
       <Modal header="Детали ингридиента" visible={visible} onClose={onClose}>
         <div className={cn(styles.container, "pl-15 pr-15 pb-5")}>
-          {imgLoading && <div className={styles.imagePreloader}></div>}
+          {imageLoading && <div className={styles.imagePreloader}></div>}
           <img
             className={cn(styles.image, {
-              [styles.hidden]: imgLoading,
+              [styles.hidden]: imageLoading,
             })}
             src={ingredient.image_large}
             alt={ingredient.name}

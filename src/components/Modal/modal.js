@@ -23,7 +23,7 @@ function Modal({ children, header, visible, onClose = () => {} }) {
     if (visible) {
       modalRef.current.focus();
     }
-  });
+  }, [visible]);
 
   return createPortal(
     <>

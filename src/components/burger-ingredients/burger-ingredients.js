@@ -74,7 +74,10 @@ function BurgerIngredients({ className, ingredients = [] }) {
       </ul>
       <IngredientDetails
         visible={detailsShown}
-        onClose={() => setDetailsShown(false)}
+        onClose={() => {
+          setDetailsShown(false);
+          setCurrentIngredient(null);
+        }}
         ingredient={currentIngredient}
       />
     </section>
