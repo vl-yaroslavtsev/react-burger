@@ -1,0 +1,65 @@
+.container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 90vw;
+  max-height: 90vh;
+
+  min-width: 10vw;
+  min-height: 10vh;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  background-color: var(--background);
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  box-sizing: border-box;
+
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: var(--common-border-radius-s);
+}
+
+.container:focus,
+.container:focus-visible {
+  outline: 0 none;
+}
+
+.title {
+  flex: 1 0 calc(15 * var(--offset-base-size));
+  align-items: center;
+  display: flex;
+}
+
+.content {
+  overflow-y: auto;
+}
+
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.closeButton {
+  position: absolute;
+  top: calc(15 * var(--offset-base-size));
+  right: calc(10 * var(--offset-base-size));
+  font-size: 0;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}

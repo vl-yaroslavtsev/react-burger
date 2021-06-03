@@ -44,7 +44,11 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <main className={cn(styles.main, "ml-15 mr-15")}>
-        {error && <p className={styles.error}>error</p>}
+        {error && (
+          <p className={cn(styles.error, "text text_type_main-default")}>
+            {error}
+          </p>
+        )}
         {data && (
           <>
             <BurgerIngredients className="mr-10" ingredients={data} />

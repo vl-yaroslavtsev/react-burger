@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Ingredient from "./ingredient/ingredient";
+import Modal from "../modal/modal";
 
 const GROUP_NAME = {
   bun: "Булки",
@@ -15,6 +16,9 @@ const GROUP_NAME = {
 
 function BurgerIngredients({ className, ingredients = [] }) {
   let [currentTab, setCurrentTab] = useState("bun");
+  let [detailShown, setDetailShown] = useState(false);
+  let [detailShown2, setDetailShown2] = useState(false);
+
   let ingredientsRef = useRef(null);
 
   useEffect(() => {
@@ -51,12 +55,15 @@ function BurgerIngredients({ className, ingredients = [] }) {
                   .filter(({ type }) => type === key)
                   .map((item, index) => {
                     return (
-                      <li className={cn(styles.ingredient, "mb-8")}>
-                        <Ingredient
-                          key={item._id}
-                          count={index === 0 ? 1 : 0}
-                          {...item}
-                        />
+                      <li
+                        className={cn(styles.ingredient, "mb-8")}
+                        key={item._id}
+                        onClick={() => {
+                          setDetailShown(true);
+                          setDetailShown2(true);
+                        }}
+                      >
+                        <Ingredient count={index === 0 ? 1 : 0} {...item} />
                       </li>
                     );
                   })}
@@ -65,6 +72,142 @@ function BurgerIngredients({ className, ingredients = [] }) {
           );
         })}
       </ul>
+      {}
+      <Modal
+        header="Детали ингридиента"
+        visible={detailShown}
+        onClose={() => setDetailShown(false)}
+      >
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+      </Modal>
+      <Modal
+        header="Детали ингридиента 2"
+        visible={detailShown2}
+        onClose={() => setDetailShown2(false)}
+      >
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfadsfsafasdfasfdsfadsfsadf asdf asdf asdfasdfasdfa sdfas fdsafdsf
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsf asdf asfasdfads asdfasdf asdfasdfads fadsfads
+        </p>
+        <p className="text text_type_main-default">
+          {" "}
+          asdfa dsfsadfasdf dsfsadfasdf sf
+        </p>
+        <p className="text text_type_main-default"> adsfa asdfa sd fasd</p>
+        <p className="text text_type_main-default">
+          {" "}
+          adsfasf adsf asdfa sdfas fads fsad
+        </p>
+      </Modal>
     </section>
   );
 }
