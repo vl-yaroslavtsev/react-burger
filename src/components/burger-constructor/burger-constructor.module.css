@@ -2,7 +2,14 @@
   width: 600px;
 }
 
+.list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
 .elements {
+  composes: list;
   display: flex;
   flex-direction: column;
   gap: calc(4 * var(--offset-base-size));
@@ -10,15 +17,24 @@
 
 .elementsScroll {
   composes: elements;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
   max-height: calc(100vh - 324px - 204px);
   overflow-y: auto;
 }
 
+.elementsScrollItem {
+  display: flex;
+  align-items: center;
+}
+
+.dragItem {
+  font-size: 0;
+  cursor: grab;
+}
+
 :global(.constructor-element) {
   display: block;
+  max-width: 600px;
+  flex-grow: 1;
 }
 
 :global(.constructor-element__text) {

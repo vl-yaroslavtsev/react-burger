@@ -21,7 +21,7 @@ function HeaderItem({ icon: Icon, children, active = false }) {
 
 HeaderItem.propTypes = {
   icon: PropTypes.elementType.isRequired,
-  children: PropTypes.element,
+  children: PropTypes.node,
   active: PropTypes.bool,
 };
 

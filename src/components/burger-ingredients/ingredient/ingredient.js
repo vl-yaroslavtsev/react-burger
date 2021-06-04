@@ -11,7 +11,7 @@ import {
 const Ingredient = memo(({ className, name, price, image, count = 0 }) => {
   return (
     <section className={cn(styles.container, className)}>
-      {count ? <Counter count={count} size="default" /> : null}
+      {count > 0 && <Counter count={count} size="default" />}
       <img src={image} className="mb-1" alt={name} />
       <p className={cn(styles.price, "text text_type_digits-default mb-1")}>
         <span className="mr-2">{price}</span>
