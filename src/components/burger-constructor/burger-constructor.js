@@ -48,7 +48,7 @@ function BurgerConstructor({ className, elements = [] }) {
             })}
           </ul>
         </li>
-        <li className="ml-8">
+        <li className="ml-8 mr-4">
           <ConstructorElement
             type="bottom"
             isLocked={true}
