@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
+import OrderDetails from "../order-details/order-details";
+import order from "../../utils/order";
 
 import styles from "./burger-constructor.module.css";
 
@@ -11,6 +13,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerConstructor({ className, elements = [] }) {
+  const [isOrderShown, setOrderShown] = useState(false);
+
   const lockedElement = elements.find(({ type }) => type === "bun");
   const freeElements = elements.filter(({ type }) => type !== "bun");
   return (
@@ -49,10 +53,15 @@ function BurgerConstructor({ className, elements = [] }) {
         <p className="text mr-10">
           <CurrencyIcon type="primary" />
         </p>
-        <Button type="primary" size="large">
+        <Button type="primary" size="large" onClick={() => setOrderShown(true)}>
           Оформить заказ
         </Button>
       </footer>
+      <OrderDetails
+        order={order}
+        visible={isOrderShown}
+        onClose={() => setOrderShown(false)}
+      />
     </section>
   );
 }

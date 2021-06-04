@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import styles from "./modal-overlay.module.css";
 import cn from "classnames";
 
