@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import cn from "classnames";
+import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./modal.module.css";
@@ -10,7 +11,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 const modalRoot = document.getElementById("react-modals");
 const ESC_KEY_CODE = 27;
 
-function Modal({ children, header, visible, onClose = () => {} }) {
+function Modal({ children, header = "", visible = false, onClose = () => {} }) {
   const modalRef = useRef(null);
 
   const keyDownHandler = (e) => {
@@ -48,5 +49,12 @@ function Modal({ children, header, visible, onClose = () => {} }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  children: PropTypes.element,
+  header: PropTypes.string,
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+};
 
 export default Modal;

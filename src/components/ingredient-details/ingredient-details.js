@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import cn from "classnames";
+import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 
 import styles from "./ingredient-details.module.css";
@@ -28,7 +29,11 @@ function useImagePreloader(src) {
   return isLoading;
 }
 
-function IngredientDetails({ ingredient, visible, onClose = () => {} }) {
+function IngredientDetails({
+  ingredient = null,
+  visible = false,
+  onClose = () => {},
+}) {
   const imageLoading = useImagePreloader(ingredient?.image_large);
 
   return (
@@ -79,5 +84,16 @@ function IngredientDetails({ ingredient, visible, onClose = () => {} }) {
     )
   );
 }
+
+IngredientDetails.propTypes = {
+  ingredient: PropTypes.shape({
+    _id: PropTypes.string,
+    name: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
+  }),
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+};
 
 export default IngredientDetails;

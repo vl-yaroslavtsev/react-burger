@@ -1,10 +1,11 @@
 import cn from "classnames";
+import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import statusIcon from "../../images/done.svg";
 
 import styles from "./order-details.module.css";
 
-function OrderDetails({ order, visible, onClose = () => {} }) {
+function OrderDetails({ order, visible = false, onClose = () => {} }) {
   return (
     <Modal visible={visible} onClose={onClose}>
       <div className={cn(styles.container, "pl-15 pr-15 pb-20")}>
@@ -23,5 +24,15 @@ function OrderDetails({ order, visible, onClose = () => {} }) {
     </Modal>
   );
 }
+
+OrderDetails.propTypes = {
+  order: PropTypes.shape({
+    id: PropTypes.string,
+    status: PropTypes.string,
+    status_desc: PropTypes.string,
+  }).isRequired,
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+};
 
 export default OrderDetails;
