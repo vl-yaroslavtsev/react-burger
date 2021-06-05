@@ -5,6 +5,7 @@ import cn from "classnames";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -72,14 +73,17 @@ function BurgerIngredients({ className, ingredients = [] }) {
           );
         })}
       </ul>
-      <IngredientDetails
+
+      <Modal
+        header="Детали ингридиента"
         visible={detailsShown}
         onClose={() => {
           setDetailsShown(false);
           setCurrentIngredient(null);
         }}
-        ingredient={currentIngredient}
-      />
+      >
+        <IngredientDetails ingredient={currentIngredient} />
+      </Modal>
     </section>
   );
 }

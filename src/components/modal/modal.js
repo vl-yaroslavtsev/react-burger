@@ -11,20 +11,36 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 const modalRoot = document.getElementById("react-modals");
 const ESC_KEY_CODE = 27;
 
-function Modal({ children, header = "", visible = false, onClose = () => {} }) {
-  const modalRef = useRef(null);
+let visibleModals = [];
 
-  const keyDownHandler = (e) => {
-    if (e.keyCode === ESC_KEY_CODE) {
-      onClose();
-    }
-  };
+function Modal({ children, header = "", visible = false, onClose = () => {} }) {
+  const modal = useRef();
 
   useEffect(() => {
     if (visible) {
-      modalRef.current.focus();
+      visibleModals.push(modal);
+    } else {
+      const index = visibleModals.indexOf(modal);
+      visibleModals.splice(index, 1);
     }
   }, [visible]);
+
+  // Если открыто несколько модальных окон, закрываем по ESC только самое верхнее
+  useEffect(() => {
+    const keyDownHandler = (e) => {
+      if (
+        e.keyCode === ESC_KEY_CODE &&
+        visibleModals[visibleModals.length - 1] === modal
+      ) {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", keyDownHandler);
+
+    return () => {
+      document.removeEventListener("keydown", keyDownHandler);
+    };
+  }, [onClose]);
 
   return createPortal(
     <>
@@ -33,9 +49,6 @@ function Modal({ children, header = "", visible = false, onClose = () => {} }) {
         className={cn(styles.container, "pt-10 pl-10 pr-10 pb-10", {
           [styles.hidden]: !visible,
         })}
-        onKeyDown={keyDownHandler}
-        ref={modalRef}
-        tabIndex="0"
       >
         <h1 className={cn(styles.title, "text text_type_main-large pr-7")}>
           {header}

@@ -24,9 +24,9 @@ async function loadData() {
 
     return json.data;
   } catch (err) {
-    throw new Error(
-      `Что-то пошло не так. Попробуйте зайти еще раз позже.\n${err.message}`
-    );
+    return {
+      error: `Что-то пошло не так. Попробуйте зайти еще раз позже.\n${err.message}`,
+    };
   }
 }
 
@@ -35,9 +35,9 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    loadData()
-      .then(setData)
-      .catch((err) => setError(err.message));
+    loadData().then((json) =>
+      json.error ? setError(json.error) : setData(json)
+    );
   }, []);
 
   return (

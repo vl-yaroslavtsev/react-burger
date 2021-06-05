@@ -2,6 +2,7 @@ import { useState } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 import order from "../../utils/order";
 
 import styles from "./burger-constructor.module.css";
@@ -67,11 +68,9 @@ function BurgerConstructor({ className, elements = [] }) {
           Оформить заказ
         </Button>
       </footer>
-      <OrderDetails
-        order={order}
-        visible={isOrderShown}
-        onClose={() => setOrderShown(false)}
-      />
+      <Modal visible={isOrderShown} onClose={() => setOrderShown(false)}>
+        <OrderDetails order={order} />
+      </Modal>
     </section>
   );
 }
