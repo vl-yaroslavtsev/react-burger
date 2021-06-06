@@ -1,6 +1,7 @@
-import styles from "./header-item.module.css";
-
 import cn from "classnames";
+import PropTypes from "prop-types";
+
+import styles from "./header-item.module.css";
 
 function HeaderItem({ icon: Icon, children, active = false }) {
   return (
@@ -17,5 +18,11 @@ function HeaderItem({ icon: Icon, children, active = false }) {
     </div>
   );
 }
+
+HeaderItem.propTypes = {
+  icon: PropTypes.elementType.isRequired,
+  children: PropTypes.node,
+  active: PropTypes.bool,
+};
 
 export default HeaderItem;

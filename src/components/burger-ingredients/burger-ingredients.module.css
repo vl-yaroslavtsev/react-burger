@@ -42,6 +42,7 @@
 
 .ingredient {
   flex: 0 1 calc(50% - 3 * var(--offset-base-size));
+  cursor: pointer;
 }
 
 .hidden {

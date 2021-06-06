@@ -1,11 +1,13 @@
 import styles from "./burger-ingredients.module.css";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const GROUP_NAME = {
   bun: "Булки",
@@ -15,7 +17,15 @@ const GROUP_NAME = {
 
 function BurgerIngredients({ className, ingredients = [] }) {
   let [currentTab, setCurrentTab] = useState("bun");
+  let [detailsShown, setDetailsShown] = useState(false);
+  let [currentIngredient, setCurrentIngredient] = useState(null);
+
   let ingredientsRef = useRef(null);
+
+  const modalOnClose = useCallback(() => {
+    setDetailsShown(false);
+    setCurrentIngredient(null);
+  }, [setDetailsShown, setCurrentIngredient]);
 
   useEffect(() => {
     const el = ingredientsRef.current;
@@ -51,12 +61,15 @@ function BurgerIngredients({ className, ingredients = [] }) {
                   .filter(({ type }) => type === key)
                   .map((item, index) => {
                     return (
-                      <li className={cn(styles.ingredient, "mb-8")}>
-                        <Ingredient
-                          key={item._id}
-                          count={index === 0 ? 1 : 0}
-                          {...item}
-                        />
+                      <li
+                        className={cn(styles.ingredient, "mb-8")}
+                        key={item._id}
+                        onClick={() => {
+                          setCurrentIngredient(item);
+                          setDetailsShown(true);
+                        }}
+                      >
+                        <Ingredient count={index === 0 ? 1 : 0} {...item} />
                       </li>
                     );
                   })}
@@ -65,6 +78,14 @@ function BurgerIngredients({ className, ingredients = [] }) {
           );
         })}
       </ul>
+
+      <Modal
+        header="Детали ингридиента"
+        visible={detailsShown}
+        onClose={modalOnClose}
+      >
+        <IngredientDetails ingredient={currentIngredient} />
+      </Modal>
     </section>
   );
 }

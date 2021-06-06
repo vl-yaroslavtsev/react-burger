@@ -1,0 +1,43 @@
+.container {
+  text-align: center;
+  width: 640px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.title {
+}
+
+.image {
+  max-width: 100%;
+}
+
+.hidden {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.imagePreloader {
+  composes: image;
+  display: inline-block;
+  width: 480px;
+  background: var(--background);
+}
+
+.imagePreloader::after {
+  content: "";
+  display: block;
+  padding-bottom: 50%;
+}
+
+.content {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 5 * var(--offset-base-size);
+
+  color: var(--text-inactive-color);
+}
