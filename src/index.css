@@ -1,3 +1,5 @@
 body {
+  --text-primary-color: #f2f2f3;
+
   overflow-y: hidden;
 }

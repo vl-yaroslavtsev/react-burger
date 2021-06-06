@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import { createPortal } from "react-dom";
 import cn from "classnames";
 import PropTypes from "prop-types";
@@ -13,55 +13,62 @@ const ESC_KEY_CODE = 27;
 
 let visibleModals = [];
 
-function Modal({ children, header = "", visible = false, onClose = () => {} }) {
-  const modal = useRef();
+const Modal = memo(
+  ({ children, header = "", visible = false, onClose = () => {} }) => {
+    const modal = useRef();
 
-  useEffect(() => {
-    if (visible) {
-      visibleModals.push(modal);
-    } else {
-      const index = visibleModals.indexOf(modal);
-      visibleModals.splice(index, 1);
-    }
-  }, [visible]);
-
-  // Если открыто несколько модальных окон, закрываем по ESC только самое верхнее
-  useEffect(() => {
-    const keyDownHandler = (e) => {
-      if (
-        e.keyCode === ESC_KEY_CODE &&
-        visibleModals[visibleModals.length - 1] === modal
-      ) {
-        onClose();
+    useEffect(() => {
+      if (visible) {
+        visibleModals.push(modal);
+      } else {
+        const index = visibleModals.indexOf(modal);
+        visibleModals.splice(index, 1);
       }
-    };
-    document.addEventListener("keydown", keyDownHandler);
+    }, [visible]);
 
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
-  }, [onClose]);
+    // Если открыто несколько модальных окон, закрываем по ESC только самое верхнее
+    useEffect(() => {
+      const keyDownHandler = (e) => {
+        if (
+          e.keyCode === ESC_KEY_CODE &&
+          visibleModals[visibleModals.length - 1] === modal
+        ) {
+          onClose();
+        }
+      };
 
-  return createPortal(
-    <>
-      <ModalOverlay visible={visible} onClose={onClose} />
-      <div
-        className={cn(styles.container, "pt-10 pl-10 pr-10 pb-10", {
-          [styles.hidden]: !visible,
-        })}
-      >
-        <h1 className={cn(styles.title, "text text_type_main-large pr-7")}>
-          {header}
-        </h1>
-        <div className={styles.closeButton}>
-          <CloseIcon type="primary" onClick={onClose} />
+      console.log("modal useEffect: remove keydown");
+      if (visible) {
+        console.log("modal useEffect: add keydown");
+        document.addEventListener("keydown", keyDownHandler);
+      }
+
+      return () => {
+        document.removeEventListener("keydown", keyDownHandler);
+      };
+    }, [onClose, visible]);
+
+    return createPortal(
+      <>
+        <ModalOverlay visible={visible} onClose={onClose} />
+        <div
+          className={cn(styles.container, "pt-10 pl-10 pr-10 pb-10", {
+            [styles.hidden]: !visible,
+          })}
+        >
+          <h1 className={cn(styles.title, "text text_type_main-large pr-7")}>
+            {header}
+          </h1>
+          <div className={styles.closeButton}>
+            <CloseIcon type="primary" onClick={onClose} />
+          </div>
+          <section className={cn(styles.content)}>{children}</section>
         </div>
-        <section className={cn(styles.content)}>{children}</section>
-      </div>
-    </>,
-    modalRoot
-  );
-}
+      </>,
+      modalRoot
+    );
+  }
+);
 
 Modal.propTypes = {
   children: PropTypes.element,

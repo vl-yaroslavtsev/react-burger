@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 
@@ -28,7 +28,7 @@ function useImageLoading(src) {
   return isLoading;
 }
 
-function IngredientDetails({ ingredient = null }) {
+const IngredientDetails = memo(({ ingredient = null }) => {
   const imageLoading = useImageLoading(ingredient?.image_large);
 
   return (
@@ -76,7 +76,7 @@ function IngredientDetails({ ingredient = null }) {
       </div>
     )
   );
-}
+});
 
 IngredientDetails.propTypes = {
   ingredient: PropTypes.shape({

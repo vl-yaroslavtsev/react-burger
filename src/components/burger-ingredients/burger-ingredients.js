@@ -1,6 +1,6 @@
 import styles from "./burger-ingredients.module.css";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -21,6 +21,11 @@ function BurgerIngredients({ className, ingredients = [] }) {
   let [currentIngredient, setCurrentIngredient] = useState(null);
 
   let ingredientsRef = useRef(null);
+
+  const modalOnClose = useCallback(() => {
+    setDetailsShown(false);
+    setCurrentIngredient(null);
+  }, [setDetailsShown, setCurrentIngredient]);
 
   useEffect(() => {
     const el = ingredientsRef.current;
@@ -77,10 +82,7 @@ function BurgerIngredients({ className, ingredients = [] }) {
       <Modal
         header="Детали ингридиента"
         visible={detailsShown}
-        onClose={() => {
-          setDetailsShown(false);
-          setCurrentIngredient(null);
-        }}
+        onClose={modalOnClose}
       >
         <IngredientDetails ingredient={currentIngredient} />
       </Modal>
