@@ -5,6 +5,7 @@ import cn from "classnames";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import { BurgerContext, useBurgerReducer } from "../../state/burgerContext";
 
 const API_URL = "https://norma.nomoreparties.space/api/ingredients";
 
@@ -34,6 +35,8 @@ function App() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
+  const [burgerState, burgerDispatcher] = useBurgerReducer();
+
   useEffect(() => {
     loadData()
       .then(setData)
@@ -50,10 +53,10 @@ function App() {
           </p>
         )}
         {data && (
-          <>
+          <BurgerContext.Provider value={{ burgerState, burgerDispatcher }}>
             <BurgerIngredients className="mr-10" ingredients={data} />
-            <BurgerConstructor elements={data} />
-          </>
+            <BurgerConstructor />
+          </BurgerContext.Provider>
         )}
       </main>
     </div>

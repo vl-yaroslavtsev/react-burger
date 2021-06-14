@@ -1,6 +1,6 @@
 import styles from "./burger-ingredients.module.css";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useContext } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,6 +8,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { BurgerContext } from "../../state/burgerContext";
 
 const GROUP_NAME = {
   bun: "Булки",
@@ -20,12 +21,20 @@ function BurgerIngredients({ className, ingredients = [] }) {
   let [detailsShown, setDetailsShown] = useState(false);
   let [currentIngredient, setCurrentIngredient] = useState(null);
 
+  const { burgerDispatcher } = useContext(BurgerContext);
+
   let ingredientsRef = useRef(null);
 
   const modalOnClose = useCallback(() => {
     setDetailsShown(false);
     setCurrentIngredient(null);
-  }, [setDetailsShown, setCurrentIngredient]);
+  }, []);
+
+  const ingredientOnClick = (item) => {
+    setCurrentIngredient(item);
+    setDetailsShown(true);
+    burgerDispatcher({ type: "addElement", payload: item });
+  };
 
   useEffect(() => {
     const el = ingredientsRef.current;
@@ -64,10 +73,7 @@ function BurgerIngredients({ className, ingredients = [] }) {
                       <li
                         className={cn(styles.ingredient, "mb-8")}
                         key={item._id}
-                        onClick={() => {
-                          setCurrentIngredient(item);
-                          setDetailsShown(true);
-                        }}
+                        onClick={() => ingredientOnClick(item)}
                       >
                         <Ingredient count={index === 0 ? 1 : 0} {...item} />
                       </li>
