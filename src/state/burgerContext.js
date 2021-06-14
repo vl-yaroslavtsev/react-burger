@@ -7,7 +7,7 @@ const burgerInitState = {
   elements: [],
   bottomElement: null,
   totalPrice: 0,
-  orderNumber: 0,
+  orderNumber: null,
 };
 
 function countTotalPrice({ elements = [], topElement, bottomElement }) {
@@ -64,10 +64,16 @@ function burgerReducer(state, action) {
       newState.totalPrice = countTotalPrice(newState);
       return newState;
 
-    case "setOrder":
+    case "setOrderNumber":
       return {
         ...state,
         orderNumber: action.payload,
+      };
+
+    case "resetOrderNumber":
+      return {
+        ...state,
+        orderNumber: null,
       };
 
     default:

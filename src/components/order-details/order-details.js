@@ -29,8 +29,6 @@ function OrderDetails({ orderNumber }) {
 
 OrderDetails.propTypes = {
   orderNumber: PropTypes.string.isRequired,
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
 };
 
 export default OrderDetails;

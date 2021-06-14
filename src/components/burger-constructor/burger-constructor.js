@@ -10,7 +10,6 @@ import {
 
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import order from "../../utils/order";
 import { BurgerContext } from "../../state/burgerContext";
 
 import styles from "./burger-constructor.module.css";
@@ -51,10 +50,18 @@ async function chekoutOrder(items = []) {
 
 function BurgerConstructor({ className }) {
   const [isOrderShown, setOrderShown] = useState(false);
+  const [orderError, setOrderError] = useState("");
+  const [orderLoading, setOrderLoading] = useState(false);
 
   const {
     burgerDispatcher,
-    burgerState: { elements, topElement, bottomElement, totalPrice },
+    burgerState: {
+      elements,
+      topElement,
+      bottomElement,
+      totalPrice,
+      orderNumber,
+    },
   } = useContext(BurgerContext);
 
   const elementOnDelete = (item) => {
@@ -62,17 +69,31 @@ function BurgerConstructor({ className }) {
   };
 
   function showOrderModal() {
+    burgerDispatcher({
+      type: "resetOrderNumber",
+    });
+
     setOrderShown(true);
+
     if (!topElement) {
-      return alert("Добавьте булку!");
+      return setOrderError("Для оформления заказа добавьте булку!");
     }
+
+    setOrderLoading(true);
+    setOrderError("");
     chekoutOrder([
       topElement._id,
       ...elements.map((el) => el._id),
       bottomElement._id,
     ])
-      .then((json) => alert("Заказ оформлен " + json.order.number))
-      .catch((err) => alert("Ошибка" + err.message));
+      .then((json) => {
+        burgerDispatcher({
+          type: "setOrderNumber",
+          payload: json.order.number,
+        });
+      })
+      .catch((err) => setOrderError(err.message))
+      .finally(() => setOrderLoading(false));
   }
 
   return (
@@ -129,8 +150,20 @@ function BurgerConstructor({ className }) {
           Оформить заказ
         </Button>
       </footer>
-      <Modal visible={isOrderShown} onClose={() => setOrderShown(false)}>
-        <OrderDetails order={order} />
+      <Modal
+        header={orderError && "Ошибка"}
+        visible={isOrderShown}
+        onClose={() => setOrderShown(false)}
+      >
+        {orderLoading && (
+          <p className="text text_type_main-default">Отправка заказа...</p>
+        )}
+        {orderError && (
+          <p className={cn("text text_type_main-default", styles.error)}>
+            {orderError}
+          </p>
+        )}
+        {orderNumber && <OrderDetails orderNumber={orderNumber} />}
       </Modal>
     </section>
   );
@@ -138,14 +171,6 @@ function BurgerConstructor({ className }) {
 
 BurgerConstructor.propTypes = {
   className: PropTypes.string,
-  elements: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      price: PropTypes.number,
-    })
-  ),
 };
 
 export default BurgerConstructor;
