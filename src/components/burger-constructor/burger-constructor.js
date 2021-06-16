@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useCallback } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import {
@@ -26,15 +26,11 @@ async function chekoutOrder(items = []) {
       body: JSON.stringify({ ingredients: items }),
     });
 
+    const json = await res.json();
+
     if (!res.ok) {
-      let json = {};
-      try {
-        json = await res.json();
-      } catch (ex) {}
       throw new Error(`${json.message}\nСтатус ответа сервера: ${res.status}`);
     }
-
-    const json = await res.json();
 
     if (!json.success) {
       throw new Error(`${json.message}`);
@@ -55,36 +51,34 @@ function BurgerConstructor({ className }) {
 
   const {
     burgerDispatcher,
-    burgerState: {
-      elements,
-      topElement,
-      bottomElement,
-      totalPrice,
-      orderNumber,
-    },
+    burgerState: { elements, bunElement, totalPrice, orderNumber },
   } = useContext(BurgerContext);
 
   const elementOnDelete = (item) => {
     burgerDispatcher({ type: "removeElement", payload: item });
   };
 
-  function showOrderModal() {
+  const orderModalOnClose = useCallback(() => {
+    setOrderShown(false);
+    setOrderError("");
     burgerDispatcher({
       type: "resetOrderNumber",
     });
+  }, [burgerDispatcher]);
 
+  function handleCheckoutOrder() {
     setOrderShown(true);
 
-    if (!topElement) {
+    if (!bunElement) {
       return setOrderError("Для оформления заказа добавьте булку!");
     }
 
     setOrderLoading(true);
-    setOrderError("");
+
     chekoutOrder([
-      topElement._id,
+      bunElement._id,
       ...elements.map((el) => el._id),
-      bottomElement._id,
+      bunElement._id,
     ])
       .then((json) => {
         burgerDispatcher({
@@ -99,14 +93,14 @@ function BurgerConstructor({ className }) {
   return (
     <section className={cn(styles.container, className, "pt-25 pl-4")}>
       <ul className={styles.elements}>
-        {topElement && (
+        {bunElement && (
           <li className="ml-8 mr-4">
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={topElement.name}
-              price={topElement.price}
-              thumbnail={topElement.image}
+              text={`${bunElement.name} (верх)`}
+              price={bunElement.price}
+              thumbnail={bunElement.image}
             />
           </li>
         )}
@@ -129,14 +123,14 @@ function BurgerConstructor({ className }) {
             })}
           </ul>
         </li>
-        {bottomElement && (
+        {bunElement && (
           <li className="ml-8 mr-4">
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={bottomElement.name}
-              price={bottomElement.price}
-              thumbnail={bottomElement.image}
+              text={`${bunElement.name} (низ)`}
+              price={bunElement.price}
+              thumbnail={bunElement.image}
             />
           </li>
         )}
@@ -146,24 +140,26 @@ function BurgerConstructor({ className }) {
         <p className="text mr-10">
           <CurrencyIcon type="primary" />
         </p>
-        <Button type="primary" size="large" onClick={showOrderModal}>
+        <Button type="primary" size="large" onClick={handleCheckoutOrder}>
           Оформить заказ
         </Button>
       </footer>
       <Modal
         header={orderError && "Ошибка"}
         visible={isOrderShown}
-        onClose={() => setOrderShown(false)}
+        onClose={orderModalOnClose}
       >
-        {orderLoading && (
-          <p className="text text_type_main-default">Отправка заказа...</p>
-        )}
-        {orderError && (
-          <p className={cn("text text_type_main-default", styles.error)}>
-            {orderError}
-          </p>
-        )}
-        {orderNumber && <OrderDetails orderNumber={orderNumber} />}
+        <>
+          {orderLoading && (
+            <p className="text text_type_main-default">Отправка заказа...</p>
+          )}
+          {orderError && (
+            <p className={cn("text text_type_main-default", styles.error)}>
+              {orderError}
+            </p>
+          )}
+          {orderNumber && <OrderDetails orderNumber={orderNumber} />}
+        </>
       </Modal>
     </section>
   );

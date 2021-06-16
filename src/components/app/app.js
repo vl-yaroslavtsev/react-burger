@@ -5,7 +5,8 @@ import cn from "classnames";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { BurgerContext, useBurgerReducer } from "../../state/burgerContext";
+import { BurgerContext } from "../../state/burgerContext";
+import { useBurgerReducer } from "../../state/burgerState";
 
 const API_URL = "https://norma.nomoreparties.space/api/ingredients";
 
