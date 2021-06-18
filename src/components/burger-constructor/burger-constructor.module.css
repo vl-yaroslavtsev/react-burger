@@ -17,7 +17,7 @@
 
 .elementsScroll {
   composes: elements;
-  max-height: calc(100vh - 324px - 204px);
+  max-height: calc(100vh - 284px - 204px);
   overflow-y: auto;
 }
 
@@ -68,4 +68,8 @@
 .footer svg {
   width: 33px;
   height: 33px;
+}
+
+.error {
+  color: red;
 }

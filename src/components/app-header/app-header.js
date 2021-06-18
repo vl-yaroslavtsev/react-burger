@@ -12,7 +12,7 @@ import HeaderItem from "./header-item/header-item";
 
 function AppHeader() {
   return (
-    <header className={cn(styles.header, "ml-10 mr-10 mt-10")}>
+    <header className={cn(styles.header)}>
       <ul className={styles.content}>
         <li className={styles.contentItem}>
           <nav className={cn(styles.navigation, "mt-4 mb-4")}>
