@@ -16,7 +16,7 @@ import styles from "./burger-constructor.module.css";
 
 const API_URL = "https://norma.nomoreparties.space/api/orders";
 
-async function chekoutOrder(items = []) {
+async function checkoutOrder(items = []) {
   try {
     const res = await fetch(API_URL, {
       method: "POST",
@@ -26,11 +26,11 @@ async function chekoutOrder(items = []) {
       body: JSON.stringify({ ingredients: items }),
     });
 
-    const json = await res.json();
-
     if (!res.ok) {
-      throw new Error(`${json.message}\nСтатус ответа сервера: ${res.status}`);
+      throw new Error(`Статус ответа сервера: ${res.status}`);
     }
+
+    const json = await res.json();
 
     if (!json.success) {
       throw new Error(`${json.message}`);
@@ -39,7 +39,7 @@ async function chekoutOrder(items = []) {
     return json;
   } catch (err) {
     throw new Error(
-      `Что-то пошло не так. Попробуйте зайти еще раз позже.\n${err.message}`
+      `Что-то пошло не так. Попробуйте оформить заказ позже.\n${err.message}`
     );
   }
 }
@@ -75,7 +75,7 @@ function BurgerConstructor({ className }) {
 
     setOrderLoading(true);
 
-    chekoutOrder([
+    checkoutOrder([
       bunElement._id,
       ...elements.map((el) => el._id),
       bunElement._id,
