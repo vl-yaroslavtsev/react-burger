@@ -6,8 +6,9 @@ export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
 
 export const SET_CURRENT_INGREDIENT = "SET_CURRENT_INGREDIENT";
 export const CLEAR_CURRENT_INGREDIENT = "CLEAR_CURRENT_INGREDIENT";
-//export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
-//export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
+
+export const INCREASE_INGREDIENT_COUNTER = "INCREASE_INGREDIENT_COUNTER";
+export const DECREASE_INGREDIENT_COUNTER = "DECREASE_INGREDIENT_COUNTER";
 
 export const getIngredients = () => async (dispatch) => {
   dispatch({
@@ -17,7 +18,7 @@ export const getIngredients = () => async (dispatch) => {
     const items = await loadIngredients();
     dispatch({
       type: GET_INGREDIENTS_SUCCESS,
-      items,
+      items: items.map((item) => ({ ...item, counter: 0 })),
     });
   } catch (err) {
     dispatch({

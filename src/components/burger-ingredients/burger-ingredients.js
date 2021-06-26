@@ -36,7 +36,29 @@ function BurgerIngredients({ className }) {
     itemsRequest: loading,
   } = useSelector((store) => store.ingredients);
 
+  const { items: constructorItems, bunItem } = useSelector(
+    (store) => store.construct
+  );
+
   let ingredientsRef = useRef(null);
+
+  const counterMap = useMemo(
+    () =>
+      ingredients.reduce((map, item) => {
+        if (bunItem && item._id === bunItem._id) {
+          map[item._id] = 1;
+          return map;
+        }
+
+        map[item._id] = constructorItems.filter(
+          ({ _id }) => _id === item._id
+        ).length;
+        return map;
+      }, {}),
+    [ingredients, constructorItems, bunItem]
+  );
+
+  console.log(counterMap);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -132,7 +154,7 @@ function BurgerIngredients({ className }) {
                             key={item._id}
                           >
                             <Ingredient
-                              count={index === 0 ? 1 : 0}
+                              count={counterMap[item._id]}
                               onClick={ingredientOnClick}
                               item={item}
                             />
@@ -143,7 +165,7 @@ function BurgerIngredients({ className }) {
                 </li>
               );
             }),
-          [ingredients, ingredientOnClick]
+          [ingredients, ingredientOnClick, counterMap]
         )}
       </ul>
       <Modal
