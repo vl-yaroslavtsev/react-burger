@@ -58,8 +58,6 @@ function BurgerIngredients({ className }) {
     [ingredients, constructorItems, bunItem]
   );
 
-  console.log(counterMap);
-
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
@@ -78,10 +76,36 @@ function BurgerIngredients({ className }) {
     [dispatch]
   );
 
-  useEffect(() => {
+  const scrollToTabSection = (tab) => {
     const el = ingredientsRef.current;
-    el.scrollTop = el.querySelector(`[data-group="${currentTab}"]`)?.offsetTop;
-  }, [currentTab]);
+    const section = el.querySelector(`[data-group="${tab}"]`);
+    el.scrollTop = section?.offsetTop;
+  };
+
+  useEffect(() => {
+    const root = ingredientsRef.current;
+    const height = root.offsetHeight;
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          // если элемент является наблюдаемым
+          if (entry.isIntersecting) {
+            const section = entry.target;
+            setCurrentTab(section.dataset.group);
+          }
+        });
+      },
+      {
+        root,
+        rootMargin: `-130px 0px ${130 - height}px 0px`,
+      }
+    );
+
+    const sections = root.querySelectorAll("[data-group]");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => sections.forEach((section) => observer.unobserve(section));
+  }, [ingredients]);
 
   const skeleton = useMemo(
     () => (
@@ -121,7 +145,7 @@ function BurgerIngredients({ className }) {
               key={key}
               value={key}
               active={key === currentTab}
-              onClick={() => setCurrentTab(key)}
+              onClick={() => scrollToTabSection(key)}
             >
               {value}
             </Tab>
