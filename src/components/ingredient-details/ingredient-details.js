@@ -85,8 +85,6 @@ IngredientDetails.propTypes = {
     image: PropTypes.string,
     price: PropTypes.number,
   }),
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
 };
 
 export default IngredientDetails;

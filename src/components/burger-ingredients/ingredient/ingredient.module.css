@@ -6,6 +6,7 @@
 
   position: relative;
   box-sizing: border-box;
+  cursor: grab;
 }
 
 .price {

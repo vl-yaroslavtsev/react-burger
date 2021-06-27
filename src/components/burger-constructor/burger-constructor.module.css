@@ -21,16 +21,6 @@
   overflow-y: auto;
 }
 
-.elementsScrollItem {
-  display: flex;
-  align-items: center;
-}
-
-.dragItem {
-  font-size: 0;
-  cursor: grab;
-}
-
 :global(.constructor-element) {
   display: block;
   max-width: 600px;

@@ -8,11 +8,16 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDrag, useDrop } from "react-dnd";
 
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import DragElement from "./drag-element/drag-element";
 
-import { REMOVE_CONSTRUCTOR_INGREDIENT } from "../../services/actions/constructor";
+import {
+  ADD_CONSTRUCTOR_INGREDIENT,
+  REMOVE_CONSTRUCTOR_INGREDIENT,
+} from "../../services/actions/constructor";
 import { doCheckoutOrder } from "../../services/actions/order";
 import styles from "./burger-constructor.module.css";
 
@@ -31,9 +36,12 @@ function BurgerConstructor({ className }) {
 
   const dispatch = useDispatch();
 
-  const elementOnDelete = (item) => {
-    dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, item });
-  };
+  const elementOnDelete = useCallback(
+    (item) => {
+      dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, item });
+    },
+    [dispatch]
+  );
 
   const orderModalOnClose = useCallback(() => {
     setOrderShown(false);
@@ -44,8 +52,18 @@ function BurgerConstructor({ className }) {
     dispatch(doCheckoutOrder());
   }
 
+  const [, dropIngredientsRef] = useDrop({
+    accept: "ingredient",
+    drop(item) {
+      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
+    },
+  });
+
   return (
-    <section className={cn(styles.container, className, "pt-25 pl-4")}>
+    <section
+      className={cn(styles.container, className, "pt-25 pl-4")}
+      ref={dropIngredientsRef}
+    >
       <ul className={styles.elements}>
         {bunItem && (
           <li className="ml-8 mr-4">
@@ -60,19 +78,14 @@ function BurgerConstructor({ className }) {
         )}
         <li>
           <ul className={cn(styles.elementsScroll, "noselect pr-2")}>
-            {items.map((el) => {
+            {items.map((el, index) => {
               return (
-                <li key={el.key} className={styles.elementsScrollItem}>
-                  <i className={cn(styles.dragItem, "mr-2")}>
-                    <DragIcon type="primary" />
-                  </i>
-                  <ConstructorElement
-                    text={el.name}
-                    price={el.price}
-                    thumbnail={el.image}
-                    handleClose={() => elementOnDelete(el)}
-                  />
-                </li>
+                <DragElement
+                  key={el.key}
+                  item={el}
+                  index={index}
+                  onDelete={elementOnDelete}
+                />
               );
             })}
           </ul>

@@ -15,8 +15,6 @@ import {
   CLEAR_CURRENT_INGREDIENT,
 } from "../../services/actions/ingredients";
 
-import { ADD_CONSTRUCTOR_INGREDIENT } from "../../services/actions/constructor";
-
 const GROUP_NAME = {
   bun: "Булки",
   sauce: "Соусы",
@@ -71,7 +69,6 @@ function BurgerIngredients({ className }) {
     (e, item) => {
       dispatch({ type: SET_CURRENT_INGREDIENT, current: item });
       setDetailsShown(true);
-      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
     },
     [dispatch]
   );
@@ -205,14 +202,6 @@ function BurgerIngredients({ className }) {
 
 BurgerIngredients.propTypes = {
   className: PropTypes.string,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string,
-      name: PropTypes.string,
-      image: PropTypes.string,
-      price: PropTypes.number,
-    })
-  ),
 };
 
 export default BurgerIngredients;
