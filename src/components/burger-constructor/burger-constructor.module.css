@@ -12,7 +12,7 @@
   composes: list;
   display: flex;
   flex-direction: column;
-  gap: calc(4 * var(--offset-base-size));
+  //gap: calc(4 * var(--offset-base-size));
 }
 
 .elementsScroll {

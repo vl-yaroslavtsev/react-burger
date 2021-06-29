@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import cn from "classnames";
 import PropTypes from "prop-types";
@@ -15,6 +15,9 @@ import styles from "./drag-element.module.css";
 function DragElement({ item, index, onDelete = () => {} }) {
   const dispatch = useDispatch();
   const ref = useRef(null);
+  const [isHoverTop, setHoverTop] = useState(false);
+
+  const clientRect = ref.current?.getBoundingClientRect();
 
   const [{ isDrag }, dragTargetRef] = useDrag({
     type: "constructorItem",
@@ -29,17 +32,21 @@ function DragElement({ item, index, onDelete = () => {} }) {
   const [{ isOver }, dropTargetRef] = useDrop({
     accept: "constructorItem",
     drop(item) {
-      const hoverIndex = index;
-      const dragIndex = item.index;
-      if (dragIndex === hoverIndex) {
+      const hoverIndex = index - (isHoverTop ? 1 : 0);
+      const dropIndex = item.index;
+      if (dropIndex === hoverIndex) {
         return;
       }
       dispatch({
         type: REORDER_CONSTRUCTOR_INGREDIENTS,
-        dragIndex,
+        dropIndex,
         hoverIndex,
       });
       item.index = hoverIndex;
+    },
+    hover(item, monitor) {
+      const offset = monitor.getClientOffset();
+      setHoverTop(offset.y < clientRect.y + clientRect.height / 2);
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -50,11 +57,13 @@ function DragElement({ item, index, onDelete = () => {} }) {
 
   return (
     <li
-      className={styles.container}
+      className={cn(styles.container, "pb-4")}
       ref={ref}
       style={{
-        opacity: isDrag ? 0.2 : 1,
-        paddingBottom: isOver && !isDrag ? 50 : 0,
+        display: isDrag ? "none" : "",
+        paddingBottom: isOver && !isHoverTop ? 80 : 16,
+        paddingTop: isOver && isHoverTop ? 80 : 0,
+        transitionDuration: isOver ? ".3s" : "0s",
       }}
     >
       <i className={cn(styles.dragItem, "mr-2")}>
@@ -76,8 +85,8 @@ DragElement.propTypes = {
     name: PropTypes.string,
     image: PropTypes.string,
     price: PropTypes.number,
-  }),
-  index: PropTypes.number,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
   onDelete: PropTypes.func,
 };
 

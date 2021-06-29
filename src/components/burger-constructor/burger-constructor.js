@@ -6,9 +6,8 @@ import {
   ConstructorElement,
   Button,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
@@ -17,8 +16,9 @@ import DragElement from "./drag-element/drag-element";
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
+  CLEAR_CONSTRUCTOR,
 } from "../../services/actions/constructor";
-import { doCheckoutOrder } from "../../services/actions/order";
+import { doCheckoutOrder, CLEAR_ORDER } from "../../services/actions/order";
 import styles from "./burger-constructor.module.css";
 
 function BurgerConstructor({ className }) {
@@ -45,7 +45,9 @@ function BurgerConstructor({ className }) {
 
   const orderModalOnClose = useCallback(() => {
     setOrderShown(false);
-  }, []);
+    dispatch({ type: CLEAR_CONSTRUCTOR });
+    dispatch({ type: CLEAR_ORDER });
+  }, [dispatch]);
 
   function handleCheckoutOrder() {
     setOrderShown(true);
@@ -66,7 +68,7 @@ function BurgerConstructor({ className }) {
     >
       <ul className={styles.elements}>
         {bunItem && (
-          <li className="ml-8 mr-4">
+          <li className="ml-8 mr-4 mb-4">
             <ConstructorElement
               type="top"
               isLocked={true}

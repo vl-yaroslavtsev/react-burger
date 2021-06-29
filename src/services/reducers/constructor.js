@@ -2,6 +2,7 @@ import {
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
   REORDER_CONSTRUCTOR_INGREDIENTS,
+  CLEAR_CONSTRUCTOR,
 } from "../actions/constructor";
 
 function countTotalPrice(items = [], bunItem) {
@@ -52,21 +53,24 @@ export const constructorReducer = (state = constructorState, action) => {
 
     case REORDER_CONSTRUCTOR_INGREDIENTS: {
       let items = state.items;
-      const drag = items[action.dragIndex];
+      const dropItem = items[action.dropIndex];
 
       return {
         ...state,
         items: [
           ...items
             .slice(0, action.hoverIndex + 1)
-            .filter(({ key }) => key !== drag.key),
-          drag,
+            .filter(({ key }) => key !== dropItem.key),
+          dropItem,
           ...items
             .slice(action.hoverIndex + 1)
-            .filter(({ key }) => key !== drag.key),
+            .filter(({ key }) => key !== dropItem.key),
         ],
       };
     }
+
+    case CLEAR_CONSTRUCTOR:
+      return constructorState;
 
     default:
       return state;

@@ -23,7 +23,7 @@ export const getIngredients = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: GET_INGREDIENTS_ERROR,
-      message: err.message,
+      message: `Что-то пошло не так. Попробуйте зайти еще раз позже. ${err.message}`,
     });
   }
 };

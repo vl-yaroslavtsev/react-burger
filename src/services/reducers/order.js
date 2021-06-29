@@ -2,6 +2,7 @@ import {
   CHECKOUT_ORDER_REQUEST,
   CHECKOUT_ORDER_SUCCESS,
   CHECKOUT_ORDER_ERROR,
+  CLEAR_ORDER,
 } from "../actions/order";
 
 const orderState = {
@@ -27,7 +28,6 @@ export const orderReducer = (state = orderState, action) => {
         ...state,
         checkoutRequest: false,
         checkoutSuccess: true,
-        checkoutErrorMessage: "",
         number: action.number,
       };
 
@@ -37,8 +37,10 @@ export const orderReducer = (state = orderState, action) => {
         checkoutRequest: false,
         checkoutSuccess: false,
         checkoutErrorMessage: action.message,
-        number: null,
       };
+
+    case CLEAR_ORDER:
+      return orderState;
 
     default:
       return state;

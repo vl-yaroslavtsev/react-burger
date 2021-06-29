@@ -21,9 +21,9 @@ const GROUP_NAME = {
   main: "Начинки",
 };
 
-function BurgerIngredients({ className }) {
-  let [currentTab, setCurrentTab] = useState("bun");
-  let [detailsShown, setDetailsShown] = useState(false);
+function BurgerIngredients() {
+  const [currentTab, setCurrentTab] = useState("bun");
+  const [detailsShown, setDetailsShown] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -38,13 +38,13 @@ function BurgerIngredients({ className }) {
     (store) => store.construct
   );
 
-  let ingredientsRef = useRef(null);
+  const ingredientsRef = useRef(null);
 
   const counterMap = useMemo(
     () =>
       ingredients.reduce((map, item) => {
         if (bunItem && item._id === bunItem._id) {
-          map[item._id] = 1;
+          map[item._id] = 2;
           return map;
         }
 
@@ -131,7 +131,7 @@ function BurgerIngredients({ className }) {
   );
 
   return (
-    <section className={cn(styles.container, className)}>
+    <section className={cn(styles.container, "mr-10")}>
       <h1 className="text text_type_main-large text mt-10 mb-5">
         Соберите бургер
       </h1>
@@ -194,14 +194,12 @@ function BurgerIngredients({ className }) {
         visible={detailsShown}
         onClose={modalOnClose}
       >
-        <IngredientDetails ingredient={currentIngredient} />
+        {currentIngredient && (
+          <IngredientDetails ingredient={currentIngredient} />
+        )}
       </Modal>
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  className: PropTypes.string,
-};
 
 export default BurgerIngredients;

@@ -3,6 +3,7 @@ import { checkoutOrder } from "../api";
 export const CHECKOUT_ORDER_REQUEST = "CHECKOUT_ORDER_REQUEST";
 export const CHECKOUT_ORDER_SUCCESS = "CHECKOUT_ORDER_SUCCESS";
 export const CHECKOUT_ORDER_ERROR = "CHECKOUT_ORDER_ERROR";
+export const CLEAR_ORDER = "CLEAR_ORDER";
 
 export const doCheckoutOrder = () => async (dispatch, getState) => {
   const { bunItem, items } = getState().construct;
@@ -28,7 +29,7 @@ export const doCheckoutOrder = () => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: CHECKOUT_ORDER_ERROR,
-      message: err.message,
+      message: `Что-то пошло не так. Попробуйте оформить заказ позже.\n${err.message}`,
     });
   }
 };

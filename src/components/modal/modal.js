@@ -37,9 +37,7 @@ const Modal = memo(
         }
       };
 
-      console.log("modal useEffect: remove keydown");
       if (visible) {
-        console.log("modal useEffect: add keydown");
         document.addEventListener("keydown", keyDownHandler);
       }
 

@@ -14,7 +14,7 @@ function App() {
       <AppHeader />
       <main className={cn(styles.main, "ml-15 mr-15")}>
         <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients className="mr-10" />
+          <BurgerIngredients />
           <BurgerConstructor />
         </DndProvider>
       </main>
