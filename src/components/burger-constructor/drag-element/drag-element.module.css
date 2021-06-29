@@ -1,7 +1,7 @@
 .container {
   display: flex;
   align-items: center;
-  transition: 0s all ease;
+  transition: 0.3s margin, padding ease;
 }
 
 .dragItem {

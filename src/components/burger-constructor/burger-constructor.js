@@ -45,9 +45,11 @@ function BurgerConstructor({ className }) {
 
   const orderModalOnClose = useCallback(() => {
     setOrderShown(false);
-    dispatch({ type: CLEAR_CONSTRUCTOR });
-    dispatch({ type: CLEAR_ORDER });
-  }, [dispatch]);
+    if (orderNumber) {
+      dispatch({ type: CLEAR_CONSTRUCTOR });
+      dispatch({ type: CLEAR_ORDER });
+    }
+  }, [dispatch, orderNumber]);
 
   function handleCheckoutOrder() {
     setOrderShown(true);

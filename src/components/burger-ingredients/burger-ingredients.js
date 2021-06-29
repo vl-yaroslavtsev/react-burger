@@ -3,7 +3,6 @@ import styles from "./burger-ingredients.module.css";
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Modal from "../modal/modal";
