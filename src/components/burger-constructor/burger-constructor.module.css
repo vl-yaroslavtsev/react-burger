@@ -12,23 +12,13 @@
   composes: list;
   display: flex;
   flex-direction: column;
-  gap: calc(4 * var(--offset-base-size));
+  //gap: calc(4 * var(--offset-base-size));
 }
 
 .elementsScroll {
   composes: elements;
   max-height: calc(100vh - 284px - 204px);
   overflow-y: auto;
-}
-
-.elementsScrollItem {
-  display: flex;
-  align-items: center;
-}
-
-.dragItem {
-  font-size: 0;
-  cursor: grab;
 }
 
 :global(.constructor-element) {

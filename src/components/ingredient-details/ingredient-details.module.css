@@ -12,12 +12,6 @@
   max-width: 100%;
 }
 
-.hidden {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
 .imagePreloader {
   composes: image;
   display: inline-block;
