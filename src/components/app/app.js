@@ -1,22 +1,37 @@
 import styles from "./app.module.css";
 
 import cn from "classnames";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HomePage, LoginPage, NotFound404 } from "../../pages";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={cn(styles.main, "ml-15 mr-15")}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
+        <Router>
+          <Switch>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/" exact={true}>
+              <HomePage />
+            </Route>
+            {/* <ProtectedRoute path="/list" exact={true}>
+              <ListPage />
+            </ProtectedRoute>
+            <ProtectedRoute path={`/list/:country`} exact={true}>
+              <CountryPage />
+            </ProtectedRoute>
+            <ProtectedRoute path={`/list/:country/:personId`} exact={true}>
+              <PersonPage />
+            </ProtectedRoute> */}
+            <Route>
+              <NotFound404 />
+            </Route>
+          </Switch>
+        </Router>
       </main>
     </div>
   );
