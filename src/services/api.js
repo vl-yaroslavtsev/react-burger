@@ -1,11 +1,59 @@
-const GET_INGREDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
-const CHECKOUT_ORDER_URL = "https://norma.nomoreparties.space/api/orders";
+const API_URL = "https://norma.nomoreparties.space/api";
+const routes = {
+  ingredients: `${API_URL}/ingredients`,
+  orders: `${API_URL}/orders`,
+  auth: {
+    login: `${API_URL}/auth/login`,
+    register: `${API_URL}/auth/register`,
+    logout: `${API_URL}/logout`,
+    token: `${API_URL}/token`,
+  },
+  password: {
+    resetCheck: `${API_URL}/password-reset`,
+    reset: `${API_URL}/password-reset/reset`,
+  },
+};
 
-export async function loadIngredients() {
-  const res = await fetch(GET_INGREDIENTS_URL);
+class StatusError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.status = status;
+  }
+}
+
+async function post(url, params) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(params),
+  });
+
+  let json;
+  try {
+    json = await res.json();
+  } catch (ex) {}
 
   if (!res.ok) {
-    throw new Error(`Статус ответа сервера: ${res.status}`);
+    throw new StatusError(
+      `Статус: ${res.status}. ${json?.message}`,
+      res.status
+    );
+  }
+
+  if (!json.success) {
+    throw new Error(json.message);
+  }
+
+  return json;
+}
+
+export async function loadIngredients() {
+  const res = await fetch(routes.ingredients);
+
+  if (!res.ok) {
+    throw new StatusError(`Статус: ${res.status}`, res.status);
   }
 
   const json = await res.json();
@@ -18,23 +66,29 @@ export async function loadIngredients() {
 }
 
 export async function checkoutOrder(items = []) {
-  const res = await fetch(CHECKOUT_ORDER_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ingredients: items }),
-  });
+  return await post(routes.orders, { ingredients: items });
+}
 
-  if (!res.ok) {
-    throw new Error(`Статус ответа сервера: ${res.status}`);
+export async function login(params) {
+  try {
+    return await post(routes.auth.login, params);
+  } catch (err) {
+    if (err.status === 401) {
+      throw new Error("Введены неверные Email или пароль.");
+    }
+
+    throw err;
   }
+}
 
-  const json = await res.json();
+export async function register(params) {
+  return await post(routes.auth.register, params);
+}
 
-  if (!json.success) {
-    throw new Error(`${json.message}`);
-  }
+export async function checkResetPassword(params) {
+  return await post(routes.password.resetCheck, params);
+}
 
-  return json;
+export async function resetPassword(params) {
+  return await post(routes.password.reset, params);
 }

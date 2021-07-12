@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const emailRegExp =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -13,7 +13,7 @@ const validationRules = {
   },
   minLength: ({ value, param, message }) => {
     message = message || `Введите не менее ${param} символов`;
-    return value && value.length > param ? "" : message;
+    return value && value.length >= param ? "" : message;
   },
 };
 
@@ -57,33 +57,27 @@ function validateAll(values, rules) {
  * Хук управляет отправкой данных формы,
  * проверяет клиентскую валидацию с помощью правил validation,
  * устанавливает значения полей по умолчанию defValues
- * @param {(values) => Promise} submitter Отправщик данных формы
- * @param {Object} validation Правила валидации
- * @param {Object} defValues Значения полей по умолчанию
+ * @param {(values) => Promise} onSubmit Отправщик данных формы
  * @return {{
  *   handleSubmit, обрабочик формы onSubmit
  *   data,         данные с сервера после отправки формы
  *   error,        ошибка с сервера после отправки формы
  *   loading,      загрузка данных после отправки формы
- *   handleChange, обрабтчик изменения поля формы
- *   values,       значения полей формы
- *   validation,   сообщения об ошибках клиентской валидации полей формы
+ *   register,     обрабтчик изменения поля формы
  * }}
  */
-export function useFormSubmit({
-  submitter,
-  validation: rules = {},
-  defValues = {},
-}) {
-  const [values, setValues] = useState(defValues);
+export function useFormSubmit({ onSubmit }) {
+  const [values, setValues] = useState({});
   const [validation, setValidation] = useState({});
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const rulesRef = useRef({});
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    const rules = rulesRef.current;
 
     setValues({
       ...values,
@@ -98,6 +92,7 @@ export function useFormSubmit({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const rules = rulesRef.current;
 
     const errors = validateAll(values, rules);
     setValidation(errors);
@@ -107,11 +102,11 @@ export function useFormSubmit({
     }
 
     setData(null);
-    setError("");
     setLoading(true);
 
     try {
-      const res = await submitter(values);
+      const res = await onSubmit(values);
+      setError("");
       setData(res);
     } catch (err) {
       setError(err.message);
@@ -120,13 +115,32 @@ export function useFormSubmit({
     }
   };
 
+  const register = (name, { value = "", validate = null } = {}) => {
+    if (!(name in values)) {
+      setValues({
+        ...values,
+        [name]: value,
+      });
+    }
+
+    if (validate && !(name in rulesRef.current)) {
+      rulesRef.current[name] = validate;
+    }
+
+    return {
+      name,
+      value: values[name],
+      onChange: handleChange,
+      error: !!validation[name],
+      errorText: validation[name],
+    };
+  };
+
   return {
     handleSubmit,
     data,
     error,
     loading,
-    handleChange,
-    values,
-    validation,
+    register,
   };
 }

@@ -2,18 +2,34 @@ import styles from "./app.module.css";
 
 import cn from "classnames";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { HomePage, LoginPage, NotFound404 } from "../../pages";
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  NotFound404,
+} from "../../pages";
 import AppHeader from "../app-header/app-header";
 
 function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={cn(styles.main, "ml-15 mr-15")}>
+      <main className={styles.main}>
         <Router>
           <Switch>
             <Route path="/login">
               <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterPage />
+            </Route>
+            <Route path="/forgot-password">
+              <ForgotPasswordPage />
+            </Route>
+            <Route path="/reset-password">
+              <ResetPasswordPage />
             </Route>
             <Route path="/" exact={true}>
               <HomePage />

@@ -3,3 +3,9 @@ body {
 
   overflow-y: hidden;
 }
+
+a {
+  color: var(--colors-interface-accent);
+  cursor: pointer;
+  text-decoration: none;
+}
