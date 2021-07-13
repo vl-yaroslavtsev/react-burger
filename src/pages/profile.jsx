@@ -18,20 +18,25 @@ function Menu() {
   return (
     <nav className={cn(styles.menu, "mt-20 mr-15")}>
       <ul className="text text_type_main-medium">
-        <li className={styles.menuItem}>
-          <NavLink to="/profile" exact activeClassName={styles.menuItemActive}>
+        <li>
+          <NavLink to="/profile" exact
+            className={styles.menuItem}
+            activeClassName={styles.menuItemActive}>
             Профиль
           </NavLink>
         </li>
-        <li className={styles.menuItem}>
-          <NavLink to="/profile/orders" activeClassName={styles.menuItemActive}>
+        <li>
+          <NavLink to="/profile/orders"
+            className={styles.menuItem}
+            activeClassName={styles.menuItemActive}>
             История заказов
           </NavLink>
         </li>
-        <li className={styles.menuItem}>
+        <li>
           <NavLink
             to="/profile/logout"
             exact
+            className={styles.menuItem}
             activeClassName={styles.menuItemActive}
           >
             Выход
