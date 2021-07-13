@@ -17,7 +17,12 @@ const ingredientsState = {
 export const ingredientsReducer = (state = ingredientsState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST:
-      return { ...state, itemsRequest: true };
+      return {
+        ...state,
+        itemsRequest: true,
+        itemsSuccess: false,
+        itemsErrorMessage: "",
+      };
 
     case GET_INGREDIENTS_SUCCESS:
       return {

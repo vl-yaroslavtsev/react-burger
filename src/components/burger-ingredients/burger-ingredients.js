@@ -1,6 +1,13 @@
-import styles from "./burger-ingredients.module.css";
+import styles, { ingredient } from "./burger-ingredients.module.css";
 
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -55,9 +62,11 @@ function BurgerIngredients() {
     [ingredients, constructorItems, bunItem]
   );
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+  useLayoutEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(getIngredients());
+    }
+  }, []);
 
   const modalOnClose = useCallback(() => {
     setDetailsShown(false);

@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.menu {
+  flex: 0 1 320px;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menuItem {
+  height: 60px;
+  line-height: 60px;
+  --colors-interface-accent: var(--text-inactive-color);
+}
+
+.menuItemActive {
+  color: var(--text-primary-color);
+}
+
+.menuFooter {
+  opacity: 0.4;
+}
+
+.form {
+  width: 480px;
+  text-align: center;
+}
+
+.error {
+  color: red;
+}
+
+:global(.input_size_default) {
+  width: 480px;
+}

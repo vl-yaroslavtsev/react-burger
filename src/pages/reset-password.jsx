@@ -23,7 +23,7 @@ export function ResetPasswordPage() {
         <h1 className="text text_type_main-medium mb-6">
           Восстановление пароля
         </h1>
-        <p className="text text_type_main-default text_color_inactive">
+        <p className="text text_type_main-default ">
           Пароль успешно изменён. <Link to="/login">Войти</Link>
         </p>
       </form>

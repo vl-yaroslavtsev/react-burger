@@ -8,47 +8,52 @@ import {
   RegisterPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  ProfilePage,
   NotFound404,
 } from "../../pages";
 import AppHeader from "../app-header/app-header";
+import { ProtectedRoute } from "../protected-route";
+import { UnauthorizedRoute } from "../unauthorized-route";
 
 function App() {
   return (
     <div className={styles.app}>
-      <AppHeader />
-      <main className={styles.main}>
-        <Router>
+      <Router>
+        <AppHeader />
+        <main className={styles.main}>
           <Switch>
-            <Route path="/login">
+            <Route path="/login" exact={true}>
               <LoginPage />
             </Route>
-            <Route path="/register">
+            <UnauthorizedRoute path="/register" exact={true}>
               <RegisterPage />
-            </Route>
-            <Route path="/forgot-password">
+            </UnauthorizedRoute>
+            <UnauthorizedRoute path="/forgot-password" exact={true}>
               <ForgotPasswordPage />
-            </Route>
-            <Route path="/reset-password">
+            </UnauthorizedRoute>
+            <UnauthorizedRoute path="/reset-password" exact={true}>
               <ResetPasswordPage />
-            </Route>
+            </UnauthorizedRoute>
             <Route path="/" exact={true}>
               <HomePage />
             </Route>
-            {/* <ProtectedRoute path="/list" exact={true}>
-              <ListPage />
+            <ProtectedRoute path="/profile">
+              <ProfilePage />
             </ProtectedRoute>
+            {/*
             <ProtectedRoute path={`/list/:country`} exact={true}>
               <CountryPage />
             </ProtectedRoute>
             <ProtectedRoute path={`/list/:country/:personId`} exact={true}>
               <PersonPage />
-            </ProtectedRoute> */}
+            </ProtectedRoute> 
+            */}
             <Route>
               <NotFound404 />
             </Route>
           </Switch>
-        </Router>
-      </main>
+        </main>
+      </Router>
     </div>
   );
 }

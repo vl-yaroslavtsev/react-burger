@@ -17,10 +17,21 @@ export function RegisterPage() {
   const { data, loading, error, register, handleSubmit } = useFormSubmit({
     onSubmit: callRegister,
   });
+
+  if (data) {
+    return (
+      <form className={styles.container}>
+        <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
+        <p className="text text_type_main-default ">
+          Вы успешно зарегистирированы. <Link to="/login">Войти</Link>
+        </p>
+      </form>
+    );
+  }
+
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <h1 className="text text_type_main-medium mb-6">Регистрация</h1>
-      {data && <p>Данные успешно получены {JSON.stringify(data)}</p>}
       {error && (
         <p className={cn(styles.error, "text text_type_main-default mb-4")}>
           {error}
@@ -28,7 +39,7 @@ export function RegisterPage() {
       )}
       <div className="mb-6">
         <Input
-          type="input"
+          type="text"
           placeholder="Имя"
           {...register("name", { validate: { required: true, minLength: 3 } })}
           disabled={loading}

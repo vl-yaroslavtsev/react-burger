@@ -129,7 +129,7 @@ export function useFormSubmit({ onSubmit }) {
 
     return {
       name,
-      value: values[name],
+      value: values[name] || "",
       onChange: handleChange,
       error: !!validation[name],
       errorText: validation[name],

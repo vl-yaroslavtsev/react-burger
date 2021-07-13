@@ -29,6 +29,7 @@ export const userReducer = (state = userState, action) => {
         ...state,
         userRequest: false,
         userSuccess: true,
+        userErrorMessage: "",
         user: action.user,
       };
 
@@ -38,6 +39,7 @@ export const userReducer = (state = userState, action) => {
         userRequest: false,
         userSuccess: false,
         userErrorMessage: action.message,
+        user: null,
       };
 
     case SET_USER:
@@ -47,7 +49,10 @@ export const userReducer = (state = userState, action) => {
       };
 
     case CLEAR_USER:
-      return userState;
+      return {
+        ...state,
+        user: null,
+      };
 
     default:
       return state;

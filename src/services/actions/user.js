@@ -19,7 +19,7 @@ export const getUser = () => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: GET_USER_ERROR,
-      message: `Что-то пошло не так. Попробуйте зайти позже.\n${err.message}`,
+      message: err.message,
     });
   }
 };

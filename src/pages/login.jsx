@@ -4,22 +4,36 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 
 import PasswordInput from "../components/password-input/password-input";
 import { useFormSubmit } from "../services/form";
-import { login } from "../services/api";
+import { useAuth } from "../services/auth";
 
 import styles from "./login.module.css";
 
 export function LoginPage() {
+  const { user, userLoaded, signIn } = useAuth();
+  const location = useLocation();
   const { data, loading, error, register, handleSubmit } = useFormSubmit({
-    onSubmit: login,
+    onSubmit: signIn,
   });
+
+  if (!userLoaded) {
+    return null;
+  }
+
+  if (!loading && user) {
+    return <Redirect to="/" />;
+  }
+
+  if (data) {
+    return <Redirect to={location.state?.from || "/"} />;
+  }
+
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <h1 className="text text_type_main-medium mb-6">Вход</h1>
-      {data && <p>Данные успешно получены {JSON.stringify(data)}</p>}
       {error && (
         <p className={cn(styles.error, "text text_type_main-default mb-4")}>
           {error}

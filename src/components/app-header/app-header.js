@@ -18,12 +18,14 @@ function AppHeader() {
           <nav className={cn(styles.navigation, "mt-4 mb-4")}>
             <ul>
               <li className={styles.navItem}>
-                <HeaderItem icon={BurgerIcon} active={true}>
+                <HeaderItem icon={BurgerIcon} path="/">
                   Конструктор
                 </HeaderItem>
               </li>
               <li className={cn(styles.navItem, "ml-2")}>
-                <HeaderItem icon={ListIcon}>Лента заказов</HeaderItem>
+                <HeaderItem icon={ListIcon} path="/feed">
+                  Лента заказов
+                </HeaderItem>
               </li>
             </ul>
           </nav>
@@ -32,7 +34,9 @@ function AppHeader() {
           <Logo />
         </li>
         <li className={styles.contentItemRight}>
-          <HeaderItem icon={ProfileIcon}>Личный кабинет</HeaderItem>
+          <HeaderItem icon={ProfileIcon} path="/profile">
+            Личный кабинет
+          </HeaderItem>
         </li>
       </ul>
     </header>
