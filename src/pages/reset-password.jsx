@@ -42,7 +42,9 @@ export function ResetPasswordPage() {
       <div className="mb-6">
         <PasswordInput
           placeholder="Введите новый пароль"
-          {...register("password", { validate: { minLength: 6 } })}
+          {...register("password", {
+            validate: { required: true, minLength: 6 },
+          })}
           disabled={loading}
         />
       </div>
@@ -50,7 +52,9 @@ export function ResetPasswordPage() {
         <Input
           type="input"
           placeholder="Введите код из письма"
-          {...register("token", { validate: { required: true, minLength: 4 } })}
+          {...register("token", {
+            validate: { required: true, minLength: 10 },
+          })}
           disabled={loading}
         />
       </div>

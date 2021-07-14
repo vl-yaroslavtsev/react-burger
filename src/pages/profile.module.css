@@ -32,6 +32,10 @@
   text-align: center;
 }
 
+.formFooter {
+  text-align: right;
+}
+
 .error {
   color: red;
 }

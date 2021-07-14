@@ -50,7 +50,9 @@ export function LoginPage() {
       <div className="mb-6">
         <PasswordInput
           placeholder="Пароль"
-          {...register("password", { validate: { minLength: 6 } })}
+          {...register("password", {
+            validate: { required: true, minLength: 6 },
+          })}
           disabled={loading}
         />
       </div>

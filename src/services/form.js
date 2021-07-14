@@ -13,7 +13,7 @@ const validationRules = {
   },
   minLength: ({ value, param, message }) => {
     message = message || `Введите не менее ${param} символов`;
-    return value && value.length >= param ? "" : message;
+    return value.length >= param || value.length === 0 ? "" : message;
   },
 };
 
@@ -141,6 +141,8 @@ export function useFormSubmit({ onSubmit }) {
     data,
     error,
     loading,
+    values,
+    setValues,
     register,
   };
 }

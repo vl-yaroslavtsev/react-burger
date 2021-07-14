@@ -122,3 +122,26 @@ export async function loadUser() {
 
   return json;
 }
+
+export async function updateUser(params) {
+  const res = await fetch(routes.auth.user, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("accessToken"),
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!res.ok) {
+    throw new StatusError(`Статус: ${res.status}`, res.status);
+  }
+
+  const json = await res.json();
+
+  if (!json.success) {
+    throw new Error(json.message);
+  }
+
+  return json;
+}
