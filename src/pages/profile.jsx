@@ -2,7 +2,7 @@ import cn from "classnames";
 
 import { useState, useEffect } from "react";
 
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, useRouteMatch } from "react-router-dom";
 
 import ProfileForm from "../components/profile-form/profile-form";
 import { useAuth } from "../services/auth";
@@ -12,12 +12,13 @@ import { ordersList } from "../services/data";
 import styles from "./profile.module.css";
 
 function Menu() {
+  const { path } = useRouteMatch();
   return (
     <nav className={cn(styles.menu, "mt-20 mr-15")}>
       <ul className="text text_type_main-medium">
         <li>
           <NavLink
-            to="/profile"
+            to={path}
             exact
             className={styles.menuItem}
             activeClassName={styles.menuItemActive}
@@ -27,7 +28,7 @@ function Menu() {
         </li>
         <li>
           <NavLink
-            to="/profile/orders"
+            to={`${path}/orders`}
             className={styles.menuItem}
             activeClassName={styles.menuItemActive}
           >
@@ -36,7 +37,7 @@ function Menu() {
         </li>
         <li>
           <NavLink
-            to="/profile/logout"
+            to={`${path}/logout`}
             exact
             className={styles.menuItem}
             activeClassName={styles.menuItemActive}
@@ -51,14 +52,14 @@ function Menu() {
           "text text_type_main-default text_color_inactive mt-20"
         )}
       >
-        <Route path="/profile" exact>
+        <Route path={path} exact>
           В этом разделе вы можете изменить свои персональные данные
         </Route>
-        <Route path="/profile/orders" exact>
+        <Route path={`${path}/orders`} exact>
           В этом разделе вы можете просмотреть свою историю заказов
         </Route>
       </footer>
-    </nav>
+    </nav >
   );
 }
 
@@ -80,13 +81,14 @@ function Logout() {
 }
 
 export function ProfilePage() {
+  const { path } = useRouteMatch();
   return (
     <section className={cn(styles.container, "mt-10")}>
       <Menu />
-      <Route path="/profile" exact>
+      <Route path={path} exact>
         <ProfileForm />
       </Route>
-      <Route path="/profile/orders" exact>
+      <Route path={`${path}/orders`} exact>
         <ul className={styles.orderList}>
           {ordersList.map((order) => (
             <li key={order.number} className="mb-6 mr-2">
@@ -95,7 +97,7 @@ export function ProfilePage() {
           ))}
         </ul>
       </Route>
-      <Route path="/profile/logout" exact>
+      <Route path={`${path}/logout`} exact>
         <Logout />
       </Route>
     </section>

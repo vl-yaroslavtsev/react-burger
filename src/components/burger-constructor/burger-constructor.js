@@ -56,11 +56,15 @@ function BurgerConstructor({ className }) {
     dispatch(doCheckoutOrder());
   }
 
-  const [, dropIngredientsRef] = useDrop({
+  const [{ isOver, canDrop }, dropIngredientsRef] = useDrop({
     accept: "ingredient",
     drop(item) {
       dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
     },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
   });
 
   return (
@@ -69,6 +73,20 @@ function BurgerConstructor({ className }) {
       ref={dropIngredientsRef}
     >
       <ul className={styles.elements}>
+        {!bunItem && !items.length && (
+          <li
+            className={cn(
+              styles.dragMessage,
+              "text text_type_main-medium pt-25 pb-25",
+              {
+                [styles.dragMessageOver]: isOver,
+                text_color_inactive: !canDrop,
+              }
+            )}
+          >
+            Перетащите ингридиенты сюда
+          </li>
+        )}
         {bunItem && (
           <li className="ml-8 mr-4 mb-4">
             <ConstructorElement

@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   transition: 0.3s margin, padding ease;
+  cursor: n-resize;
 }
 
 .dragItem {
   font-size: 0;
-  cursor: grab;
 }

@@ -15,6 +15,18 @@
   /* gap: calc(4 * var(--offset-base-size)); */
 }
 
+.dragMessage {
+  border: 2px dashed;
+  border-color: #2f2f37;
+  border-radius: 4px;
+  transition: border-color ease 0.3s, color ease 0.3s;
+  text-align: center;
+}
+
+.dragMessageOver {
+  border-color: #4c4cff;
+}
+
 .elementsScroll {
   composes: elements;
   max-height: calc(100vh - 284px - 204px);
