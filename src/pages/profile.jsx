@@ -6,6 +6,8 @@ import { NavLink, Route } from "react-router-dom";
 
 import ProfileForm from "../components/profile-form/profile-form";
 import { useAuth } from "../services/auth";
+import OrderItem from "../components/order-item/order-item";
+import { ordersList } from "../services/data";
 
 import styles from "./profile.module.css";
 
@@ -85,7 +87,13 @@ export function ProfilePage() {
         <ProfileForm />
       </Route>
       <Route path="/profile/orders" exact>
-        Список заказов...
+        <ul className={styles.orderList}>
+          {ordersList.map((order) => (
+            <li key={order.number} className="mb-6 mr-2">
+              <OrderItem order={order} />
+            </li>
+          ))}
+        </ul>
       </Route>
       <Route path="/profile/logout" exact>
         <Logout />

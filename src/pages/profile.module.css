@@ -27,13 +27,31 @@
   opacity: 0.4;
 }
 
-.form {
-  width: 480px;
-  text-align: center;
+.orderList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+  max-height: calc(100vh - var(--offset-base-size) * 10 - 88px);
+  overflow-y: auto;
 }
 
-.formFooter {
-  text-align: right;
+@-moz-document url-prefix() {
+  .orderList {
+    scrollbar-color: #8585ad #2f2f37;
+  }
+}
+
+.orderList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.orderList::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.orderList::-webkit-scrollbar-thumb {
+  background: #8585ad;
 }
 
 .error {
