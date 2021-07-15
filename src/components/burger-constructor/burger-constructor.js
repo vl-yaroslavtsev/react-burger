@@ -13,6 +13,8 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import DragElement from "./drag-element/drag-element";
 
+import { animate } from "../../services/utils";
+
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
   REMOVE_CONSTRUCTOR_INGREDIENT,
@@ -37,8 +39,18 @@ function BurgerConstructor({ className }) {
   const dispatch = useDispatch();
 
   const elementOnDelete = useCallback(
-    (item) => {
-      dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, item });
+    (item, ref) => {
+      const el = ref.current;
+      const height = el.offsetHeight;
+      el.style.zIndex = -1;
+      animate({
+        draw(progress) {
+          el.style.opacity = 1 - progress;
+          el.style.marginTop = `-${height * progress}px`;
+        },
+        duration: 500,
+        timing: "easeOut",
+      }).then(() => dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, item }));
     },
     [dispatch]
   );
@@ -58,7 +70,7 @@ function BurgerConstructor({ className }) {
 
   const [{ isOver, canDrop }, dropIngredientsRef] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item, monitor) {
       dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
     },
     collect: (monitor) => ({

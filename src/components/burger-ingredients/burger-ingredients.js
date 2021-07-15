@@ -1,4 +1,4 @@
-import styles, { ingredient } from "./burger-ingredients.module.css";
+import styles from "./burger-ingredients.module.css";
 
 import {
   useState,
@@ -15,6 +15,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import { animate } from "../../services/utils";
 import {
   getIngredients,
   SET_CURRENT_INGREDIENT,
@@ -84,7 +85,15 @@ function BurgerIngredients() {
   const scrollToTabSection = (tab) => {
     const el = ingredientsRef.current;
     const section = el.querySelector(`[data-group="${tab}"]`);
-    el.scrollTop = section?.offsetTop;
+    const startScroll = el.scrollTop;
+    const endScroll = section?.offsetTop;
+
+    animate({
+      draw(progress) {
+        el.scrollTop = startScroll + (endScroll - startScroll) * progress;
+      },
+      duration: 400,
+    });
   };
 
   useEffect(() => {
@@ -178,10 +187,7 @@ function BurgerIngredients() {
                       .filter(({ type }) => type === key)
                       .map((item, index) => {
                         return (
-                          <li
-                            className={cn(styles.ingredient, "mb-8")}
-                            key={item._id}
-                          >
+                          <li className={cn(styles.ingredient, "mb-8")}>
                             <Ingredient
                               count={counterMap[item._id]}
                               onClick={ingredientOnClick}

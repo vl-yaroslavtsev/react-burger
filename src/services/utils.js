@@ -97,3 +97,43 @@ export function formatPastDate(date) {
     timezone > 0 ? "+" : ""
   }${timezone}`;
 }
+
+export const timingFunc = {
+  linear(k) {
+    return k;
+  },
+  easeIn(k) {
+    return Math.pow(k, 1.675);
+  },
+  easeOut: function (k) {
+    return 1 - Math.pow(1 - k, 1.675);
+  },
+  easeInOut(k) {
+    return 0.5 * (Math.sin((k - 0.5) * Math.PI) + 1);
+  },
+};
+
+export function animate({ timing = "easeInOut", draw, duration }) {
+  let start = performance.now();
+  timing = timingFunc[timing];
+
+  return new Promise((resolve) => {
+    requestAnimationFrame(function animate(time) {
+      // timeFraction изменяется от 0 до 1
+      let timeFraction = (time - start) / duration;
+      if (timeFraction > 1) timeFraction = 1;
+      if (timeFraction < 0) timeFraction = 0;
+
+      // вычисление текущего состояния анимации
+      let progress = timing(timeFraction);
+
+      draw(progress); // отрисовать её
+
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
