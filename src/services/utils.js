@@ -68,3 +68,32 @@ export function isEqual(obj1, obj2) {
   }
   return true;
 }
+
+export function formatPastDate(date) {
+  const today = new Date();
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+
+  date = new Date(date);
+  const timezone = date.getHours() - date.getUTCHours();
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  let past = "";
+
+  if (date > today * 1 + 24 * 3600 * 1000) {
+    past = date.toLocaleDateString();
+  } else if (date > today) {
+    past = "Сегодня";
+  } else if (date > today - 24 * 3600 * 1000) {
+    past = "Вчера";
+  } else {
+    const days = Math.ceil((today - date) / (24 * 3600 * 1000));
+    past = `${days} дня назад`;
+  }
+
+  return `${past}, ${hours}:${minutes} i-GMT${
+    timezone > 0 ? "+" : ""
+  }${timezone}`;
+}

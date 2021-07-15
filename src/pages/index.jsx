@@ -4,6 +4,9 @@ import { RegisterPage } from "./register";
 import { ForgotPasswordPage } from "./forgot-password";
 import { ResetPasswordPage } from "./reset-password";
 import { ProfilePage } from "./profile";
+import { ProfileOrderPage } from "./profile-order";
+import { FeedPage } from "./feed";
+import { FeedOrderPage } from "./feed-order";
 import { NotFound404 } from "./not-found";
 
 export {
@@ -13,5 +16,8 @@ export {
   ResetPasswordPage,
   HomePage,
   ProfilePage,
+  ProfileOrderPage,
+  FeedPage,
+  FeedOrderPage,
   NotFound404,
 };

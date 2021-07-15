@@ -9,6 +9,9 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  ProfileOrderPage,
+  FeedPage,
+  FeedOrderPage,
   NotFound404,
 } from "../../pages";
 import AppHeader from "../app-header/app-header";
@@ -22,6 +25,9 @@ function App() {
         <AppHeader />
         <main className={styles.main}>
           <Switch>
+            <Route path="/" exact={true}>
+              <HomePage />
+            </Route>
             <Route path="/login" exact={true}>
               <LoginPage />
             </Route>
@@ -34,20 +40,18 @@ function App() {
             <UnauthorizedRoute path="/reset-password" exact={true}>
               <ResetPasswordPage />
             </UnauthorizedRoute>
-            <Route path="/" exact={true}>
-              <HomePage />
-            </Route>
+            <ProtectedRoute path="/profile/orders/:id" exact={true}>
+              <ProfileOrderPage />
+            </ProtectedRoute>
             <ProtectedRoute path="/profile">
               <ProfilePage />
             </ProtectedRoute>
-            {/*
-            <ProtectedRoute path={`/list/:country`} exact={true}>
-              <CountryPage />
-            </ProtectedRoute>
-            <ProtectedRoute path={`/list/:country/:personId`} exact={true}>
-              <PersonPage />
-            </ProtectedRoute> 
-            */}
+            <Route path="/feed/:id" exact={true}>
+              <FeedOrderPage />
+            </Route>
+            <Route path="/feed" exact={true}>
+              <FeedPage />
+            </Route>
             <Route>
               <NotFound404 />
             </Route>
