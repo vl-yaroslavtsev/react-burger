@@ -10,7 +10,7 @@ export function FeedOrderPage() {
   const { id } = useParams();
   const order = ordersList.find(({ number }) => number === id);
   return (
-    <section className={cn(styles.container, "mt-10")}>
+    <section className={cn(styles.container)}>
       <OrderInfo order={order} />
     </section>
   );

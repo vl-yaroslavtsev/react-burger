@@ -15,7 +15,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import { animate } from "../../services/utils";
+import { animate, useScrollbar } from "../../services/utils";
 import {
   getIngredients,
   SET_CURRENT_INGREDIENT,
@@ -46,6 +46,7 @@ function BurgerIngredients() {
   );
 
   const ingredientsRef = useRef(null);
+  useScrollbar(ingredientsRef);
 
   const counterMap = useMemo(
     () =>

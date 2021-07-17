@@ -18,8 +18,6 @@
 }
 
 .ingredientList {
-  composes: customScrollbar from "../app/app.module.css";
-  max-height: 312px;
 }
 
 .ingredient {

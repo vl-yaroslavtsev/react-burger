@@ -22,9 +22,6 @@
 
 .elementsScroll {
   composes: elements;
-  composes: customScrollbar from "../app/app.module.css";
-  max-height: calc(100vh - 284px - 204px);
-  overflow-y: auto;
 }
 
 :global(.constructor-element) {

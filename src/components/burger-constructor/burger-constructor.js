@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import cn from "classnames";
 import PropTypes from "prop-types";
@@ -13,7 +13,7 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import DragElement from "./drag-element/drag-element";
 
-import { animate } from "../../services/utils";
+import { animate, useScrollbar } from "../../services/utils";
 
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
@@ -79,6 +79,14 @@ function BurgerConstructor({ className }) {
     }),
   });
 
+  const listRef = useRef();
+  const bottomBunRef = useRef();
+  const footerRef = useRef();
+  useScrollbar(listRef, {
+    exclude: [bottomBunRef, footerRef],
+    props: [bunItem, items.length === 0],
+  });
+
   return (
     <section
       className={cn(styles.container, className, "pt-25 pl-4")}
@@ -111,7 +119,10 @@ function BurgerConstructor({ className }) {
           </li>
         )}
         <li>
-          <ul className={cn(styles.elementsScroll, "noselect pr-2")}>
+          <ul
+            className={cn(styles.elementsScroll, "noselect pr-2")}
+            ref={listRef}
+          >
             {items.map((el, index) => {
               return (
                 <DragElement
@@ -125,7 +136,7 @@ function BurgerConstructor({ className }) {
           </ul>
         </li>
         {bunItem && (
-          <li className="ml-8 mr-4">
+          <li className="ml-8 mr-4" ref={bottomBunRef}>
             <ConstructorElement
               type="bottom"
               isLocked={true}
@@ -136,7 +147,7 @@ function BurgerConstructor({ className }) {
           </li>
         )}
       </ul>
-      <footer className={cn(styles.footer, "mt-10")}>
+      <footer className={cn(styles.footer, "mt-10 mb-2")} ref={footerRef}>
         <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
         <p className="text mr-10">
           <CurrencyIcon type="primary" />

@@ -1,3 +1,6 @@
+import { useLayoutEffect } from "react";
+import appStyles from "../components/app/app.module.css";
+
 export function getCookie(name) {
   const matches = document.cookie.match(
     new RegExp(
@@ -136,4 +139,33 @@ export function animate({ timing = "easeInOut", draw, duration }) {
       }
     });
   });
+}
+
+export function useScrollbar(ref, { exclude = [], props = [] } = {}) {
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!Array.isArray(exclude)) {
+      exclude = [exclude];
+    }
+    const bottom = exclude.reduce((acc, ref) => {
+      const el = ref.current;
+      if (!el) return acc;
+      const style = getComputedStyle(el);
+
+      return (
+        acc +
+        el.offsetHeight +
+        parseInt(style.marginTop) +
+        parseInt(style.marginBottom)
+      );
+    }, 0);
+    const { top } = el.getBoundingClientRect();
+    el.style.maxHeight = `calc(100vh - ${top + bottom}px)`;
+    el.classList.add(appStyles.customScrollbar);
+
+    return () => {
+      el.classList.remove(appStyles.customScrollbar);
+      el.style.maxHeight = "";
+    };
+  }, props);
 }

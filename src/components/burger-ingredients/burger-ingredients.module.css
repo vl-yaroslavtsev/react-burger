@@ -13,9 +13,8 @@
 }
 
 .ingredients {
-  composes: customScrollbar from "../app/app.module.css";
   position: relative;
-  max-height: calc(100vh - 284px);
+  height: 100vh;
 }
 
 .ingredient {

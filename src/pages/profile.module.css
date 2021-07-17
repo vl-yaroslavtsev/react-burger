@@ -22,9 +22,7 @@
 }
 
 .orderList {
-  composes: customScrollbar from "../components/app/app.module.css";
   flex-grow: 1;
-  max-height: calc(100vh - var(--offset-base-size) * 10 - 88px);
 }
 
 .error {

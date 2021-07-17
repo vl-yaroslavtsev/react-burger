@@ -1,6 +1,6 @@
 import cn from "classnames";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { NavLink, Route, useRouteMatch } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import OrderItem from "../components/order-item/order-item";
 import { ordersList } from "../services/data";
 
 import styles from "./profile.module.css";
+import { useScrollbar } from "../services/utils";
 
 function Menu() {
   const { path } = useRouteMatch();
@@ -82,6 +83,8 @@ function Logout() {
 
 export function ProfilePage() {
   const { path } = useRouteMatch();
+  const orderListRef = useRef();
+  useScrollbar(orderListRef.current);
   return (
     <section className={cn(styles.container, "mt-10")}>
       <Menu />
@@ -89,7 +92,7 @@ export function ProfilePage() {
         <ProfileForm />
       </Route>
       <Route path={`${path}/orders`} exact>
-        <ul className={styles.orderList}>
+        <ul className={styles.orderList} ref={orderListRef}>
           {ordersList.map((order) => (
             <li key={order.number} className="mb-6 mr-2">
               <OrderItem order={order} />
