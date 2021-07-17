@@ -7,37 +7,15 @@
 }
 
 .ingredientList {
-  list-style: none;
-  padding: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .ingredients {
+  composes: customScrollbar from "../app/app.module.css";
   position: relative;
-  list-style: none;
-  padding: 0;
   max-height: calc(100vh - 284px);
-  overflow-y: auto;
-}
-
-@-moz-document url-prefix() {
-  .ingredients {
-    scrollbar-color: #8585ad #2f2f37;
-  }
-}
-
-.ingredients::-webkit-scrollbar {
-  width: 8px;
-}
-
-.ingredients::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.ingredients::-webkit-scrollbar-thumb {
-  background: #8585ad;
 }
 
 .ingredient {

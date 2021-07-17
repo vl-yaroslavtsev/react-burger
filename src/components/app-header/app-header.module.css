@@ -5,12 +5,8 @@
 }
 
 .content {
-  list-style-type: none;
   width: 100%;
   max-width: 1280px;
-
-  margin: 0;
-  padding: 0;
 
   display: flex;
   align-items: center;
@@ -32,7 +28,5 @@
 }
 
 .navigation ul {
-  padding: 0;
-  list-style-type: none;
   display: flex;
 }

@@ -33,18 +33,13 @@ function DragElement({ item, index, onDelete = () => {} }) {
 
   useEffect(() => {
     const el = ref.current;
-    const height = el.offsetHeight;
     el.style.opacity = 0;
-    el.style.zIndex = -1;
     animate({
       draw(progress) {
         el.style.opacity = progress;
-        el.style.marginTop = `-${height * (1 - progress)}px`;
       },
       duration: 500,
       timing: "easeOut",
-    }).then(() => {
-      el.style.zIndex = "";
     });
   }, []);
 

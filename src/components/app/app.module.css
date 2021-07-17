@@ -12,3 +12,27 @@
   flex-grow: 1;
   margin: 0 auto;
 }
+
+.customScrollbar {
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+@-moz-document url-prefix() {
+  .customScrollbar {
+    scrollbar-color: #8585ad #2f2f37;
+  }
+}
+
+.customScrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}

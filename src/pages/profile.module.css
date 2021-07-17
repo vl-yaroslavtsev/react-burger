@@ -7,12 +7,6 @@
   flex: 0 1 320px;
 }
 
-.menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 .menuItem {
   height: 60px;
   line-height: 60px;
@@ -28,30 +22,9 @@
 }
 
 .orderList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  composes: customScrollbar from "../components/app/app.module.css";
   flex-grow: 1;
   max-height: calc(100vh - var(--offset-base-size) * 10 - 88px);
-  overflow-y: auto;
-}
-
-@-moz-document url-prefix() {
-  .orderList {
-    scrollbar-color: #8585ad #2f2f37;
-  }
-}
-
-.orderList::-webkit-scrollbar {
-  width: 8px;
-}
-
-.orderList::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.orderList::-webkit-scrollbar-thumb {
-  background: #8585ad;
 }
 
 .error {

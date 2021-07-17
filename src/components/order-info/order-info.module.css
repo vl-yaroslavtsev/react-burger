@@ -18,29 +18,8 @@
 }
 
 .ingredientList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  composes: customScrollbar from "../app/app.module.css";
   max-height: 312px;
-  overflow-y: auto;
-}
-
-@-moz-document url-prefix() {
-  .ingredientList {
-    scrollbar-color: #8585ad #2f2f37;
-  }
-}
-
-.ingredientList::-webkit-scrollbar {
-  width: 8px;
-}
-
-.ingredientList::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.ingredientList::-webkit-scrollbar-thumb {
-  background: #8585ad;
 }
 
 .ingredient {
