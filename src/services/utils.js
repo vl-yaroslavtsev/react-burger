@@ -12,8 +12,7 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
-  props = props || {};
+export function setCookie(name, value, props = {}) {
   let exp = props.expires;
   if (typeof exp == "number" && exp) {
     const d = new Date();
@@ -144,6 +143,9 @@ export function animate({ timing = "easeInOut", draw, duration }) {
 export function useScrollbar(ref, { exclude = [], props = [] } = {}) {
   useLayoutEffect(() => {
     const el = ref.current;
+
+    if (!el) return;
+
     if (!Array.isArray(exclude)) {
       exclude = [exclude];
     }

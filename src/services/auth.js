@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { login, logout } from "./api";
 import { setCookie, deleteCookie } from "./utils";
 import { getUser, SET_USER, CLEAR_USER } from "./actions/user";
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export function useAuth() {
   const { user, userRequest, userSuccess, userErrorMessage } = useSelector(
@@ -23,7 +22,7 @@ export function useAuth() {
     console.log("signIn", data);
     const accessToken = data.accessToken.split("Bearer ")[1];
     if (accessToken) {
-      setCookie("accessToken", accessToken);
+      setCookie("accessToken", accessToken, 20);
     }
 
     localStorage.setItem("refreshToken", data.refreshToken);

@@ -81,10 +81,22 @@ function Logout() {
   );
 }
 
+function OrderList() {
+  const orderListRef = useRef();
+  useScrollbar(orderListRef);
+  return (
+    <ul className={styles.orderList} ref={orderListRef}>
+      {ordersList.map((order) => (
+        <li key={order.number} className="mb-6 mr-2">
+          <OrderItem order={order} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function ProfilePage() {
   const { path } = useRouteMatch();
-  const orderListRef = useRef();
-  useScrollbar(orderListRef.current);
   return (
     <section className={cn(styles.container, "mt-10")}>
       <Menu />
@@ -92,13 +104,7 @@ export function ProfilePage() {
         <ProfileForm />
       </Route>
       <Route path={`${path}/orders`} exact>
-        <ul className={styles.orderList} ref={orderListRef}>
-          {ordersList.map((order) => (
-            <li key={order.number} className="mb-6 mr-2">
-              <OrderItem order={order} />
-            </li>
-          ))}
-        </ul>
+        <OrderList />
       </Route>
       <Route path={`${path}/logout`} exact>
         <Logout />
