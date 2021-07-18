@@ -12,14 +12,13 @@ export function useAuth() {
 
   useEffect(() => {
     if (!userRequest && !userLoaded) {
-      console.log("auth: dispatch load user");
       dispatch(getUser());
     }
   }, []);
 
   const signIn = async (params) => {
     const data = await login(params);
-    console.log("signIn", data);
+    //console.log("signIn", data);
     dispatch({ type: SET_USER, user: data.user });
     return data;
   };
