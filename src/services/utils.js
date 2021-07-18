@@ -92,7 +92,7 @@ export function formatPastDate(date) {
     past = "Вчера";
   } else {
     const days = Math.ceil((today - date) / (24 * 3600 * 1000));
-    past = `${days} дня назад`;
+    past = `${days} ${days > 4 ? "дней" : "дня"} назад`;
   }
 
   return `${past}, ${hours}:${minutes} i-GMT${

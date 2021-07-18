@@ -105,7 +105,10 @@ export async function loadIngredients() {
 }
 
 export async function checkoutOrder(items = []) {
-  return await fetchPost(routes.orders, { ingredients: items });
+  return await fetchWithRefresh(routes.orders, {
+    method: "POST",
+    params: { ingredients: items },
+  });
 }
 
 export async function login(params) {

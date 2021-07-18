@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect, useHistory } from "react-router-dom";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import {
@@ -12,6 +13,8 @@ import { useDrop } from "react-dnd";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import DragElement from "./drag-element/drag-element";
+
+import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
 
 import { animate, useScrollbar } from "../../services/utils";
 
@@ -86,6 +89,16 @@ function BurgerConstructor({ className }) {
     exclude: [bottomBunRef, footerRef],
     props: [bunItem, items.length === 0],
   });
+
+  let history = useHistory();
+  if (orderError === "jwt malformed") {
+    dispatch({
+      type: CHECKOUT_ORDER_ERROR,
+      message: "",
+    });
+    history.replace("/login");
+    return null;
+  }
 
   return (
     <section
