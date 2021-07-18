@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import appStyles from "../components/app/app.module.css";
 
 export function getCookie(name) {
@@ -179,4 +179,13 @@ export function useScrollbar(
       el.style.maxHeight = "";
     };
   }, props);
+}
+
+// Хук: получаем предыдущее значение пропса или состояния
+export function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
 }

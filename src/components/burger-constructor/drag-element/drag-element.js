@@ -10,18 +10,9 @@ import { useDrag, useDrop } from "react-dnd";
 
 import { REORDER_CONSTRUCTOR_INGREDIENTS } from "../../../services/actions/constructor";
 
-import { animate } from "../../../services/utils";
+import { animate, usePrevious } from "../../../services/utils";
 
 import styles from "./drag-element.module.css";
-
-// Хук: получаем предыдущее значение пропса или состояния
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-}
 
 function DragElement({ item, index, onDelete = () => {} }) {
   const dispatch = useDispatch();

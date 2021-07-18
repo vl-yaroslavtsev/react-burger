@@ -15,15 +15,38 @@ import styles from "./profile-form.module.css";
 export default function ProfileForm() {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const { data, loading, error, register, values, setValues, handleSubmit } =
-    useFormSubmit({
-      onSubmit: updateUser,
-    });
+  const {
+    data,
+    dataChanged,
+    loading,
+    error,
+    register,
+    values,
+    setValues,
+    handleSubmit,
+  } = useFormSubmit({
+    onSubmit: updateUser,
+  });
+
   const footerVisible = !isEqual({ ...user, password: "" }, values);
 
   const handleCancel = () => {
     setValues({ ...user, password: "" });
   };
+
+  if (
+    data &&
+    dataChanged &&
+    !isEqual(values, {
+      ...data.user,
+      password: "",
+    })
+  ) {
+    setValues({
+      ...data.user,
+      password: "",
+    });
+  }
 
   if (data && user !== data.user) {
     dispatch({ type: SET_USER, user: data.user });

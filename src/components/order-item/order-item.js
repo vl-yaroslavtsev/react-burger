@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { memo } from "react";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";

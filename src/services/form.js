@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const emailRegExp =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -72,6 +72,23 @@ export function useFormSubmit({ onSubmit }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const prevDataRef = useRef(null);
+
+  console.log(
+    "useFormSubmit render: ",
+    prevDataRef.current,
+    data,
+    prevDataRef.current === data
+  );
+  useEffect(() => {
+    prevDataRef.current = data;
+    console.log(
+      "useFormSubmit: useEffect",
+      prevDataRef.current,
+      data,
+      prevDataRef.current === data
+    );
+  });
 
   const rulesRef = useRef({});
   const handleChange = (e) => {
@@ -139,6 +156,7 @@ export function useFormSubmit({ onSubmit }) {
   return {
     handleSubmit,
     data,
+    dataChanged: data !== prevDataRef.current,
     error,
     loading,
     values,
