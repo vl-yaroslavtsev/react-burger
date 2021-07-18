@@ -6,16 +6,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import PasswordInput from "../components/password-input/password-input";
-import { Link } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useFormSubmit } from "../services/form";
 import { resetPassword } from "../services/api";
 
 import styles from "./reset-password.module.css";
 
 export function ResetPasswordPage() {
+  const location = useLocation();
   const { data, loading, error, register, handleSubmit } = useFormSubmit({
     onSubmit: resetPassword,
   });
+
+  if (!location.state?.email) {
+    return <Redirect to="/forgot-password" />
+  }
 
   if (data) {
     return (

@@ -11,12 +11,15 @@ import { checkResetPassword } from "../services/api";
 import styles from "./forgot-password.module.css";
 
 export function ForgotPasswordPage() {
-  const { data, loading, error, register, handleSubmit } = useFormSubmit({
+  const { data, loading, error, register, values, handleSubmit } = useFormSubmit({
     onSubmit: checkResetPassword,
   });
 
   if (data) {
-    return <Redirect to="/reset-password" />;
+    return <Redirect to={{
+      pathname: "/reset-password",
+      state: { email: values.email }
+    }} />;
   }
 
   return (
