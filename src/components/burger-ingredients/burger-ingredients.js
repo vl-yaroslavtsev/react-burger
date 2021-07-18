@@ -73,12 +73,14 @@ function BurgerIngredients() {
   const modalOnClose = useCallback(() => {
     setDetailsShown(false);
     dispatch({ type: CLEAR_CURRENT_INGREDIENT });
+    window.history.replaceState({}, undefined, "/");
   }, [dispatch]);
 
   const ingredientOnClick = useCallback(
     (e, item) => {
       dispatch({ type: SET_CURRENT_INGREDIENT, current: item });
       setDetailsShown(true);
+      window.history.pushState({}, undefined, `/ingredients/${item._id}`);
     },
     [dispatch]
   );
@@ -188,7 +190,10 @@ function BurgerIngredients() {
                       .filter(({ type }) => type === key)
                       .map((item, index) => {
                         return (
-                          <li className={cn(styles.ingredient, "mb-8")}>
+                          <li
+                            className={cn(styles.ingredient, "mb-8")}
+                            key={item._id}
+                          >
                             <Ingredient
                               count={counterMap[item._id]}
                               onClick={ingredientOnClick}

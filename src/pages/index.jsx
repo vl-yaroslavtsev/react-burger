@@ -7,6 +7,7 @@ import { ProfilePage } from "./profile";
 import { ProfileOrderPage } from "./profile-order";
 import { FeedPage } from "./feed";
 import { FeedOrderPage } from "./feed-order";
+import { IngredientPage } from "./ingredient";
 import { NotFound404 } from "./not-found";
 
 export {
@@ -19,5 +20,6 @@ export {
   ProfileOrderPage,
   FeedPage,
   FeedOrderPage,
+  IngredientPage,
   NotFound404,
 };

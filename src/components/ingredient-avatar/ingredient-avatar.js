@@ -11,6 +11,7 @@ export function IngredientAvatar({ image, count = 0 }) {
         className={styles.ingredientImage}
         width={112}
         height={56}
+        alt="ingredient"
       />
       {count > 0 && (
         <i className={cn(styles.ingredientFg, "text text_type_main-default")}>

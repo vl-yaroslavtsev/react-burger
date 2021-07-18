@@ -12,6 +12,7 @@ import {
   ProfileOrderPage,
   FeedPage,
   FeedOrderPage,
+  IngredientPage,
   NotFound404,
 } from "../../pages";
 import AppHeader from "../app-header/app-header";
@@ -51,6 +52,9 @@ function App() {
             </Route>
             <Route path="/feed" exact={true}>
               <FeedPage />
+            </Route>
+            <Route path="/ingredients/:id" exact={true}>
+              <IngredientPage />
             </Route>
             <Route>
               <NotFound404 />

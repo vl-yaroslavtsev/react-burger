@@ -19,11 +19,11 @@ export default function PasswordInput(props) {
 
   return (
     <Input
+      {...props}
       ref={inputRef}
       type={isValueHidden ? "password" : "text"}
       icon={isValueHidden ? "ShowIcon" : "HideIcon"}
       onIconClick={handleIconClick}
-      {...props}
     />
   );
 }

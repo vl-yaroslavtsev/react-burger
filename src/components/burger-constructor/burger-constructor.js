@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import {
