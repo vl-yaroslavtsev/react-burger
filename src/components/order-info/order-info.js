@@ -39,7 +39,7 @@ function Ingredients({ ingredients = [], listRef }) {
 const OrderInfo = memo(({ order }) => {
   const listRef = useRef();
   const footerRef = useRef();
-  useScrollbar(listRef, { exclude: footerRef });
+  useScrollbar(listRef, { exclude: footerRef, maxHeight: 312 });
   return (
     <section className={cn(styles.container)}>
       <h2 className={cn(styles.number, "text text_type_digits-default mt-2")}>

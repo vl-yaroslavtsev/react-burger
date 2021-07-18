@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useEffect } from "react";
 import appStyles from "../components/app/app.module.css";
 
 export function getCookie(name) {
@@ -140,8 +140,11 @@ export function animate({ timing = "easeInOut", draw, duration }) {
   });
 }
 
-export function useScrollbar(ref, { exclude = [], props = [] } = {}) {
-  useLayoutEffect(() => {
+export function useScrollbar(
+  ref,
+  { exclude = [], props = [], maxHeight } = {}
+) {
+  useEffect(() => {
     const el = ref.current;
 
     if (!el) return;
@@ -162,7 +165,13 @@ export function useScrollbar(ref, { exclude = [], props = [] } = {}) {
       );
     }, 0);
     const { top } = el.getBoundingClientRect();
-    el.style.maxHeight = `calc(100vh - ${top + bottom}px)`;
+    if (maxHeight) {
+      el.style.maxHeight = `calc(min(100vh - ${
+        top + bottom
+      }px, ${maxHeight}px))`;
+    } else {
+      el.style.maxHeight = `calc(100vh - ${top + bottom}px)`;
+    }
     el.classList.add(appStyles.customScrollbar);
 
     return () => {

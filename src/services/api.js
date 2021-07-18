@@ -1,4 +1,4 @@
-import { getCookie } from "./utils";
+import { getCookie, setCookie, deleteCookie } from "./utils";
 
 const API_URL = "https://norma.nomoreparties.space/api";
 const routes = {
@@ -17,11 +17,33 @@ const routes = {
   },
 };
 
-class StatusError extends Error {
-  constructor(message, status) {
-    super(message);
-    this.status = status;
+function translate(msg) {
+  switch (msg) {
+    case "email or password are incorrect":
+      return "Введены неверные Email или пароль";
+    case "Incorrect reset token":
+      return "Неверный токен для сброса пароля";
+    default:
+      return msg;
   }
+}
+
+async function checkResponse(res) {
+  let json;
+  try {
+    json = await res.json();
+  } catch (ex) {}
+
+  if (json && !json.success) {
+    json.message = translate(json.message);
+    throw json;
+  }
+
+  if (!res.ok) {
+    throw new Error(`Статус: ${res.status}.`);
+  }
+
+  return json;
 }
 
 async function fetchPost(url, params) {
@@ -33,38 +55,52 @@ async function fetchPost(url, params) {
     body: JSON.stringify(params),
   });
 
-  let json;
+  return checkResponse(res);
+}
+
+function setTokens({ accessToken, refreshToken }) {
+  if (accessToken) {
+    accessToken = accessToken.split("Bearer ")[1];
+    setCookie("accessToken", accessToken);
+  }
+  localStorage.setItem("refreshToken", refreshToken);
+}
+
+async function refreshToken() {
+  const data = await fetchPost(routes.auth.token, {
+    token: localStorage.getItem("refreshToken"),
+  });
+  setTokens(data);
+  return data;
+}
+
+async function fetchWithRefresh(url, { params = {}, method = "GET" } = {}) {
   try {
-    json = await res.json();
-  } catch (ex) {}
-
-  if (!res.ok) {
-    throw new StatusError(
-      `Статус: ${res.status}. ${json?.message}`,
-      res.status
-    );
+    let options = {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("accessToken"),
+      },
+    };
+    if (method !== "GET") {
+      options.headers.body = JSON.stringify(params);
+    }
+    const res = await fetch(url, options);
+    return checkResponse(res);
+  } catch (err) {
+    if (err.message === "jwt expired") {
+      await refreshToken();
+      return fetchWithRefresh(url, params, method);
+    } else {
+      throw err;
+    }
   }
-
-  if (!json.success) {
-    throw new Error(json.message);
-  }
-
-  return json;
 }
 
 export async function loadIngredients() {
   const res = await fetch(routes.ingredients);
-
-  if (!res.ok) {
-    throw new StatusError(`Статус: ${res.status}`, res.status);
-  }
-
-  const json = await res.json();
-
-  if (!json.success) {
-    throw new Error(json.message);
-  }
-
+  const json = await checkResponse(res);
   return json.data;
 }
 
@@ -73,21 +109,18 @@ export async function checkoutOrder(items = []) {
 }
 
 export async function login(params) {
-  try {
-    return await fetchPost(routes.auth.login, params);
-  } catch (err) {
-    if (err.status === 401) {
-      throw new Error("Введены неверные Email или пароль.");
-    }
-
-    throw err;
-  }
+  const data = await fetchPost(routes.auth.login, params);
+  setTokens(data);
+  return data;
 }
 
 export async function logout() {
-  return await fetchPost(routes.auth.logout, {
+  const data = await fetchPost(routes.auth.logout, {
     token: localStorage.getItem("refreshToken"),
   });
+  deleteCookie("accessToken");
+  localStorage.removeItem("refreshToken");
+  return data;
 }
 
 export async function register(params) {
@@ -103,45 +136,9 @@ export async function resetPassword(params) {
 }
 
 export async function loadUser() {
-  const res = await fetch(routes.auth.user, {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("accessToken"),
-    },
-  });
-
-  if (!res.ok) {
-    throw new StatusError(`Статус: ${res.status}`, res.status);
-  }
-
-  const json = await res.json();
-
-  if (!json.success) {
-    throw new Error(json.message);
-  }
-
-  return json;
+  return await fetchWithRefresh(routes.auth.user);
 }
 
 export async function updateUser(params) {
-  const res = await fetch(routes.auth.user, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("accessToken"),
-    },
-    body: JSON.stringify(params),
-  });
-
-  if (!res.ok) {
-    throw new StatusError(`Статус: ${res.status}`, res.status);
-  }
-
-  const json = await res.json();
-
-  if (!json.success) {
-    throw new Error(json.message);
-  }
-
-  return json;
+  return await fetchWithRefresh(routes.auth.user, { method: "PATCH", params });
 }
