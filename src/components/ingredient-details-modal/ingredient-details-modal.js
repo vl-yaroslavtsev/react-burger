@@ -1,7 +1,7 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -9,9 +9,20 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 const IngredientDetailsModal = memo(() => {
   const { id } = useParams();
   const history = useHistory();
+  const location = useLocation();
   const { items: ingredients } = useSelector((store) => store.ingredients);
 
   const ingredient = ingredients.find(({ _id }) => _id === id) || null;
+
+  useEffect(() => {
+    window.history.replaceState(
+      {
+        ...location.state,
+        background: null,
+      },
+      ""
+    );
+  }, []);
 
   const modalOnClose = useCallback(() => {
     history.goBack();

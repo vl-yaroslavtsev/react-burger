@@ -22,7 +22,7 @@ import IngredientDetailsModal from "../ingredient-details-modal/ingredient-detai
 
 function App() {
   const location = useLocation();
-  const background = location.state && location.state.background;
+  const background = location.state?.background;
   return (
     <div className={styles.app}>
       <AppHeader />
