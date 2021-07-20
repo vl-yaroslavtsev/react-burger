@@ -4,9 +4,7 @@ import appStyles from "../components/app/app.module.css";
 export function getCookie(name) {
   const matches = document.cookie.match(
     new RegExp(
-      "(?:^|; )" +
-        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-        "=([^;]*)"
+      "(?:^|; )" + name.replace(/([.$?*|{}()[]\\\/+^])/g, "\\$1") + "=([^;]*)"
     )
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
@@ -54,13 +52,13 @@ export function isEqual(obj1, obj2) {
       case "function":
         if (
           typeof obj2[p] == "undefined" ||
-          (p != "compare" && obj1[p].toString() != obj2[p].toString())
+          (p !== "compare" && obj1[p].toString() !== obj2[p].toString())
         )
           return false;
         break;
       // Сравнение значений:
       default:
-        if (obj1[p] != obj2[p]) return false;
+        if (obj1[p] !== obj2[p]) return false;
     }
   }
 
@@ -144,14 +142,14 @@ export function useScrollbar(
   ref,
   { exclude = [], props = [], maxHeight } = {}
 ) {
+  if (!Array.isArray(exclude)) {
+    exclude = [exclude];
+  }
   useEffect(() => {
     const el = ref.current;
 
     if (!el) return;
 
-    if (!Array.isArray(exclude)) {
-      exclude = [exclude];
-    }
     const bottom = exclude.reduce((acc, ref) => {
       const el = ref.current;
       if (!el) return acc;
@@ -178,7 +176,7 @@ export function useScrollbar(
       el.classList.remove(appStyles.customScrollbar);
       el.style.maxHeight = "";
     };
-  }, props);
+  }, [ref, maxHeight, exclude, ...props]);
 }
 
 // Хук: получаем предыдущее значение пропса или состояния

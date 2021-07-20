@@ -1,27 +1,12 @@
 import styles from "./burger-ingredients.module.css";
 
-import {
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useCallback,
-  useMemo,
-} from "react";
+import { useState, useRef, useEffect, useLayoutEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Route,
-  useLocation,
-  useHistory,
-  Link,
-  useParams,
-} from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import { animate, useScrollbar } from "../../services/utils";
 import { getIngredients } from "../../services/actions/ingredients";
 
@@ -70,7 +55,7 @@ function BurgerIngredients() {
     if (ingredients.length === 0) {
       dispatch(getIngredients());
     }
-  }, []);
+  }, [dispatch, ingredients.length]);
 
   const scrollToTabSection = (tab) => {
     const el = ingredientsRef.current;
@@ -199,7 +184,7 @@ function BurgerIngredients() {
                 </li>
               );
             }),
-          [ingredients, counterMap]
+          [location, ingredients, counterMap]
         )}
       </ul>
     </section>

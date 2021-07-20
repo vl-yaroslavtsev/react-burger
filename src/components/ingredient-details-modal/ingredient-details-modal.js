@@ -15,7 +15,7 @@ const IngredientDetailsModal = memo(() => {
 
   const modalOnClose = useCallback(() => {
     history.goBack();
-  }, []);
+  }, [history]);
 
   return (
     ingredient && (

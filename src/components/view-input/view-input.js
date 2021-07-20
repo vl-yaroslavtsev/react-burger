@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useRef } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import "./view-input.module.css";

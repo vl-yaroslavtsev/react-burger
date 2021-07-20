@@ -1,7 +1,6 @@
 import styles from "./app-header.module.css";
 
-import React from "react";
-import { useRouteMatch, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import cn from "classnames";
 import {
   BurgerIcon,

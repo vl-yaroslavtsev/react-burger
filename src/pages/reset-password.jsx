@@ -1,4 +1,3 @@
-import { useState } from "react";
 import cn from "classnames";
 import {
   Input,
@@ -19,7 +18,7 @@ export function ResetPasswordPage() {
   });
 
   if (!location.state?.email) {
-    return <Redirect to="/forgot-password" />
+    return <Redirect to="/forgot-password" />;
   }
 
   if (data) {

@@ -60,7 +60,7 @@ function Menu() {
           В этом разделе вы можете просмотреть свою историю заказов
         </Route>
       </footer>
-    </nav >
+    </nav>
   );
 }
 
@@ -70,7 +70,7 @@ function Logout() {
 
   useEffect(() => {
     signOut().catch((err) => setLogoutError(err.message));
-  }, []);
+  }, [signOut]);
 
   return logoutError ? (
     <p className={cn(styles.error, "text text_type_main-default mt-20")}>
