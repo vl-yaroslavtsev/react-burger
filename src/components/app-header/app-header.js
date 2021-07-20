@@ -1,6 +1,7 @@
 import styles from "./app-header.module.css";
 
 import React from "react";
+import { useRouteMatch, Link } from "react-router-dom";
 import cn from "classnames";
 import {
   BurgerIcon,
@@ -31,7 +32,9 @@ function AppHeader() {
           </nav>
         </li>
         <li className={styles.contentItemCenter}>
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
         </li>
         <li className={styles.contentItemRight}>
           <HeaderItem icon={ProfileIcon} path="/profile">

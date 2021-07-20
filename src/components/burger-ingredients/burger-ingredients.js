@@ -9,6 +9,13 @@ import {
   useMemo,
 } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  Route,
+  useLocation,
+  useHistory,
+  Link,
+  useParams,
+} from "react-router-dom";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -16,11 +23,7 @@ import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { animate, useScrollbar } from "../../services/utils";
-import {
-  getIngredients,
-  SET_CURRENT_INGREDIENT,
-  CLEAR_CURRENT_INGREDIENT,
-} from "../../services/actions/ingredients";
+import { getIngredients } from "../../services/actions/ingredients";
 
 const GROUP_NAME = {
   bun: "Булки",
@@ -30,12 +33,11 @@ const GROUP_NAME = {
 
 function BurgerIngredients() {
   const [currentTab, setCurrentTab] = useState("bun");
-  const [detailsShown, setDetailsShown] = useState(false);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const {
-    current: currentIngredient,
     items: ingredients,
     itemsErrorMessage: error,
     itemsRequest: loading,
@@ -69,21 +71,6 @@ function BurgerIngredients() {
       dispatch(getIngredients());
     }
   }, []);
-
-  const modalOnClose = useCallback(() => {
-    setDetailsShown(false);
-    dispatch({ type: CLEAR_CURRENT_INGREDIENT });
-    window.history.replaceState({}, undefined, "/");
-  }, [dispatch]);
-
-  const ingredientOnClick = useCallback(
-    (e, item) => {
-      dispatch({ type: SET_CURRENT_INGREDIENT, current: item });
-      setDetailsShown(true);
-      window.history.pushState({}, undefined, `/ingredients/${item._id}`);
-    },
-    [dispatch]
-  );
 
   const scrollToTabSection = (tab) => {
     const el = ingredientsRef.current;
@@ -194,11 +181,17 @@ function BurgerIngredients() {
                             className={cn(styles.ingredient, "mb-8")}
                             key={item._id}
                           >
-                            <Ingredient
-                              count={counterMap[item._id]}
-                              onClick={ingredientOnClick}
-                              item={item}
-                            />
+                            <Link
+                              to={{
+                                pathname: `/ingredients/${item._id}`,
+                                state: { background: location },
+                              }}
+                            >
+                              <Ingredient
+                                count={counterMap[item._id]}
+                                item={item}
+                              />
+                            </Link>
                           </li>
                         );
                       })}
@@ -206,18 +199,9 @@ function BurgerIngredients() {
                 </li>
               );
             }),
-          [ingredients, ingredientOnClick, counterMap]
+          [ingredients, counterMap]
         )}
       </ul>
-      <Modal
-        header="Детали ингридиента"
-        visible={detailsShown}
-        onClose={modalOnClose}
-      >
-        {currentIngredient && (
-          <IngredientDetails ingredient={currentIngredient} />
-        )}
-      </Modal>
     </section>
   );
 }
