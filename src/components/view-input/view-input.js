@@ -3,7 +3,7 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import "./view-input.module.css";
 
-export default function ViewInput(props) {
+export default function ViewInput({ setValue, ...props }) {
   const [isEditMode, setEditMode] = useState(false);
   const inputRef = useRef(null);
   let iconClick = false;
@@ -12,13 +12,7 @@ export default function ViewInput(props) {
     const el = inputRef.current;
     iconClick = true;
     if (isEditMode) {
-      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        window.HTMLInputElement.prototype,
-        "value"
-      ).set;
-      nativeInputValueSetter.call(el, "");
-
-      el.dispatchEvent(new Event("input", { bubbles: true }));
+      setValue("");
       el.focus();
     } else {
       setEditMode(true);

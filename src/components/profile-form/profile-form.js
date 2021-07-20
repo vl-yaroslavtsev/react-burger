@@ -30,6 +30,10 @@ export default function ProfileForm() {
 
   const footerVisible = !isEqual({ ...user, password: "" }, values);
 
+  const createSetValue = (name) => {
+    return (value) => setValues({ ...values, [name]: value });
+  };
+
   const handleCancel = () => {
     setValues({ ...user, password: "" });
   };
@@ -63,6 +67,7 @@ export default function ProfileForm() {
         <ViewInput
           type="text"
           placeholder="Имя"
+          setValue={createSetValue("name")}
           {...register("name", {
             value: user.name,
             validate: { required: true, minLength: 3 },
@@ -74,6 +79,7 @@ export default function ProfileForm() {
         <ViewInput
           type="email"
           placeholder="Логин"
+          setValue={createSetValue("email")}
           {...register("email", {
             value: user.email,
             validate: { required: true, email: true },
@@ -85,6 +91,7 @@ export default function ProfileForm() {
         <ViewInput
           placeholder="Пароль"
           type="password"
+          setValue={createSetValue("password")}
           {...register("password", { validate: { minLength: 6 } })}
           disabled={loading}
         />
