@@ -1,6 +1,6 @@
 import styles from "./app.module.css";
 
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import {
   HomePage,
@@ -22,7 +22,8 @@ import IngredientDetailsModal from "../ingredient-details-modal/ingredient-detai
 
 function App() {
   const location = useLocation();
-  const background = location.state?.background;
+  const history = useHistory();
+  const background = history.action === "PUSH" && location.state?.background;
   return (
     <div className={styles.app}>
       <AppHeader />

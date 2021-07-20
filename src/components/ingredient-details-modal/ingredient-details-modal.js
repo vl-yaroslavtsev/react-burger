@@ -9,20 +9,9 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 const IngredientDetailsModal = memo(() => {
   const { id } = useParams();
   const history = useHistory();
-  const location = useLocation();
   const { items: ingredients } = useSelector((store) => store.ingredients);
 
   const ingredient = ingredients.find(({ _id }) => _id === id) || null;
-
-  useEffect(() => {
-    window.history.replaceState(
-      {
-        ...location.state,
-        background: null,
-      },
-      ""
-    );
-  }, []);
 
   const modalOnClose = useCallback(() => {
     history.goBack();
