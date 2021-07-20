@@ -1,18 +1,14 @@
 import styles from "./burger-ingredients.module.css";
 
-import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { useState, useRef, useEffect, useLayoutEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocation, Link } from "react-router-dom";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import Modal from "../modal/modal";
 import Ingredient from "./ingredient/ingredient";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import {
-  getIngredients,
-  SET_CURRENT_INGREDIENT,
-  CLEAR_CURRENT_INGREDIENT,
-} from "../../services/actions/ingredients";
+import { animate, useScrollbar } from "../../services/utils";
+import { getIngredients } from "../../services/actions/ingredients";
 
 const GROUP_NAME = {
   bun: "Булки",
@@ -22,12 +18,11 @@ const GROUP_NAME = {
 
 function BurgerIngredients() {
   const [currentTab, setCurrentTab] = useState("bun");
-  const [detailsShown, setDetailsShown] = useState(false);
 
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const {
-    current: currentIngredient,
     items: ingredients,
     itemsErrorMessage: error,
     itemsRequest: loading,
@@ -38,6 +33,7 @@ function BurgerIngredients() {
   );
 
   const ingredientsRef = useRef(null);
+  useScrollbar(ingredientsRef);
 
   const counterMap = useMemo(
     () =>
@@ -55,27 +51,24 @@ function BurgerIngredients() {
     [ingredients, constructorItems, bunItem]
   );
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
-  const modalOnClose = useCallback(() => {
-    setDetailsShown(false);
-    dispatch({ type: CLEAR_CURRENT_INGREDIENT });
-  }, [dispatch]);
-
-  const ingredientOnClick = useCallback(
-    (e, item) => {
-      dispatch({ type: SET_CURRENT_INGREDIENT, current: item });
-      setDetailsShown(true);
-    },
-    [dispatch]
-  );
+  useLayoutEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(getIngredients());
+    }
+  }, [dispatch, ingredients.length]);
 
   const scrollToTabSection = (tab) => {
     const el = ingredientsRef.current;
     const section = el.querySelector(`[data-group="${tab}"]`);
-    el.scrollTop = section?.offsetTop;
+    const startScroll = el.scrollTop;
+    const endScroll = section?.offsetTop;
+
+    animate({
+      draw(progress) {
+        el.scrollTop = startScroll + (endScroll - startScroll) * progress;
+      },
+      duration: 400,
+    });
   };
 
   useEffect(() => {
@@ -173,11 +166,17 @@ function BurgerIngredients() {
                             className={cn(styles.ingredient, "mb-8")}
                             key={item._id}
                           >
-                            <Ingredient
-                              count={counterMap[item._id]}
-                              onClick={ingredientOnClick}
-                              item={item}
-                            />
+                            <Link
+                              to={{
+                                pathname: `/ingredients/${item._id}`,
+                                state: { background: location },
+                              }}
+                            >
+                              <Ingredient
+                                count={counterMap[item._id]}
+                                item={item}
+                              />
+                            </Link>
                           </li>
                         );
                       })}
@@ -185,18 +184,9 @@ function BurgerIngredients() {
                 </li>
               );
             }),
-          [ingredients, ingredientOnClick, counterMap]
+          [location, ingredients, counterMap]
         )}
       </ul>
-      <Modal
-        header="Детали ингридиента"
-        visible={detailsShown}
-        onClose={modalOnClose}
-      >
-        {currentIngredient && (
-          <IngredientDetails ingredient={currentIngredient} />
-        )}
-      </Modal>
     </section>
   );
 }

@@ -29,7 +29,7 @@ export const doCheckoutOrder = () => async (dispatch, getState) => {
   } catch (err) {
     dispatch({
       type: CHECKOUT_ORDER_ERROR,
-      message: `Что-то пошло не так. Попробуйте оформить заказ позже.\n${err.message}`,
+      message: err.message,
     });
   }
 };

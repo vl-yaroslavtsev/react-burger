@@ -1,8 +1,43 @@
 .app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .main {
-  max-wigth: 1240px;
+  max-width: 1240px;
+  width: 100%;
   display: flex;
   justify-content: center;
+  flex-grow: 1;
+  margin: 0 auto;
+}
+
+.customScrollbar {
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+@-moz-document url-prefix() {
+  .customScrollbar {
+    scrollbar-color: #8585ad #2f2f37;
+  }
+}
+
+.customScrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.customScrollbar::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.customScrollbar::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.textSpaceShadow {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
+    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
 }

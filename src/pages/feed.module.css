@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+}
+
+.orderList {
+  flex-grow: 1;
+}
+
+.statistic {
+  width: 580px;
+}
+
+.statisticGrid {
+  display: flex;
+}
+
+.statisticGridItem {
+  flex: 1 1 20%;
+}
+
+.success {
+  color: var(--colors-interface-success);
+}

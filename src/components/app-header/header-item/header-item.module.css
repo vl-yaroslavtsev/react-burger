@@ -1,4 +1,5 @@
 .container {
   display: inline-flex;
   border-radius: 40px;
+  color: var(--text-primary-color);
 }

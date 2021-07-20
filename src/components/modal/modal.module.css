@@ -37,20 +37,7 @@
 }
 
 .content {
-  overflow-y: auto;
-}
-
-.content::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.content::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.content::-webkit-scrollbar-thumb {
-  background: #8585ad;
+  composes: customScrollbar from "../app/app.module.css";
 }
 
 .closeButton {

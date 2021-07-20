@@ -6,7 +6,8 @@
 
   position: relative;
   box-sizing: border-box;
-  cursor: grab;
+  cursor: move;
+  color: var(--text-primary-color);
 }
 
 .price {

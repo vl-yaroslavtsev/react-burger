@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import {
@@ -12,6 +13,10 @@ import { useDrop } from "react-dnd";
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import DragElement from "./drag-element/drag-element";
+
+import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
+
+import { animate, useScrollbar } from "../../services/utils";
 
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
@@ -37,8 +42,18 @@ function BurgerConstructor({ className }) {
   const dispatch = useDispatch();
 
   const elementOnDelete = useCallback(
-    (item) => {
-      dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, item });
+    (item, ref) => {
+      const el = ref.current;
+      const height = el.offsetHeight;
+      el.style.zIndex = -1;
+      animate({
+        draw(progress) {
+          el.style.opacity = 1 - progress;
+          el.style.marginTop = `-${height * progress}px`;
+        },
+        duration: 500,
+        timing: "easeOut",
+      }).then(() => dispatch({ type: REMOVE_CONSTRUCTOR_INGREDIENT, item }));
     },
     [dispatch]
   );
@@ -56,12 +71,34 @@ function BurgerConstructor({ className }) {
     dispatch(doCheckoutOrder());
   }
 
-  const [, dropIngredientsRef] = useDrop({
+  const [{ isOver, canDrop }, dropIngredientsRef] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item, monitor) {
       dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
     },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
   });
+
+  const listRef = useRef();
+  const bottomBunRef = useRef();
+  const footerRef = useRef();
+  useScrollbar(listRef, {
+    exclude: [bottomBunRef, footerRef],
+    props: [bunItem, items.length === 0],
+  });
+
+  let history = useHistory();
+  if (orderError === "jwt malformed") {
+    dispatch({
+      type: CHECKOUT_ORDER_ERROR,
+      message: "",
+    });
+    history.replace("/login");
+    return null;
+  }
 
   return (
     <section
@@ -69,6 +106,20 @@ function BurgerConstructor({ className }) {
       ref={dropIngredientsRef}
     >
       <ul className={styles.elements}>
+        {!bunItem && !items.length && (
+          <li
+            className={cn(
+              styles.dragMessage,
+              "text text_type_main-medium pt-25 pb-25",
+              {
+                [styles.dragMessageOver]: isOver,
+                text_color_inactive: !canDrop,
+              }
+            )}
+          >
+            Перетащите ингридиенты сюда
+          </li>
+        )}
         {bunItem && (
           <li className="ml-8 mr-4 mb-4">
             <ConstructorElement
@@ -81,7 +132,10 @@ function BurgerConstructor({ className }) {
           </li>
         )}
         <li>
-          <ul className={cn(styles.elementsScroll, "noselect pr-2")}>
+          <ul
+            className={cn(styles.elementsScroll, "noselect pr-2")}
+            ref={listRef}
+          >
             {items.map((el, index) => {
               return (
                 <DragElement
@@ -95,7 +149,7 @@ function BurgerConstructor({ className }) {
           </ul>
         </li>
         {bunItem && (
-          <li className="ml-8 mr-4">
+          <li className="ml-8 mr-4" ref={bottomBunRef}>
             <ConstructorElement
               type="bottom"
               isLocked={true}
@@ -106,7 +160,7 @@ function BurgerConstructor({ className }) {
           </li>
         )}
       </ul>
-      <footer className={cn(styles.footer, "mt-10")}>
+      <footer className={cn(styles.footer, "mt-10 mb-2")} ref={footerRef}>
         <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
         <p className="text mr-10">
           <CurrencyIcon type="primary" />

@@ -7,8 +7,6 @@
 }
 
 .ingredientList {
-  list-style: none;
-  padding: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -16,33 +14,24 @@
 
 .ingredients {
   position: relative;
-  list-style: none;
-  padding: 0;
-  max-height: calc(100vh - 284px);
-  overflow-y: auto;
-}
-
-@-moz-document url-prefix() {
-  .ingredients {
-    scrollbar-color: #8585ad #2f2f37;
-  }
-}
-
-.ingredients::-webkit-scrollbar {
-  width: 8px;
-}
-
-.ingredients::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.ingredients::-webkit-scrollbar-thumb {
-  background: #8585ad;
+  height: 100vh;
 }
 
 .ingredient {
   flex: 0 1 calc(50% - 3 * var(--offset-base-size));
   cursor: pointer;
+}
+
+.enter {
+}
+.enterActive {
+}
+.exit {
+  opacity: 1;
+}
+.exitActive {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .hidden {

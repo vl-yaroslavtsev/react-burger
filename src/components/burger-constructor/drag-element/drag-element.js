@@ -10,16 +10,9 @@ import { useDrag, useDrop } from "react-dnd";
 
 import { REORDER_CONSTRUCTOR_INGREDIENTS } from "../../../services/actions/constructor";
 
-import styles from "./drag-element.module.css";
+import { animate, usePrevious } from "../../../services/utils";
 
-// Хук: получаем предыдущее значение пропса или состояния
-function usePrevious(value) {
-  const ref = useRef();
-  useEffect(() => {
-    ref.current = value;
-  }, [value]);
-  return ref.current;
-}
+import styles from "./drag-element.module.css";
 
 function DragElement({ item, index, onDelete = () => {} }) {
   const dispatch = useDispatch();
@@ -28,6 +21,18 @@ function DragElement({ item, index, onDelete = () => {} }) {
   const [isTransition, setTransition] = useState(false);
 
   const element = ref.current?.querySelector(".constructor-element");
+
+  useEffect(() => {
+    const el = ref.current;
+    el.style.opacity = 0;
+    animate({
+      draw(progress) {
+        el.style.opacity = progress;
+      },
+      duration: 500,
+      timing: "easeOut",
+    });
+  }, []);
 
   const [{ isDrag }, dragTargetRef] = useDrag({
     type: "constructorItem",
@@ -100,7 +105,7 @@ function DragElement({ item, index, onDelete = () => {} }) {
         text={item.name}
         price={item.price}
         thumbnail={item.image}
-        handleClose={() => onDelete(item)}
+        handleClose={() => onDelete(item, ref)}
       />
     </li>
   );
