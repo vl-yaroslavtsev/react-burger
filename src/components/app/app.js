@@ -19,6 +19,7 @@ import AppHeader from "../app-header/app-header";
 import { ProtectedRoute } from "../protected-route";
 import { UnauthorizedRoute } from "../unauthorized-route";
 import IngredientDetailsModal from "../ingredient-details-modal/ingredient-details-modal";
+import OrderInfoModal from "../order-info-modal/order-info-modal";
 
 function App() {
   const location = useLocation();
@@ -67,6 +68,16 @@ function App() {
       {background && (
         <Route path="/ingredients/:id">
           <IngredientDetailsModal />
+        </Route>
+      )}
+      {background && (
+        <Route path="/profile/orders/:id">
+          <OrderInfoModal />
+        </Route>
+      )}
+      {background && (
+        <Route path="/feed/:id">
+          <OrderInfoModal />
         </Route>
       )}
     </div>

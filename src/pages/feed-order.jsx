@@ -11,6 +11,9 @@ export function FeedOrderPage() {
   const order = ordersList.find(({ number }) => number === id);
   return (
     <section className={cn(styles.container)}>
+      <h2 className={cn(styles.number, "text text_type_digits-default mt-2  mb-10")}>
+        #{order.number}
+      </h2>
       <OrderInfo order={order} />
     </section>
   );

@@ -3,7 +3,7 @@ import cn from "classnames";
 import PropTypes from "prop-types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import { formatPastDate } from "../../services/utils";
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 
@@ -33,11 +33,15 @@ function Ingredients({ ingredients = [] }) {
 }
 
 const OrderItem = memo(({ order }) => {
+  const location = useLocation();
   const { path } = useRouteMatch();
   return (
     <Link
       className={cn(styles.container, "pl-6 pr-6 pb-6 pt-6")}
-      to={`${path}/${order.number}`}
+      to={{
+        pathname: `${path}/${order.number}`,
+        state: { background: location },
+      }}
     >
       <header className={styles.header}>
         <h2 className="text text_type_digits-default">#{order.number}</h2>

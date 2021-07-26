@@ -36,16 +36,13 @@ function Ingredients({ ingredients = [], listRef }) {
   );
 }
 
-const OrderInfo = memo(({ order }) => {
+const OrderInfo = memo(({ order, isInModal = false }) => {
   const listRef = useRef();
   const footerRef = useRef();
-  useScrollbar(listRef, { exclude: footerRef, maxHeight: 312 });
+  useScrollbar(listRef, { exclude: footerRef, maxHeight: 312, isInModal });
   return (
     <section className={cn(styles.container)}>
-      <h2 className={cn(styles.number, "text text_type_digits-default mt-2")}>
-        #{order.number}
-      </h2>
-      <h1 className="text text_type_main-medium mt-10">{order.name}</h1>
+      <h1 className="text text_type_main-medium mt-5">{order.name}</h1>
       {order.status && (
         <p
           className={cn("text text_type_main-default pt-3", {

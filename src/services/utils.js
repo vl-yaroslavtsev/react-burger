@@ -140,7 +140,7 @@ export function animate({ timing = "easeInOut", draw, duration }) {
 
 export function useScrollbar(
   ref,
-  { exclude = [], props = [], maxHeight } = {}
+  { exclude = [], props = [], maxHeight, isInModal } = {}
 ) {
   if (!Array.isArray(exclude)) {
     exclude = [exclude];
@@ -162,13 +162,14 @@ export function useScrollbar(
         parseInt(style.marginBottom)
       );
     }, 0);
+    const modalFix = isInModal ? " - 5vh - 41px" : "";
     const { top } = el.getBoundingClientRect();
+    const aroundSpace = Math.ceil(top + bottom);
     if (maxHeight) {
-      el.style.maxHeight = `calc(min(100vh - ${
-        top + bottom
-      }px, ${maxHeight}px))`;
+      el.style.maxHeight = `calc(min(100vh ${modalFix} - ${aroundSpace}px, 
+      ${maxHeight}px))`;
     } else {
-      el.style.maxHeight = `calc(100vh - ${top + bottom}px)`;
+      el.style.maxHeight = `calc(100vh ${modalFix} - ${aroundSpace}px)`;
     }
     el.classList.add(appStyles.customScrollbar);
 
