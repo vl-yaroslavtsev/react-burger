@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import appStyles from "../components/app/app.module.css";
 
 export function getCookie(name) {
@@ -145,7 +145,7 @@ export function useScrollbar(
   if (!Array.isArray(exclude)) {
     exclude = [exclude];
   }
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
 
     if (!el) return;
@@ -162,14 +162,14 @@ export function useScrollbar(
         parseInt(style.marginBottom)
       );
     }, 0);
-    const modalFix = isInModal ? " - 5vh - 41px" : "";
+    const modalFix = isInModal ? "(5vh + 41px)" : "0px";
     const { top } = el.getBoundingClientRect();
-    const aroundSpace = Math.ceil(top + bottom);
+    const aroundSpace = `(${modalFix} + ${Math.ceil(top + bottom)}px)`;
     if (maxHeight) {
-      el.style.maxHeight = `calc(min(100vh ${modalFix} - ${aroundSpace}px, 
+      el.style.maxHeight = `calc(min(100vh - ${aroundSpace}, 
       ${maxHeight}px))`;
     } else {
-      el.style.maxHeight = `calc(100vh ${modalFix} - ${aroundSpace}px)`;
+      el.style.maxHeight = `calc(100vh - ${aroundSpace})`;
     }
     el.classList.add(appStyles.customScrollbar);
 

@@ -10,8 +10,8 @@ export function ProfileOrderPage() {
   const { id } = useParams();
   const order = ordersList.find(({ number }) => number === id);
   return (
-    <section className={cn(styles.container)}>
-      <h2 className={cn(styles.number, "text text_type_digits-default mt-2 mb-10")}>
+    <section className={cn(styles.container, "mt-2 mb-2")}>
+      <h2 className={cn(styles.number, "text text_type_digits-default mb-10")}>
         #{order.number}
       </h2>
       <OrderInfo order={order} />

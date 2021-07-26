@@ -56,7 +56,7 @@ const OrderInfo = memo(({ order, isInModal = false }) => {
         <h1 className="text text_type_main-medium mb-6">Состав:</h1>
         <Ingredients ingredients={order.ingredients} listRef={listRef} />
       </section>
-      <footer className={cn(styles.footer, "mt-10 mb-2")} ref={footerRef}>
+      <footer className={cn(styles.footer, "mt-10")} ref={footerRef}>
         <span className="text text_type_main-default text_color_inactive">
           {formatPastDate(order.date)}
         </span>
