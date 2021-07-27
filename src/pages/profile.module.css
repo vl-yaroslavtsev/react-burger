@@ -4,13 +4,14 @@
 }
 
 .menu {
-  flex: 0 1 320px;
+  flex: 0 0 320px;
 }
 
 .menuItem {
   height: 60px;
   line-height: 60px;
   --colors-interface-accent: var(--text-inactive-color);
+  white-space: nowrap;
 }
 
 .menuItemActive {

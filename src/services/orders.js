@@ -183,11 +183,9 @@ export function useFeedOrders() {
 export function useProfileOrders() {
   const dispatch = useDispatch();
 
-  const {
-    wsConnected,
-    orders,
-    wsError: ordersError,
-  } = useSelector((store) => store.profile);
+  const { orders, wsError: ordersError } = useSelector(
+    (store) => store.profile
+  );
 
   useLayoutEffect(() => {
     dispatch({ type: WS_PROFILE_CONNECTION_START });
@@ -209,7 +207,9 @@ export function useProfileOrders() {
     }
   }, [dispatch, ingredients.length]);
 
-  const { ordersList } = useOrders(orders);
+  let { ordersList } = useOrders(orders);
+
+  ordersList.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   const error = ordersError + ingredientsError;
   const loading = (!orders.length && !error) || ingredientsLoading;

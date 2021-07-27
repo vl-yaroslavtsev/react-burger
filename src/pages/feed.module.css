@@ -11,7 +11,7 @@
 }
 
 .statistic {
-  flex: 0 0 580px;
+  flex: 0 0 calc(50% - 30px);
 }
 
 .statisticGrid {

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useCallback } from "react";
 import OrderInfo from "../order-info/order-info";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { useOrders } from "../../services/orders";
@@ -11,8 +11,14 @@ import Modal from "../modal/modal";
 const OrderInfoModal = memo(() => {
   const { id } = useParams();
   const history = useHistory();
+  const location = useLocation();
 
-  const { orders } = useSelector((store) => store.feed);
+  const { orders: feedOrders } = useSelector((store) => store.feed);
+  const { orders: profileOrders } = useSelector((store) => store.profile);
+
+  const orders = location.pathname.startsWith("/feed")
+    ? feedOrders
+    : profileOrders;
 
   const { ordersList } = useOrders(orders);
 
