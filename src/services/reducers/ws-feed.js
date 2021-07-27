@@ -47,8 +47,6 @@ export const wsFeedReducer = (state = initialState, action) => {
         };
       }
 
-      console.log("feed orders", action.payload);
-
       return {
         ...state,
         wsError: "",

@@ -43,8 +43,6 @@ export const wsProfileReducer = (state = initialState, action) => {
         };
       }
 
-      console.log("profile orders", action.payload);
-
       return {
         ...state,
         wsError: "",

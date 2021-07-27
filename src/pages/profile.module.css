@@ -33,3 +33,16 @@
 :global(.input_size_default) {
   width: 480px;
 }
+
+.skeleton {
+  display: inline-block;
+  line-height: 1;
+  background: var(--background);
+  width: 100%;
+}
+
+.skeletonOrder {
+  composes: skeleton;
+  border-radius: 40px;
+  height: 245px;
+}

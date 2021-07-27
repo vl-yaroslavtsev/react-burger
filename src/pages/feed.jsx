@@ -13,7 +13,7 @@ function StatisticGridItem({ title, orders, className, complete = false }) {
   return (
     <section className={cn(styles.statisticGridItem, className)}>
       <h2 className="text text_type_main-medium mb-6">{title}</h2>
-      <ul className={cn("text text_type_digits-default", {
+      <ul className={cn(styles.statisticGridItemList, "text text_type_digits-default", {
         [styles.success]: complete
       })}>{orders.map((order, index) => (
         <li className="mb-2" key={index}>{order}</li>
@@ -31,6 +31,14 @@ export function FeedPage() {
   const { ordersList, completeNumbers, progressNumbers,
     total, totalToday, error, loading } = useFeedOrders();
 
+  const skeletonNumbers = Array(3).fill(
+    <div className={styles.skeleton} >&nbsp;</div>
+  );
+
+  const skeletonOrdersList = Array(2).fill(
+    <div className={styles.skeletonOrder} >&nbsp;</div>
+  );
+
   return (
     <section className={cn(styles.container, "mt-10")}>
       <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
@@ -39,6 +47,10 @@ export function FeedPage() {
           Что-то пошло не так. {error}</p>}
         <ul className={cn(styles.orderList, "mr-15")}
           ref={orderListRef}>
+          {loading && skeletonOrdersList.map((item, index) => (
+            <li className="mb-4 mr-2"
+              key={index}>{item}</li>
+          ))}
           {ordersList.map(order => (
             <li className="mb-4 mr-2"
               key={order.number}><OrderItem order={order} /></li>
@@ -49,24 +61,28 @@ export function FeedPage() {
             <StatisticGridItem
               className="mr-9"
               title="Готовы:"
-              orders={completeNumbers}
+              orders={loading ? skeletonNumbers : completeNumbers}
               complete={true} />
             <StatisticGridItem
               title="В работе:"
-              orders={progressNumbers} />
+              orders={loading ? skeletonNumbers : progressNumbers} />
           </section>
-          <h2 className="text text_type_main-medium mt-15">
-            Выполнено за все время:
-          </h2>
-          <p className={cn(appStyles.textSpaceShadow, "text text_type_digits-large")}>
-            {total}
-          </p>
-          <h2 className="text text_type_main-medium mt-15">
-            Выполнено за сегодня:
-          </h2>
-          <p className={cn(appStyles.textSpaceShadow, "text text_type_digits-large")}>
-            {totalToday}
-          </p>
+          {total > 0 && (
+            <>
+              <h2 className="text text_type_main-medium mt-15">
+                Выполнено за все время:
+              </h2>
+              <p className={cn(appStyles.textSpaceShadow, "text text_type_digits-large")}>
+                {total}
+              </p>
+              <h2 className="text text_type_main-medium mt-15">
+                Выполнено за сегодня:
+              </h2>
+              <p className={cn(appStyles.textSpaceShadow, "text text_type_digits-large")}>
+                {totalToday}
+              </p>
+            </>
+          )}
         </section>
       </section>
     </section >

@@ -70,7 +70,7 @@ const Modal = memo(
 
 Modal.propTypes = {
   children: PropTypes.element,
-  header: PropTypes.string,
+  header: PropTypes.node,
   visible: PropTypes.bool,
   onClose: PropTypes.func,
 };

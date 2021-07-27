@@ -88,14 +88,26 @@ function OrderList() {
 
   const { ordersList, error, loading } = useProfileOrders();
 
+  const skeletonOrdersList = Array(2).fill(
+    <div className={styles.skeletonOrder} >&nbsp;</div>
+  );
+
   return (
-    <ul className={styles.orderList} ref={orderListRef}>
-      {ordersList.map((order) => (
-        <li key={order.number} className="mb-6 mr-2">
-          <OrderItem order={order} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {error && <p className={cn(styles.error, "text text_type_main-default")}>
+        Что-то пошло не так. {error}</p>}
+      <ul className={styles.orderList} ref={orderListRef}>
+        {loading && skeletonOrdersList.map((item, index) => (
+          <li className="mb-6 mr-2"
+            key={index}>{item}</li>
+        ))}
+        {ordersList.map((order) => (
+          <li key={order.number} className="mb-6 mr-2">
+            <OrderItem order={order} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

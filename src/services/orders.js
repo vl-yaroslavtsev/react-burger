@@ -154,6 +154,7 @@ export function useFeedOrders() {
     () =>
       orders
         .filter(({ status }) => status === "done")
+        .slice(0, 20)
         .map(({ number }) => number),
     [orders]
   );
@@ -162,6 +163,7 @@ export function useFeedOrders() {
     () =>
       orders
         .filter(({ status }) => status === "pending")
+        .slice(0, 20)
         .map(({ number }) => number),
     [orders]
   );

@@ -74,20 +74,8 @@ export function useFormSubmit({ onSubmit }) {
   const [loading, setLoading] = useState(false);
   const prevDataRef = useRef(null);
 
-  console.log(
-    "useFormSubmit render: ",
-    prevDataRef.current,
-    data,
-    prevDataRef.current === data
-  );
   useEffect(() => {
     prevDataRef.current = data;
-    console.log(
-      "useFormSubmit: useEffect",
-      prevDataRef.current,
-      data,
-      prevDataRef.current === data
-    );
   });
 
   const rulesRef = useRef({});
