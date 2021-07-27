@@ -7,7 +7,8 @@ import { NavLink, Route, useRouteMatch } from "react-router-dom";
 import ProfileForm from "../components/profile-form/profile-form";
 import { useAuth } from "../services/auth";
 import OrderItem from "../components/order-item/order-item";
-import { ordersList } from "../services/data";
+
+import { useProfileOrders } from "../services/orders";
 
 import styles from "./profile.module.css";
 import { useScrollbar } from "../services/utils";
@@ -84,6 +85,9 @@ function Logout() {
 function OrderList() {
   const orderListRef = useRef();
   useScrollbar(orderListRef);
+
+  const { ordersList, error, loading } = useProfileOrders();
+
   return (
     <ul className={styles.orderList} ref={orderListRef}>
       {ordersList.map((order) => (

@@ -9,6 +9,17 @@ import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 
 import styles from "./order-item.module.css";
 
+const statusMap = {
+  created: "Создан",
+  pending: "Готовится",
+  done: "Выполнен",
+  canceled: "Отменен",
+};
+
+function translateStatus(status) {
+  return statusMap[status] || status;
+}
+
 function Ingredients({ ingredients = [] }) {
   const list = ingredients.slice(0, 5);
   const rest = ingredients.slice(5);
@@ -46,17 +57,17 @@ const OrderItem = memo(({ order }) => {
       <header className={styles.header}>
         <h2 className="text text_type_digits-default">#{order.number}</h2>
         <span className="text text_type_main-default text_color_inactive">
-          {formatPastDate(order.date)}
+          {formatPastDate(order.createdAt)}
         </span>
       </header>
       <h1 className="text text_type_main-medium mt-6">{order.name}</h1>
       {order.status && (
         <p
           className={cn("text text_type_main-default pt-2", {
-            [styles.statusDone]: order.status === "Выполнен",
+            [styles.statusDone]: order.status === "done",
           })}
         >
-          {order.status}
+          {translateStatus(order.status)}
         </p>
       )}
       <footer className={cn(styles.footer, "mt-6")}>

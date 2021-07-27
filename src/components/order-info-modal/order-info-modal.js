@@ -2,14 +2,21 @@ import { memo } from "react";
 import { useCallback } from "react";
 import OrderInfo from "../order-info/order-info";
 import { useHistory, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { useOrders } from "../../services/orders";
 
 import Modal from "../modal/modal";
-import { ordersList } from "../../services/data";
 
 const OrderInfoModal = memo(() => {
   const { id } = useParams();
   const history = useHistory();
-  const order = ordersList.find(({ number }) => number === id);
+
+  const { orders } = useSelector((store) => store.feed);
+
+  const { ordersList } = useOrders(orders);
+
+  const order = ordersList.find(({ number }) => number === Number(id));
 
   const modalOnClose = useCallback(() => {
     history.goBack();

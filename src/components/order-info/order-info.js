@@ -8,6 +8,17 @@ import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 
 import styles from "./order-info.module.css";
 
+const statusMap = {
+  created: "Создан",
+  pending: "Готовится",
+  done: "Выполнен",
+  canceled: "Отменен",
+};
+
+function translateStatus(status) {
+  return statusMap[status] || status;
+}
+
 function Ingredients({ ingredients = [], listRef }) {
   return (
     <ul className={styles.ingredientList} ref={listRef}>
@@ -46,10 +57,10 @@ const OrderInfo = memo(({ order, isInModal = false }) => {
       {order.status && (
         <p
           className={cn("text text_type_main-default pt-3", {
-            [styles.statusDone]: order.status === "Выполнен",
+            [styles.statusDone]: order.status === "done",
           })}
         >
-          {order.status}
+          {translateStatus(order.status)}
         </p>
       )}
       <section className={cn(styles.content, "mt-15")}>
@@ -58,7 +69,7 @@ const OrderInfo = memo(({ order, isInModal = false }) => {
       </section>
       <footer className={cn(styles.footer, "mt-10")} ref={footerRef}>
         <span className="text text_type_main-default text_color_inactive">
-          {formatPastDate(order.date)}
+          {formatPastDate(order.createdAt)}
         </span>
         <div className={styles.price}>
           <p className="text text_type_digits-default mr-2">{order.price}</p>

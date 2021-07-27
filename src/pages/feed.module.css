@@ -11,7 +11,7 @@
 }
 
 .statistic {
-  width: 580px;
+  flex: 0 0 580px;
 }
 
 .statisticGrid {
@@ -24,4 +24,8 @@
 
 .success {
   color: var(--colors-interface-success);
+}
+
+.error {
+  color: red;
 }

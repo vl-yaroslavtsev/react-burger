@@ -66,7 +66,7 @@ function setTokens({ accessToken, refreshToken }) {
   localStorage.setItem("refreshToken", refreshToken);
 }
 
-async function refreshToken() {
+export async function refreshToken() {
   const data = await fetchPost(routes.auth.token, {
     token: localStorage.getItem("refreshToken"),
   });
@@ -144,4 +144,10 @@ export async function loadUser() {
 
 export async function updateUser(params) {
   return await fetchWithRefresh(routes.auth.user, { method: "PATCH", params });
+}
+
+export async function loadOrderById(id) {
+  const res = await fetch(`${routes.orders}/${id}`);
+  const json = await checkResponse(res);
+  return json.orders[0];
 }

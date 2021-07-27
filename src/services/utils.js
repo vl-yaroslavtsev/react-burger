@@ -69,6 +69,27 @@ export function isEqual(obj1, obj2) {
   return true;
 }
 
+/**
+ * Склонение существительного с числом
+ * @param {*} n число
+ * @param {Array} text_forms существительной в формате [один, два, пять]
+ * @returns
+ */
+function declensionOfNum(n, text_forms) {
+  n = Math.abs(n) % 100;
+  var n1 = n % 10;
+  if (n > 10 && n < 20) {
+    return text_forms[2];
+  }
+  if (n1 > 1 && n1 < 5) {
+    return text_forms[1];
+  }
+  if (n1 == 1) {
+    return text_forms[0];
+  }
+  return text_forms[2];
+}
+
 export function formatPastDate(date) {
   const today = new Date();
   today.setHours(0);
@@ -90,7 +111,7 @@ export function formatPastDate(date) {
     past = "Вчера";
   } else {
     const days = Math.ceil((today - date) / (24 * 3600 * 1000));
-    past = `${days} ${days > 4 ? "дней" : "дня"} назад`;
+    past = `${days} ${declensionOfNum(days, ["день", "дня", "дней"])} назад`;
   }
 
   return `${past}, ${hours}:${minutes} i-GMT${
