@@ -16,11 +16,13 @@ import { loadOrderById } from "../services/api";
 
 function selectOrder(order, ingredientsMap) {
   if (Object.keys(ingredientsMap).length === 0) {
-    return order;
+    return null;
   }
+
   const ingredients = order.ingredients
-    .map((id) => ingredientsMap[id] || id)
-    .reduce((result, ingredient, index, ingredients) => {
+    .filter((id) => !!id)
+    .map((id) => ingredientsMap[id])
+    .reduce((result, ingredient) => {
       const found = result.find(({ _id }) => ingredient._id === _id);
 
       if (found) {
@@ -59,7 +61,10 @@ export function useOrders(orders) {
   );
 
   const ordersList = useMemo(
-    () => orders.map((order) => selectOrder(order, ingredientsMap)),
+    () =>
+      orders
+        .map((order) => selectOrder(order, ingredientsMap))
+        .filter((order) => !!order),
     [orders, ingredientsMap]
   );
 
