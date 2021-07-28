@@ -84,7 +84,7 @@ function declensionOfNum(n, text_forms) {
   if (n1 > 1 && n1 < 5) {
     return text_forms[1];
   }
-  if (n1 == 1) {
+  if (n1 === 1) {
     return text_forms[0];
   }
   return text_forms[2];
@@ -198,7 +198,7 @@ export function useScrollbar(
       el.classList.remove(appStyles.customScrollbar);
       el.style.maxHeight = "";
     };
-  }, [ref, maxHeight, exclude, ...props]);
+  }, [ref, maxHeight, isInModal, exclude, ...props]);
 }
 
 // Хук: получаем предыдущее значение пропса или состояния

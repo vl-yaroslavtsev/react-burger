@@ -85,7 +85,7 @@ export function useOrderLoad(id) {
     itemsRequest: ingredientsLoading,
   } = useSelector((store) => store.ingredients);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (ingredients.length === 0) {
       dispatch(getIngredients());
     }
@@ -104,7 +104,7 @@ export function useOrderLoad(id) {
     setOrder(selectOrder(serverOrder, ingredientsMap));
   }
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setOrderLoading(true);
     loadOrderById(id)
       .then((data) => {
@@ -126,14 +126,13 @@ export function useFeedOrders() {
   const dispatch = useDispatch();
 
   const {
-    wsConnected,
     orders,
     total,
     totalToday,
     wsError: ordersError,
   } = useSelector((store) => store.feed);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch({ type: WS_FEED_CONNECTION_START });
 
     return () => {

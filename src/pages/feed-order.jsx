@@ -1,6 +1,5 @@
 import cn from "classnames";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import OrderInfo from "../components/order-info/order-info";
 import { useOrderLoad } from "../services/orders";
