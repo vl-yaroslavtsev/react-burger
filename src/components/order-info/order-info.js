@@ -8,6 +8,17 @@ import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 
 import styles from "./order-info.module.css";
 
+const statusMap = {
+  created: "Создан",
+  pending: "Готовится",
+  done: "Выполнен",
+  canceled: "Отменен",
+};
+
+function translateStatus(status) {
+  return statusMap[status] || status;
+}
+
 function Ingredients({ ingredients = [], listRef }) {
   return (
     <ul className={styles.ingredientList} ref={listRef}>
@@ -36,32 +47,29 @@ function Ingredients({ ingredients = [], listRef }) {
   );
 }
 
-const OrderInfo = memo(({ order }) => {
+const OrderInfo = memo(({ order, isInModal = false }) => {
   const listRef = useRef();
   const footerRef = useRef();
-  useScrollbar(listRef, { exclude: footerRef, maxHeight: 312 });
+  useScrollbar(listRef, { exclude: footerRef, maxHeight: 312, isInModal });
   return (
     <section className={cn(styles.container)}>
-      <h2 className={cn(styles.number, "text text_type_digits-default mt-2")}>
-        #{order.number}
-      </h2>
-      <h1 className="text text_type_main-medium mt-10">{order.name}</h1>
+      <h1 className="text text_type_main-medium mt-5">{order.name}</h1>
       {order.status && (
         <p
           className={cn("text text_type_main-default pt-3", {
-            [styles.statusDone]: order.status === "Выполнен",
+            [styles.statusDone]: order.status === "done",
           })}
         >
-          {order.status}
+          {translateStatus(order.status)}
         </p>
       )}
       <section className={cn(styles.content, "mt-15")}>
         <h1 className="text text_type_main-medium mb-6">Состав:</h1>
         <Ingredients ingredients={order.ingredients} listRef={listRef} />
       </section>
-      <footer className={cn(styles.footer, "mt-10 mb-2")} ref={footerRef}>
+      <footer className={cn(styles.footer, "mt-10")} ref={footerRef}>
         <span className="text text_type_main-default text_color_inactive">
-          {formatPastDate(order.date)}
+          {formatPastDate(order.createdAt)}
         </span>
         <div className={styles.price}>
           <p className="text text_type_digits-default mr-2">{order.price}</p>

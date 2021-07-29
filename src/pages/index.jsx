@@ -4,9 +4,8 @@ import { RegisterPage } from "./register";
 import { ForgotPasswordPage } from "./forgot-password";
 import { ResetPasswordPage } from "./reset-password";
 import { ProfilePage } from "./profile";
-import { ProfileOrderPage } from "./profile-order";
 import { FeedPage } from "./feed";
-import { FeedOrderPage } from "./feed-order";
+import { OrderPage } from "./order";
 import { IngredientPage } from "./ingredient";
 import { NotFound404 } from "./not-found";
 
@@ -17,9 +16,8 @@ export {
   ResetPasswordPage,
   HomePage,
   ProfilePage,
-  ProfileOrderPage,
+  OrderPage,
   FeedPage,
-  FeedOrderPage,
   IngredientPage,
   NotFound404,
 };

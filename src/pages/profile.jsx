@@ -7,7 +7,9 @@ import { NavLink, Route, useRouteMatch } from "react-router-dom";
 import ProfileForm from "../components/profile-form/profile-form";
 import { useAuth } from "../services/auth";
 import OrderItem from "../components/order-item/order-item";
-import { ordersList } from "../services/data";
+import Skeleton from "../components/skeleton/skeleton";
+
+import { useProfileOrders } from "../services/orders";
 
 import styles from "./profile.module.css";
 import { useScrollbar } from "../services/utils";
@@ -84,14 +86,26 @@ function Logout() {
 function OrderList() {
   const orderListRef = useRef();
   useScrollbar(orderListRef);
+
+  const { ordersList, error, loading } = useProfileOrders();
+
   return (
-    <ul className={styles.orderList} ref={orderListRef}>
-      {ordersList.map((order) => (
-        <li key={order.number} className="mb-6 mr-2">
-          <OrderItem order={order} />
-        </li>
-      ))}
-    </ul>
+    <>
+      {error && <p className={cn(styles.error, "text text_type_main-default")}>
+        Что-то пошло не так. {error}</p>}
+      <ul className={styles.orderList} ref={orderListRef}>
+        {loading &&
+          <Skeleton repeat={2}
+            className={cn(styles.skeletonOrder, "mb-6 mr-2")}
+            tag="li" />
+        }
+        {ordersList.map((order) => (
+          <li key={order.number} className="mb-6 mr-2">
+            <OrderItem order={order} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

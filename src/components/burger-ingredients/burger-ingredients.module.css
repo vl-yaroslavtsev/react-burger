@@ -41,10 +41,3 @@
 .error {
   color: red;
 }
-
-.skeleton {
-  display: inline-block;
-  line-height: 1;
-  background: var(--background);
-  width: 100%;
-}

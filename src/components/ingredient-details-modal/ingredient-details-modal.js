@@ -1,7 +1,7 @@
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";

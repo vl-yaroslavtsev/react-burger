@@ -3,10 +3,6 @@
   box-sizing: border-box;
 }
 
-.number {
-  text-align: center;
-}
-
 .statusDone {
   color: #00cccc;
 }

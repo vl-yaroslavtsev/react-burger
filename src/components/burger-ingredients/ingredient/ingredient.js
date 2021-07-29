@@ -24,7 +24,7 @@ const Ingredient = memo(
         ref={dragRef}
       >
         {count > 0 && <Counter count={count} size="default" />}
-        <img src={image} className="mb-1" alt={name} />
+        <img src={image} width={240} height={120} className="mb-1" alt={name} />
         <p className={cn(styles.price, "text text_type_digits-default mb-1")}>
           <span className="mr-2">{price}</span>
           <CurrencyIcon type="primary" />
