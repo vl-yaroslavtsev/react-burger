@@ -7,6 +7,7 @@ import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Ingredient from "./ingredient/ingredient";
+import Skeleton from "../skeleton/skeleton";
 import { animate, useScrollbar } from "../../services/utils";
 import { getIngredients } from "../../services/actions/ingredients";
 
@@ -100,22 +101,14 @@ function BurgerIngredients() {
     () => (
       <ul className={cn(styles.ingredients, "mt-10")}>
         <li>
-          <h2 className="text text_type_main-medium">
-            <div className={styles.skeleton} style={{ width: 100 }}>
-              &nbsp;
-            </div>
-          </h2>
-          <ul className={cn(styles.ingredientList, "pl-4 pr-4 pt-6 pb-2")}>
-            {[...Array(2)].map((item, index) => {
-              return (
-                <li className={cn(styles.ingredient, "mb-8 mt-4")} key={index}>
-                  <div className={styles.skeleton} style={{ height: 200 }}>
-                    &nbsp;
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+          <Skeleton width={100} className="text text_type_main-medium" />
+          <div className={cn(styles.ingredientList, "pl-4 pr-4 pt-6 pb-2")}>
+            <Skeleton
+              height={200}
+              repeat={2}
+              className={cn(styles.ingredient, "mb-8 mt-4")}
+            />
+          </div>
         </li>
       </ul>
     ),

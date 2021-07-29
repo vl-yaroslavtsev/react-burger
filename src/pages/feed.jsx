@@ -3,21 +3,25 @@ import cn from "classnames";
 
 
 import OrderItem from "../components/order-item/order-item";
+import Skeleton from "../components/skeleton/skeleton";
 import { useScrollbar } from "../services/utils";
 import { useFeedOrders } from "../services/orders";
 
 import styles from "./feed.module.css";
 import appStyles from "../components/app/app.module.css";
 
-function StatisticGridItem({ title, orders, className, complete = false }) {
+function StatisticGridItem({ title, orders, loading, className, complete = false }) {
   return (
     <section className={cn(styles.statisticGridItem, className)}>
       <h2 className="text text_type_main-medium mb-6">{title}</h2>
       <ul className={cn(styles.statisticGridItemList, "text text_type_digits-default", {
         [styles.success]: complete
-      })}>{orders.map((order, index) => (
-        <li className="mb-2" key={index}>{order}</li>
-      ))}</ul>
+      })}>
+        {loading && <Skeleton repeat={3} className="mb-2" tag="li" />}
+        {orders.map((order, index) => (
+          <li className="mb-2" key={index}>{order}</li>
+        ))}
+      </ul>
     </section>
   );
 }
@@ -31,14 +35,6 @@ export function FeedPage() {
   const { ordersList, completeNumbers, progressNumbers,
     total, totalToday, error, loading } = useFeedOrders();
 
-  const skeletonNumbers = Array(3).fill(
-    <div className={styles.skeleton} >&nbsp;</div>
-  );
-
-  const skeletonOrdersList = Array(2).fill(
-    <div className={styles.skeletonOrder} >&nbsp;</div>
-  );
-
   return (
     <section className={cn(styles.container, "mt-10")}>
       <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
@@ -47,10 +43,7 @@ export function FeedPage() {
           Что-то пошло не так. {error}</p>}
         <ul className={cn(styles.orderList, "mr-15")}
           ref={orderListRef}>
-          {loading && skeletonOrdersList.map((item, index) => (
-            <li className="mb-4 mr-2"
-              key={index}>{item}</li>
-          ))}
+          {loading && <Skeleton className={cn(styles.skeletonOrder, "mb-4 mr-2")} repeat={2} tag="li" />}
           {ordersList.map(order => (
             <li className="mb-4 mr-2"
               key={order.number}><OrderItem order={order} /></li>
@@ -61,11 +54,13 @@ export function FeedPage() {
             <StatisticGridItem
               className="mr-9"
               title="Готовы:"
-              orders={loading ? skeletonNumbers : completeNumbers}
+              loading={loading}
+              orders={completeNumbers}
               complete={true} />
             <StatisticGridItem
               title="В работе:"
-              orders={loading ? skeletonNumbers : progressNumbers} />
+              loading={loading}
+              orders={progressNumbers} />
           </section>
           {total > 0 && (
             <>
