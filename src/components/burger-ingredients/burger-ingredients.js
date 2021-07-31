@@ -136,7 +136,7 @@ function BurgerIngredients() {
       </section>
       {error && (
         <p className={cn(styles.error, "text text_type_main-default mt-15")}>
-          {error}
+          Что-то пошло не так. Попробуйте зайти еще раз позже. {error}
         </p>
       )}
       {loading && skeleton}
