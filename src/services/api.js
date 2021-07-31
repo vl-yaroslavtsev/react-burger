@@ -1,7 +1,7 @@
 import { getCookie, setCookie, deleteCookie } from "./utils";
 
 const API_URL = "https://norma.nomoreparties.space/api";
-const routes = {
+export const routes = {
   ingredients: `${API_URL}/ingredients`,
   orders: `${API_URL}/orders`,
   auth: {
@@ -40,7 +40,7 @@ async function checkResponse(res) {
   }
 
   if (!res.ok) {
-    throw new Error(`Статус: ${res.status}.`);
+    throw new Error(`Статус: ${res.status}`);
   }
 
   return json;

@@ -47,11 +47,17 @@ describe("constructor reducer", () => {
     },
   ];
 
-  it("should return the initial state", () => {
+  const newItem = {
+    _id: "qwe",
+    title: "Минеральные кольца",
+    price: 600,
+  };
+
+  it("должен возвращать начальное состояние", () => {
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 
-  it("should handle add bun item", () => {
+  it("должен добавлять булку", () => {
     expect(
       reducer(initialState, {
         type: ADD_CONSTRUCTOR_INGREDIENT,
@@ -64,7 +70,7 @@ describe("constructor reducer", () => {
     });
   });
 
-  it("should handle replace bun item", () => {
+  it("должен заменять существующую булку", () => {
     expect(
       reducer(
         {
@@ -84,13 +90,7 @@ describe("constructor reducer", () => {
     });
   });
 
-  const newItem = {
-    _id: "qwe",
-    title: "Минеральные кольца",
-    price: 600,
-  };
-
-  it("should handle add main item", () => {
+  it("должен добавлять ингредиент", () => {
     expect(
       reducer(
         {
@@ -116,7 +116,7 @@ describe("constructor reducer", () => {
     });
   });
 
-  it("should handle remove main item", () => {
+  it("должен удалять ингредиент", () => {
     expect(
       reducer(
         {
@@ -136,7 +136,7 @@ describe("constructor reducer", () => {
     });
   });
 
-  it("should handle reorder main items", () => {
+  it("должен изменять порядок ингредиентов: первый в конец", () => {
     expect(
       reducer(
         {
@@ -157,7 +157,7 @@ describe("constructor reducer", () => {
     });
   });
 
-  it("should handle clear counstructor", () => {
+  it("должен очищать конструктор", () => {
     expect(
       reducer(
         {

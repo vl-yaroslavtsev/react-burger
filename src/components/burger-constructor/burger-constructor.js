@@ -170,18 +170,18 @@ function BurgerConstructor({ className }) {
         </Button>
       </footer>
       <Modal
-        header={orderError ? "Ошибка" : orderLoading ? "Отправлка заказа" : ""}
+        header={orderError && "Ошибка"}
         visible={isOrderShown}
         onClose={orderModalOnClose}
       >
         <>
           {orderLoading && (
-            <p className="text text_type_main-default">
-              Пожалуйста, подождите...
+            <p className="text text_type_main-default mt-5 mb-10">
+              Отправляем заказ. Пожалуйста, подождите...
             </p>
           )}
           {orderError && (
-            <p className={cn("text text_type_main-default", styles.error)}>
+            <p className={cn("text text_type_main-default mt-5", styles.error)}>
               {orderError}
             </p>
           )}
