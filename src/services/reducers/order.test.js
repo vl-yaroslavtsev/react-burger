@@ -13,7 +13,6 @@ import {
 import { routes } from "../api";
 
 import { orderReducer as reducer } from "./order";
-import { CLEAR_USER } from "../actions/user";
 
 const orderNumber = 1355;
 
