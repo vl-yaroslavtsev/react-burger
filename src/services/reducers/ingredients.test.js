@@ -96,14 +96,14 @@ describe("ingredients reducer", () => {
 });
 
 describe("ingredients async getIngredients", () => {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+
   afterEach(() => {
     fetchMock.restore();
   });
 
   it("создает GET_INGREDIENTS_SUCCESS когда загрузка ингредиентов завершена", () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     fetchMock.getOnce(routes.ingredients, {
       body: { success: true, data: ingredients },
       headers: { "content-type": "application/json" },
@@ -122,9 +122,6 @@ describe("ingredients async getIngredients", () => {
   });
 
   it("создает GET_INGREDIENTS_ERROR когда возникла ошибка сервера с ее описанием", () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     fetchMock.getOnce(routes.ingredients, {
       status: 403,
       body: { success: false, message: "Ошибочка вышла" },
@@ -144,9 +141,6 @@ describe("ingredients async getIngredients", () => {
   });
 
   it("создает GET_INGREDIENTS_ERROR когда возникла ошибка сервера", () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     fetchMock.getOnce(routes.ingredients, 503);
 
     const expectedActions = [

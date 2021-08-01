@@ -102,14 +102,14 @@ describe("user reducer", () => {
 });
 
 describe("user async getUser", () => {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+
   afterEach(() => {
     fetchMock.restore();
   });
 
   it("создает GET_USER_SUCCESS когда загрузка пользователя завершена", () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     fetchMock.getOnce(routes.auth.user, {
       body: { success: true, user },
       headers: { "content-type": "application/json" },
@@ -127,9 +127,6 @@ describe("user async getUser", () => {
   });
 
   it("создает GET_USER_ERROR когда возникла ошибка сервера с ее описанием", () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     fetchMock.getOnce(routes.auth.user, {
       status: 403,
       body: { success: false, message: "Ошибочка вышла" },
@@ -143,15 +140,11 @@ describe("user async getUser", () => {
     const store = mockStore({ items: [] });
 
     return store.dispatch(getUser()).then(() => {
-      // Возвращаем асинхронный экшен
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
 
   it("создает GET_USER_ERROR когда возникла ошибка сервера", () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     fetchMock.getOnce(routes.auth.user, 503);
 
     const expectedActions = [
