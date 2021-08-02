@@ -1,7 +1,7 @@
 import order from "../fixtures/order.json";
 import ingredient from "../fixtures/ingredient.json";
 
-describe("Доступность страниц для незарегистированного пользователя", () => {
+describe("Доступность страниц для незарегистрированного пользователя", () => {
   it("Главная страница, на которой грузятся ингредиенты", () => {
     cy.visit("/");
     cy.contains("Соберите бургер");

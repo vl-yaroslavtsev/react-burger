@@ -2,7 +2,7 @@ import user from "../fixtures/user.json";
 import order from "../fixtures/order.json";
 import { login } from "../../src/services/api";
 
-describe("Доступность страниц для зарегистированного пользователя", () => {
+describe("Доступность страниц для зарегистрированного пользователя", () => {
   beforeEach(() => {
     cy.wrap(login(user));
   });
