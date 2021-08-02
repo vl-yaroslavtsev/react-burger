@@ -16,7 +16,8 @@ import DragElement from "./drag-element/drag-element";
 
 import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
 
-import { animate, useScrollbar } from "../../services/utils";
+import { animate } from "../../services/utils";
+import { useScrollbar } from "../../services/scrollbar";
 
 import {
   ADD_CONSTRUCTOR_INGREDIENT,

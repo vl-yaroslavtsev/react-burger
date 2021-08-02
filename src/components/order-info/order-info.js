@@ -3,7 +3,9 @@ import cn from "classnames";
 import PropTypes from "prop-types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { formatPastDate, useScrollbar } from "../../services/utils";
+import { formatPastDate } from "../../services/utils";
+import { useScrollbar } from "../../services/scrollbar";
+
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 
 import styles from "./order-info.module.css";

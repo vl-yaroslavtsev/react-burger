@@ -4,7 +4,7 @@ import cn from "classnames";
 
 import OrderItem from "../components/order-item/order-item";
 import Skeleton from "../components/skeleton/skeleton";
-import { useScrollbar } from "../services/utils";
+import { useScrollbar } from "../services/scrollbar";
 import { useFeedOrders } from "../services/orders";
 
 import styles from "./feed.module.css";

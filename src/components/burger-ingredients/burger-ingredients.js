@@ -8,7 +8,9 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Ingredient from "./ingredient/ingredient";
 import Skeleton from "../skeleton/skeleton";
-import { animate, useScrollbar } from "../../services/utils";
+import { animate } from "../../services/utils";
+import { useScrollbar } from "../../services/scrollbar";
+
 import { getIngredients } from "../../services/actions/ingredients";
 
 const GROUP_NAME = {
