@@ -30,7 +30,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "./node_modules/.bin/cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,8 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.8",
+    "cypress": "^8.1.0",
+    "eslint-plugin-cypress": "^2.11.3",
     "fetch-mock": "^9.11.0",
     "node-fetch": "^2.6.1",
     "redux-mock-store": "^1.5.4",
