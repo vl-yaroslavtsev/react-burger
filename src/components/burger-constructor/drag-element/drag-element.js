@@ -97,6 +97,7 @@ function DragElement({ item, index, onDelete = () => {} }) {
         paddingTop: !isDrag && isOver && isHoverTop ? 80 + 16 : 0,
         transitionDuration: isTransition ? "0.3s" : "0s",
       }}
+      data-test-id={`ctr-item-${item._id}`}
     >
       <i className={cn(styles.dragItem, "mr-2")}>
         <DragIcon type="primary" />

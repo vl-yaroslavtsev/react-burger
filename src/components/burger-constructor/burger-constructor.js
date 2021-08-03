@@ -105,6 +105,7 @@ function BurgerConstructor({ className }) {
     <section
       className={cn(styles.container, className, "pt-25 pl-4")}
       ref={dropIngredientsRef}
+      data-test-id="constructor-container"
     >
       <ul className={styles.elements}>
         {!bunItem && !items.length && (
@@ -122,7 +123,7 @@ function BurgerConstructor({ className }) {
           </li>
         )}
         {bunItem && (
-          <li className="ml-8 mr-4 mb-4">
+          <li className="ml-8 mr-4 mb-4" data-test-id="ctr-bun-top">
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -150,7 +151,11 @@ function BurgerConstructor({ className }) {
           </ul>
         </li>
         {bunItem && (
-          <li className="ml-8 mr-4" ref={bottomBunRef}>
+          <li
+            className="ml-8 mr-4"
+            ref={bottomBunRef}
+            data-test-id="ctr-bun-bottom"
+          >
             <ConstructorElement
               type="bottom"
               isLocked={true}
