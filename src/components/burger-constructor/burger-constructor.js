@@ -16,7 +16,8 @@ import DragElement from "./drag-element/drag-element";
 
 import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
 
-import { animate, useScrollbar } from "../../services/utils";
+import { animate } from "../../services/utils";
+import { useScrollbar } from "../../services/scrollbar";
 
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
@@ -104,6 +105,7 @@ function BurgerConstructor({ className }) {
     <section
       className={cn(styles.container, className, "pt-25 pl-4")}
       ref={dropIngredientsRef}
+      data-test-id="constructor-container"
     >
       <ul className={styles.elements}>
         {!bunItem && !items.length && (
@@ -121,7 +123,7 @@ function BurgerConstructor({ className }) {
           </li>
         )}
         {bunItem && (
-          <li className="ml-8 mr-4 mb-4">
+          <li className="ml-8 mr-4 mb-4" data-test-id="ctr-bun-top">
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -149,7 +151,11 @@ function BurgerConstructor({ className }) {
           </ul>
         </li>
         {bunItem && (
-          <li className="ml-8 mr-4" ref={bottomBunRef}>
+          <li
+            className="ml-8 mr-4"
+            ref={bottomBunRef}
+            data-test-id="ctr-bun-bottom"
+          >
             <ConstructorElement
               type="bottom"
               isLocked={true}
@@ -176,10 +182,12 @@ function BurgerConstructor({ className }) {
       >
         <>
           {orderLoading && (
-            <p className="text text_type_main-default">Отправка заказа...</p>
+            <p className="text text_type_main-default mt-5 mb-10">
+              Отправляем заказ. Пожалуйста, подождите...
+            </p>
           )}
           {orderError && (
-            <p className={cn("text text_type_main-default", styles.error)}>
+            <p className={cn("text text_type_main-default mt-5", styles.error)}>
               {orderError}
             </p>
           )}

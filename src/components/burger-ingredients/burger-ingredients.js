@@ -8,7 +8,9 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import Ingredient from "./ingredient/ingredient";
 import Skeleton from "../skeleton/skeleton";
-import { animate, useScrollbar } from "../../services/utils";
+import { animate } from "../../services/utils";
+import { useScrollbar } from "../../services/scrollbar";
+
 import { getIngredients } from "../../services/actions/ingredients";
 
 const GROUP_NAME = {
@@ -99,7 +101,10 @@ function BurgerIngredients() {
 
   const skeleton = useMemo(
     () => (
-      <ul className={cn(styles.ingredients, "mt-10")}>
+      <ul
+        className={cn(styles.ingredients, "mt-10")}
+        data-test-id="ingredients-skeleton"
+      >
         <li>
           <Skeleton width={100} className="text text_type_main-medium" />
           <div className={cn(styles.ingredientList, "pl-4 pr-4 pt-6 pb-2")}>
@@ -136,7 +141,7 @@ function BurgerIngredients() {
       </section>
       {error && (
         <p className={cn(styles.error, "text text_type_main-default mt-15")}>
-          {error}
+          Что-то пошло не так. Попробуйте зайти еще раз позже. {error}
         </p>
       )}
       {loading && skeleton}

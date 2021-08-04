@@ -15,7 +15,7 @@ export const doCheckoutOrder = () => async (dispatch, getState) => {
     });
   }
 
-  const ids = [bunItem._id, ...items.map((el) => el._id), bunItem._id];
+  const ids = [bunItem._id, ...items.map((el) => el._id)];
 
   dispatch({
     type: CHECKOUT_ORDER_REQUEST,

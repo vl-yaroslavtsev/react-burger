@@ -12,7 +12,7 @@ import Skeleton from "../components/skeleton/skeleton";
 import { useProfileOrders } from "../services/orders";
 
 import styles from "./profile.module.css";
-import { useScrollbar } from "../services/utils";
+import { useScrollbar } from "../services/scrollbar";
 
 function Menu() {
   const { path } = useRouteMatch();

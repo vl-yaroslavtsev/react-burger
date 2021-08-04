@@ -42,12 +42,12 @@ export function IngredientPage() {
         Ошибка загрузки данных. {error}
       </p>}
       {ingredient && <>
-        <h1 className="text text_type_main-large">Детали ингридиента</h1>
+        <h1 className="text text_type_main-large">Детали ингредиента</h1>
         <IngredientDetails ingredient={ingredient} />
       </>}
       {
         !error && !loading && !ingredient && <p className="text text_type_main-default">
-          Увы, не удалось найти ингридиент.
+          Увы, не удалось найти ингредиент.
         </p>
       }
     </section >

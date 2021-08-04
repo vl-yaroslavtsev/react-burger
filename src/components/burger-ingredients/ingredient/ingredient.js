@@ -22,6 +22,7 @@ const Ingredient = memo(
         className={cn(styles.container, className)}
         onClick={handleClick}
         ref={dragRef}
+        data-test-id={`ingredient-${item._id}`}
       >
         {count > 0 && <Counter count={count} size="default" />}
         <img src={image} width={240} height={120} className="mb-1" alt={name} />
