@@ -11,15 +11,20 @@ import { checkResetPassword } from "../services/api";
 import styles from "./forgot-password.module.css";
 
 export function ForgotPasswordPage() {
-  const { data, loading, error, register, values, handleSubmit } = useFormSubmit({
-    onSubmit: checkResetPassword,
-  });
+  const { data, loading, error, register, values, handleSubmit } =
+    useFormSubmit({
+      onSubmit: checkResetPassword,
+    });
 
   if (data) {
-    return <Redirect to={{
-      pathname: "/reset-password",
-      state: { email: values.email }
-    }} />;
+    return (
+      <Redirect
+        to={{
+          pathname: "/reset-password",
+          state: { email: values.email },
+        }}
+      />
+    );
   }
 
   return (
@@ -39,7 +44,7 @@ export function ForgotPasswordPage() {
         />
       </div>
       <div className="mb-20">
-        <Button disabled={loading}>Восстановить</Button>
+        <Button>Восстановить</Button>
       </div>
       <p className="text text_type_main-default text_color_inactive">
         Вспомнили пароль? <Link to="/login">Войти</Link>
