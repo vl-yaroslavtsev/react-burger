@@ -2,11 +2,11 @@ import { loadUser } from "../api";
 import { AppDispatch, AppThunk } from "../types";
 import { IUser } from "../types/data";
 
-export const GET_USER_REQUEST = "GET_USER_REQUEST";
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_ERROR = "GET_USER_ERROR";
-export const SET_USER = "SET_USER";
-export const CLEAR_USER = "CLEAR_USER";
+export const GET_USER_REQUEST: "GET_USER_REQUEST" = "GET_USER_REQUEST";
+export const GET_USER_SUCCESS: "GET_USER_SUCCESS" = "GET_USER_SUCCESS";
+export const GET_USER_ERROR: "GET_USER_ERROR" = "GET_USER_ERROR";
+export const SET_USER: "SET_USER" = "SET_USER";
+export const CLEAR_USER: "CLEAR_USER" = "CLEAR_USER";
 
 export interface IGetUserRequestAction {
   readonly type: typeof GET_USER_REQUEST;

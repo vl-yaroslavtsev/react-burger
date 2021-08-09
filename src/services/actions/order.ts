@@ -1,10 +1,13 @@
 import { checkoutOrder } from "../api";
 import { AppDispatch, AppThunk } from "../types";
 
-export const CHECKOUT_ORDER_REQUEST = "CHECKOUT_ORDER_REQUEST";
-export const CHECKOUT_ORDER_SUCCESS = "CHECKOUT_ORDER_SUCCESS";
-export const CHECKOUT_ORDER_ERROR = "CHECKOUT_ORDER_ERROR";
-export const CLEAR_ORDER = "CLEAR_ORDER";
+export const CHECKOUT_ORDER_REQUEST: "CHECKOUT_ORDER_REQUEST" =
+  "CHECKOUT_ORDER_REQUEST";
+export const CHECKOUT_ORDER_SUCCESS: "CHECKOUT_ORDER_SUCCESS" =
+  "CHECKOUT_ORDER_SUCCESS";
+export const CHECKOUT_ORDER_ERROR: "CHECKOUT_ORDER_ERROR" =
+  "CHECKOUT_ORDER_ERROR";
+export const CLEAR_ORDER: "CLEAR_ORDER" = "CLEAR_ORDER";
 
 export interface ICheckoutOrderRequestAction {
   readonly type: typeof CHECKOUT_ORDER_REQUEST;

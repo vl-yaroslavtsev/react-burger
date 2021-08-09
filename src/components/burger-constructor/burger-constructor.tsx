@@ -95,7 +95,7 @@ function BurgerConstructor() {
     props: [bunItem, items.length === 0],
   });
 
-  let history = useHistory();
+  const history = useHistory();
   if (orderError === "jwt malformed") {
     dispatch({
       type: CHECKOUT_ORDER_ERROR,

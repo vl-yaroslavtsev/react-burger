@@ -10,7 +10,7 @@ export function UnauthorizedRoute({
   children,
   ...rest
 }: IUnauthorizedRouteProps) {
-  let { user, userLoaded } = useAuth();
+  const { user, userLoaded } = useAuth();
 
   if (!userLoaded) {
     return <Spinner center={true} />;

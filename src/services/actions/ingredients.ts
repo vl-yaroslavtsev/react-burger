@@ -2,9 +2,12 @@ import { loadIngredients } from "../api";
 import { AppDispatch, AppThunk } from "../types";
 import { IIngredient } from "../types/data";
 
-export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
-export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
-export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
+export const GET_INGREDIENTS_REQUEST: "GET_INGREDIENTS_REQUEST" =
+  "GET_INGREDIENTS_REQUEST";
+export const GET_INGREDIENTS_SUCCESS: "GET_INGREDIENTS_SUCCESS" =
+  "GET_INGREDIENTS_SUCCESS";
+export const GET_INGREDIENTS_ERROR: "GET_INGREDIENTS_ERROR" =
+  "GET_INGREDIENTS_ERROR";
 
 export type IGetIngredientsRequestAction = {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
