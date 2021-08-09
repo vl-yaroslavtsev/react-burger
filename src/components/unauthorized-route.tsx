@@ -1,5 +1,6 @@
 import { useAuth } from "../services/auth";
 import { Redirect, Route, RouteProps } from "react-router-dom";
+import Spinner from "./spinner/spinner";
 
 interface IUnauthorizedRouteProps extends RouteProps {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ export function UnauthorizedRoute({
   let { user, userLoaded } = useAuth();
 
   if (!userLoaded) {
-    return null;
+    return <Spinner center={true} />;
   }
 
   return (

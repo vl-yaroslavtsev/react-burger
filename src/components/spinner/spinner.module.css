@@ -1,0 +1,36 @@
+.spinner {
+  animation: rotate 2s linear infinite;
+  z-index: 2;
+}
+
+.spinnerCenter {
+  align-self: center;
+  margin: 0 auto;
+}
+
+.circle {
+  stroke: var(--text-primary-color);
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 2%, 300%;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 180%, 300%;
+    stroke-dashoffset: -70%;
+  }
+  100% {
+    stroke-dasharray: 180%, 300%;
+    stroke-dashoffset: -248%;
+  }
+}

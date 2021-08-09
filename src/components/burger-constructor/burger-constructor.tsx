@@ -11,6 +11,7 @@ import { useDrop } from "react-dnd";
 
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import Spinner from "../spinner/spinner";
 import DragElement from "./drag-element/drag-element";
 
 import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
@@ -185,9 +186,12 @@ function BurgerConstructor() {
       >
         <>
           {orderLoading && (
-            <p className="text text_type_main-default mt-5 mb-10">
-              Отправляем заказ. Пожалуйста, подождите...
-            </p>
+            <div className={styles.center}>
+              <p className="text text_type_main-default mb-20 ml-25 mr-25">
+                Оформляем заказ...
+              </p>
+              <Spinner className="mb-15" />
+            </div>
           )}
           {orderError && (
             <p className={cn("text text_type_main-default mt-5", styles.error)}>

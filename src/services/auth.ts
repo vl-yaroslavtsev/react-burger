@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "../services/hooks";
+import { useSelector, useDispatch } from "./hooks";
 import { login, logout } from "./api";
 import { getUser, SET_USER, CLEAR_USER } from "./actions/user";
 
@@ -19,7 +19,6 @@ export function useAuth() {
   const signIn = useCallback(
     async (params) => {
       const data = await login(params);
-      //console.log("signIn", data);
       dispatch({ type: SET_USER, user: data.user });
       return data;
     },

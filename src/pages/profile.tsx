@@ -8,6 +8,7 @@ import ProfileForm from "../components/profile-form/profile-form";
 import { useAuth } from "../services/auth";
 import OrderItem from "../components/order-item/order-item";
 import Skeleton from "../components/skeleton/skeleton";
+import Spinner from "../components/spinner/spinner";
 
 import { useProfileOrders } from "../services/orders";
 
@@ -79,7 +80,7 @@ function Logout() {
       При выходе возникла ошибка. Пожалуйста, попробуйте позже. {logoutError}
     </p>
   ) : (
-    <p className="text text_type_main-default mt-20">Выполняется выход...</p>
+    <Spinner center={true} />
   );
 }
 
