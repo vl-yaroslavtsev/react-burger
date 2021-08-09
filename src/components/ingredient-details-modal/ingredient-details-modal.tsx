@@ -6,7 +6,7 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const IngredientDetailsModal = memo(() => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const { items: ingredients } = useSelector((store) => store.ingredients);
 

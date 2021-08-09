@@ -1,10 +1,13 @@
 import cn from "classnames";
-import PropTypes from "prop-types";
 import statusIcon from "../../images/done.svg";
 
 import styles from "./order-details.module.css";
 
-function OrderDetails({ orderNumber }) {
+interface IOrderDetailsProps {
+  orderNumber: number;
+}
+
+function OrderDetails({ orderNumber }: IOrderDetailsProps) {
   return (
     <div className={cn(styles.container, "pl-15 pr-15 pb-20")}>
       <h1 className={cn(styles.title, "text text_type_digits-large mt-4 mb-8")}>
@@ -26,9 +29,5 @@ function OrderDetails({ orderNumber }) {
     </div>
   );
 }
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
-};
 
 export default OrderDetails;

@@ -28,10 +28,14 @@ export default function ProfileForm() {
     onSubmit: updateUser,
   });
 
+  if (!user) {
+    return null;
+  }
+
   const footerVisible = !isEqual({ ...user, password: "" }, values);
 
-  const createSetValue = (name) => {
-    return (value) => setValues({ ...values, [name]: value });
+  const createSetValue = (name: string) => {
+    return (value: string) => setValues({ ...values, [name]: value });
   };
 
   const handleCancel = () => {
@@ -102,12 +106,11 @@ export default function ProfileForm() {
       >
         <a
           className="text text_type_main-default mr-7"
-          disabled={loading}
-          onClick={handleCancel}
+          onClick={loading ? undefined : handleCancel}
         >
           Отмена
         </a>
-        <Button type="primary" size="medium" disabled={loading}>
+        <Button type="primary" size="medium">
           Сохранить
         </Button>
       </footer>

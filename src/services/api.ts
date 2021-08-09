@@ -181,7 +181,10 @@ export async function updateUser(params: {
   password: string;
   name: string;
 }) {
-  return await fetchWithRefresh(routes.auth.user, { method: "PATCH", params });
+  return await fetchWithRefresh<{ user: IUser }>(routes.auth.user, {
+    method: "PATCH",
+    params,
+  });
 }
 
 export async function loadOrderById(id: string) {

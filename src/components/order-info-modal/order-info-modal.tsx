@@ -8,7 +8,7 @@ import { useOrders } from "../../services/orders";
 import Modal from "../modal/modal";
 
 const OrderInfoModal = memo(() => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const location = useLocation();
 
@@ -21,13 +21,13 @@ const OrderInfoModal = memo(() => {
 
   const { ordersList } = useOrders(orders);
 
-  const order = ordersList.find(({ number }) => number === Number(id));
+  const order = ordersList.find(({ number }) => number === Number(id)) || null;
 
   const modalOnClose = useCallback(() => {
     history.goBack();
   }, [history]);
 
-  const header = (
+  const header = order && (
     <div className="text text_type_digits-default">#{order.number}</div>
   );
 

@@ -4,7 +4,10 @@ import "./view-input.module.css";
 
 type TViewInputProps = {
   setValue: (value: string) => void;
-} & Required<typeof Input["defaultProps"]>;
+} & {
+  value: string;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+} & typeof Input["defaultProps"];
 
 export default function ViewInput({ setValue, ...props }: TViewInputProps) {
   const [isEditMode, setEditMode] = useState(false);

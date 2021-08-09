@@ -3,13 +3,21 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import "./password-input.module.css";
 
-export default function PasswordInput(props) {
+type TPasswordInputProps = {
+  value: string;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+} & typeof Input["defaultProps"];
+
+export default function PasswordInput({ ...props }: TPasswordInputProps) {
   const [isValueHidden, setValueHidden] = useState(true);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleIconClick = useCallback(() => {
     setValueHidden(!isValueHidden);
     const el = inputRef.current;
+    if (!el) {
+      return;
+    }
     const pos = el.selectionStart;
     setTimeout(() => {
       el.focus();
