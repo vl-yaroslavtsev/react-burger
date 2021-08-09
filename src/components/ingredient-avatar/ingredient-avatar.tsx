@@ -1,9 +1,13 @@
 import cn from "classnames";
-import PropTypes from "prop-types";
 
 import styles from "./ingredient-avatar.module.css";
 
-export function IngredientAvatar({ image, count = 0 }) {
+interface IIngredientAvatarProps {
+  image: string;
+  count?: number;
+}
+
+export function IngredientAvatar({ image, count = 0 }: IIngredientAvatarProps) {
   return (
     <div className={styles.ingredient}>
       <img
@@ -21,10 +25,5 @@ export function IngredientAvatar({ image, count = 0 }) {
     </div>
   );
 }
-
-IngredientAvatar.propTypes = {
-  image: PropTypes.string.isRequired,
-  count: PropTypes.number,
-};
 
 export default IngredientAvatar;

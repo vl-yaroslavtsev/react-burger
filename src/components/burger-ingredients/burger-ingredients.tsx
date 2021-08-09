@@ -12,6 +12,7 @@ import { animate } from "../../services/utils";
 import { useScrollbar } from "../../services/scrollbar";
 
 import { getIngredients } from "../../services/actions/ingredients";
+import { isReturnStatement } from "typescript";
 
 const GROUP_NAME = {
   bun: "Булки",
@@ -35,12 +36,12 @@ function BurgerIngredients() {
     (store) => store.construct
   );
 
-  const ingredientsRef = useRef(null);
+  const ingredientsRef = useRef<HTMLUListElement>(null);
   useScrollbar(ingredientsRef);
 
   const counterMap = useMemo(
     () =>
-      ingredients.reduce((map, item) => {
+      ingredients.reduce((map: { [key: string]: number }, item) => {
         if (bunItem && item._id === bunItem._id) {
           map[item._id] = 2;
           return map;
@@ -60,11 +61,18 @@ function BurgerIngredients() {
     }
   }, [dispatch, ingredients.length]);
 
-  const scrollToTabSection = (tab) => {
+  const scrollToTabSection = (tab: string) => {
     const el = ingredientsRef.current;
-    const section = el.querySelector(`[data-group="${tab}"]`);
+
+    if (!el) {
+      return;
+    }
+
+    const section: HTMLElement | null = el.querySelector(
+      `[data-group="${tab}"]`
+    );
     const startScroll = el.scrollTop;
-    const endScroll = section?.offsetTop;
+    const endScroll = section?.offsetTop || 0;
 
     animate({
       draw(progress) {
@@ -76,14 +84,17 @@ function BurgerIngredients() {
 
   useEffect(() => {
     const root = ingredientsRef.current;
+    if (!root) {
+      return;
+    }
     const height = root.offsetHeight;
     const observer = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           // если элемент является наблюдаемым
           if (entry.isIntersecting) {
-            const section = entry.target;
-            setCurrentTab(section.dataset.group);
+            const section = entry.target as HTMLElement;
+            setCurrentTab(section.dataset.group || "bun");
           }
         });
       },

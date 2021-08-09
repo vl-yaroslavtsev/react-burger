@@ -1,8 +1,7 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, RefObject } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useHistory } from "react-router-dom";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import {
   ConstructorElement,
   Button,
@@ -18,6 +17,7 @@ import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
 
 import { animate } from "../../services/utils";
 import { useScrollbar } from "../../services/scrollbar";
+import { IConstructorIngredient } from "../../services/types/data";
 
 import {
   ADD_CONSTRUCTOR_INGREDIENT,
@@ -27,7 +27,7 @@ import {
 import { doCheckoutOrder, CLEAR_ORDER } from "../../services/actions/order";
 import styles from "./burger-constructor.module.css";
 
-function BurgerConstructor({ className }) {
+function BurgerConstructor() {
   const [isOrderShown, setOrderShown] = useState(false);
 
   const { bunItem, items, totalPrice } = useSelector(
@@ -43,13 +43,16 @@ function BurgerConstructor({ className }) {
   const dispatch = useDispatch();
 
   const elementOnDelete = useCallback(
-    (item, ref) => {
+    (item: IConstructorIngredient, ref: RefObject<HTMLLIElement>) => {
       const el = ref.current;
+      if (!el) {
+        return;
+      }
       const height = el.offsetHeight;
-      el.style.zIndex = -1;
+      el.style.zIndex = "-1";
       animate({
         draw(progress) {
-          el.style.opacity = 1 - progress;
+          el.style.opacity = `${1 - progress}`;
           el.style.marginTop = `-${height * progress}px`;
         },
         duration: 500,
@@ -83,9 +86,9 @@ function BurgerConstructor({ className }) {
     }),
   });
 
-  const listRef = useRef();
-  const bottomBunRef = useRef();
-  const footerRef = useRef();
+  const listRef = useRef<HTMLUListElement>(null);
+  const bottomBunRef = useRef<HTMLLIElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
   useScrollbar(listRef, {
     exclude: [bottomBunRef, footerRef],
     props: [bunItem, items.length === 0],
@@ -103,7 +106,7 @@ function BurgerConstructor({ className }) {
 
   return (
     <section
-      className={cn(styles.container, className, "pt-25 pl-4")}
+      className={cn(styles.container, "pt-25 pl-4")}
       ref={dropIngredientsRef}
       data-test-id="constructor-container"
     >
@@ -178,7 +181,7 @@ function BurgerConstructor({ className }) {
       <Modal
         header={orderError && "Ошибка"}
         visible={isOrderShown}
-        onClose={orderModalOnClose}
+        onClose={orderLoading ? undefined : orderModalOnClose}
       >
         <>
           {orderLoading && (
@@ -197,9 +200,5 @@ function BurgerConstructor({ className }) {
     </section>
   );
 }
-
-BurgerConstructor.propTypes = {
-  className: PropTypes.string,
-};
 
 export default BurgerConstructor;

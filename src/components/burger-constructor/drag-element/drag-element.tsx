@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import {
   ConstructorElement,
   DragIcon,
@@ -9,14 +8,23 @@ import {
 import { useDrag, useDrop } from "react-dnd";
 
 import { REORDER_CONSTRUCTOR_INGREDIENTS } from "../../../services/actions/constructor";
-
 import { animate, usePrevious } from "../../../services/utils";
+import { IConstructorIngredient } from "../../../services/types/data";
 
 import styles from "./drag-element.module.css";
 
-function DragElement({ item, index, onDelete = () => {} }) {
+interface IDragElementProps {
+  item: IConstructorIngredient;
+  index: number;
+  onDelete: (
+    item: IConstructorIngredient,
+    ref: RefObject<HTMLLIElement>
+  ) => void;
+}
+
+function DragElement({ item, index, onDelete = () => {} }: IDragElementProps) {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
   const [isHoverTop, setHoverTop] = useState(false);
   const [isTransition, setTransition] = useState(false);
 
@@ -24,10 +32,13 @@ function DragElement({ item, index, onDelete = () => {} }) {
 
   useEffect(() => {
     const el = ref.current;
-    el.style.opacity = 0;
+    if (!el) {
+      return;
+    }
+    el.style.opacity = "0";
     animate({
       draw(progress) {
-        el.style.opacity = progress;
+        el.style.opacity = `${progress}`;
       },
       duration: 500,
       timing: "easeOut",
@@ -37,7 +48,7 @@ function DragElement({ item, index, onDelete = () => {} }) {
   const [{ isDrag }, dragTargetRef] = useDrag({
     type: "constructorItem",
     item: () => {
-      return { id: item.id, index };
+      return { id: item._id, index };
     },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
@@ -46,7 +57,7 @@ function DragElement({ item, index, onDelete = () => {} }) {
 
   const [{ isOver, didDrop }, dropTargetRef] = useDrop({
     accept: "constructorItem",
-    drop(item) {
+    drop(item: { id: string; index: number }) {
       const hoverIndex = index - (isHoverTop ? 1 : 0);
       const dropIndex = item.index;
       setTransition(false);
@@ -66,7 +77,7 @@ function DragElement({ item, index, onDelete = () => {} }) {
       if (!element) return;
       setTransition(true);
       const clientRect = element.getBoundingClientRect();
-      const offset = monitor.getSourceClientOffset();
+      const offset = monitor.getSourceClientOffset() || { y: 0 };
       setHoverTop(offset.y <= clientRect.y);
     },
     collect: (monitor) => ({
@@ -81,7 +92,7 @@ function DragElement({ item, index, onDelete = () => {} }) {
   const overLeave = prevIsOver && !isOver;
   const dragLeave = prevIsDrag && !isDrag;
 
-  const height = ref.current?.getBoundingClientRect().height;
+  const height = ref.current?.getBoundingClientRect().height || 0;
 
   dragTargetRef(dropTargetRef(ref));
 
@@ -111,16 +122,5 @@ function DragElement({ item, index, onDelete = () => {} }) {
     </li>
   );
 }
-
-DragElement.propTypes = {
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-  }).isRequired,
-  index: PropTypes.number.isRequired,
-  onDelete: PropTypes.func,
-};
 
 export default DragElement;

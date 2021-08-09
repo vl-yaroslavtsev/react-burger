@@ -1,21 +1,27 @@
-import { useEffect, useRef, memo } from "react";
+import { useEffect, useRef, memo, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./modal.module.css";
 
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
-const modalRoot = document.getElementById("react-modals");
-const ESC_KEY_CODE = 27;
+const modalRoot = document.getElementById("react-modals") as HTMLElement;
+const ESC_KEY = "Escape";
 
-let visibleModals = [];
+let visibleModals: React.MutableRefObject<undefined>[] = [];
 
+interface IModalProps {
+  children: ReactNode;
+  header?: ReactNode;
+  visible?: boolean;
+  onClose?: () => void;
+}
 const Modal = memo(
-  ({ children, header = "", visible = false, onClose = () => {} }) => {
+  ({ children, header = "", visible = false, onClose }: IModalProps) => {
     const modal = useRef();
+    const closeVisible = !!onClose;
 
     useEffect(() => {
       if (visible) {
@@ -28,10 +34,11 @@ const Modal = memo(
 
     // Если открыто несколько модальных окон, закрываем по ESC только самое верхнее
     useEffect(() => {
-      const keyDownHandler = (e) => {
+      const keyDownHandler = (e: KeyboardEvent) => {
         if (
-          e.keyCode === ESC_KEY_CODE &&
-          visibleModals[visibleModals.length - 1] === modal
+          e.key === ESC_KEY &&
+          visibleModals[visibleModals.length - 1] === modal &&
+          onClose
         ) {
           onClose();
         }
@@ -57,9 +64,11 @@ const Modal = memo(
           <h1 className={cn(styles.title, "text text_type_main-large pr-7")}>
             {header}
           </h1>
-          <div className={styles.closeButton}>
-            <CloseIcon type="primary" onClick={onClose} />
-          </div>
+          {closeVisible && (
+            <div className={styles.closeButton}>
+              <CloseIcon type="primary" onClick={onClose} />
+            </div>
+          )}
           <section className={cn(styles.content)}>{children}</section>
         </div>
       </>,
@@ -67,12 +76,5 @@ const Modal = memo(
     );
   }
 );
-
-Modal.propTypes = {
-  children: PropTypes.element,
-  header: PropTypes.node,
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
-};
 
 export default Modal;

@@ -2,17 +2,24 @@ import styles from "./ingredient.module.css";
 
 import { memo } from "react";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
+import { IIngredient } from "../../../services/types/data";
+
+interface IIngredientProps {
+  className?: string;
+  onClick?: (e: React.MouseEvent, item: IIngredient) => void;
+  item: IIngredient;
+  count?: number;
+}
 
 const Ingredient = memo(
-  ({ className, item, count = 0, onClick = () => {} }) => {
+  ({ className, item, count = 0, onClick = () => {} }: IIngredientProps) => {
     const { name, price, image } = item;
-    const handleClick = (e) => onClick(e, item);
+    const handleClick = (e: React.MouseEvent) => onClick(e, item);
     const [, dragRef] = useDrag({
       type: "ingredient",
       item,
@@ -37,17 +44,5 @@ const Ingredient = memo(
     );
   }
 );
-
-Ingredient.propTypes = {
-  className: PropTypes.string,
-  onClick: PropTypes.func,
-  item: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-  }),
-  count: PropTypes.number,
-};
 
 export default Ingredient;

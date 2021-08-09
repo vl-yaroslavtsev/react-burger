@@ -1,13 +1,13 @@
 import { useState, useEffect, memo } from "react";
 import cn from "classnames";
-import PropTypes from "prop-types";
 
 import styles from "./ingredient-details.module.css";
+import { IIngredient } from "../../services/types/data";
 
-function useImageLoading(src) {
+function useImageLoading(src: string) {
   const [isLoading, setLoading] = useState(true);
 
-  const loadImage = async (src) => {
+  const loadImage = async (src: string) => {
     if (!src) return;
     const img = new Image();
     img.src = src;
@@ -28,7 +28,11 @@ function useImageLoading(src) {
   return isLoading;
 }
 
-const IngredientDetails = memo(({ ingredient }) => {
+interface IngredientDetailsProps {
+  ingredient: IIngredient;
+}
+
+const IngredientDetails = memo(({ ingredient }: IngredientDetailsProps) => {
   const imageLoading = useImageLoading(ingredient.image_large);
 
   return (
@@ -74,14 +78,5 @@ const IngredientDetails = memo(({ ingredient }) => {
     </div>
   );
 });
-
-IngredientDetails.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-  }).isRequired,
-};
 
 export default IngredientDetails;

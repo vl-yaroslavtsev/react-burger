@@ -108,8 +108,9 @@ async function fetchWithRefresh<IData>(
     if (method !== "GET") {
       options.body = JSON.stringify(params);
     }
+
     const res = await fetch(url, options);
-    return checkResponse<IData>(res);
+    return await checkResponse<IData>(res);
   } catch (err) {
     if (err.message === "jwt expired") {
       await refreshToken();

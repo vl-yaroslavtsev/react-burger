@@ -1,8 +1,15 @@
 import cn from "classnames";
-import PropTypes from "prop-types";
 import styles from "./modal-overlay.module.css";
 
-function ModalOverlay({ visible = false, onClose = () => {} }) {
+interface IModalOverlayProps {
+  visible?: boolean;
+  onClose?: () => void;
+}
+
+function ModalOverlay({
+  visible = false,
+  onClose = () => {},
+}: IModalOverlayProps) {
   return (
     <div
       className={cn(styles.container, { [styles.hidden]: !visible })}
@@ -10,10 +17,5 @@ function ModalOverlay({ visible = false, onClose = () => {} }) {
     ></div>
   );
 }
-
-ModalOverlay.propTypes = {
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
-};
 
 export default ModalOverlay;

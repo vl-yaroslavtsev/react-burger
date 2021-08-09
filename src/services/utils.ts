@@ -144,7 +144,7 @@ export const timingFunctions = {
 
 interface IAnimateProps {
   timing?: keyof typeof timingFunctions;
-  draw: (step: number) => {};
+  draw: (step: number) => void;
   duration: number;
 }
 
