@@ -12,7 +12,7 @@ import { SET_USER } from "../../services/actions/user";
 
 import styles from "./profile-form.module.css";
 
-export default function ProfileForm() {
+const ProfileForm: React.FC = () => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const {
@@ -116,4 +116,6 @@ export default function ProfileForm() {
       </footer>
     </form>
   );
-}
+};
+
+export default ProfileForm;

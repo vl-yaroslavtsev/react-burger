@@ -28,7 +28,7 @@ import {
 import { doCheckoutOrder, CLEAR_ORDER } from "../../services/actions/order";
 import styles from "./burger-constructor.module.css";
 
-function BurgerConstructor() {
+const BurgerConstructor: React.FC = () => {
   const [isOrderShown, setOrderShown] = useState(false);
 
   const { bunItem, items, totalPrice } = useSelector(
@@ -203,6 +203,6 @@ function BurgerConstructor() {
       </Modal>
     </section>
   );
-}
+};
 
 export default BurgerConstructor;

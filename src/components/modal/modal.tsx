@@ -18,8 +18,8 @@ interface IModalProps {
   visible?: boolean;
   onClose?: () => void;
 }
-const Modal = memo(
-  ({ children, header = "", visible = false, onClose }: IModalProps) => {
+const Modal: React.FC<IModalProps> = memo(
+  ({ children, header = "", visible = false, onClose }) => {
     const modal = useRef();
     const closeVisible = !!onClose;
 

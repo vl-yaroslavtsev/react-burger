@@ -22,7 +22,7 @@ import { UnauthorizedRoute } from "../unauthorized-route";
 import IngredientDetailsModal from "../ingredient-details-modal/ingredient-details-modal";
 import OrderInfoModal from "../order-info-modal/order-info-modal";
 
-function App() {
+const App: React.FC = () => {
   const location = useLocation<{ background?: Location }>();
   const history = useHistory();
   const background = history.action === "PUSH" && location.state?.background;
@@ -83,6 +83,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

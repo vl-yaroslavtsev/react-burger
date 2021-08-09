@@ -9,7 +9,7 @@ type TViewInputProps = {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 } & typeof Input["defaultProps"];
 
-export default function ViewInput({ setValue, ...props }: TViewInputProps) {
+const ViewInput: React.FC<TViewInputProps> = ({ setValue, ...props }) => {
   const [isEditMode, setEditMode] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   let iconClick = false;
@@ -48,4 +48,6 @@ export default function ViewInput({ setValue, ...props }: TViewInputProps) {
       disabled={props.disabled || !isEditMode}
     />
   );
-}
+};
+
+export default ViewInput;

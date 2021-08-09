@@ -8,7 +8,7 @@ type TPasswordInputProps = {
   onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 } & typeof Input["defaultProps"];
 
-export default function PasswordInput({ ...props }: TPasswordInputProps) {
+const PasswordInput: React.FC<TPasswordInputProps> = ({ ...props }) => {
   const [isValueHidden, setValueHidden] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -34,4 +34,6 @@ export default function PasswordInput({ ...props }: TPasswordInputProps) {
       onIconClick={handleIconClick}
     />
   );
-}
+};
+
+export default PasswordInput;

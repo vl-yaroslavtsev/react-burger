@@ -20,7 +20,7 @@ const GROUP_NAME = {
   main: "Начинки",
 };
 
-function BurgerIngredients() {
+const BurgerIngredients: React.FC = () => {
   const [currentTab, setCurrentTab] = useState("bun");
 
   const dispatch = useDispatch();
@@ -198,6 +198,6 @@ function BurgerIngredients() {
       </ul>
     </section>
   );
-}
+};
 
 export default BurgerIngredients;

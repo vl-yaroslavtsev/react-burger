@@ -7,7 +7,7 @@ interface IOrderDetailsProps {
   orderNumber: number;
 }
 
-function OrderDetails({ orderNumber }: IOrderDetailsProps) {
+const OrderDetails: React.FC<IOrderDetailsProps> = ({ orderNumber }) => {
   return (
     <div className={cn(styles.container, "pl-15 pr-15 pb-20")}>
       <h1 className={cn(styles.title, "text text_type_digits-large mt-4 mb-8")}>
@@ -28,6 +28,6 @@ function OrderDetails({ orderNumber }: IOrderDetailsProps) {
       </p>
     </div>
   );
-}
+};
 
 export default OrderDetails;

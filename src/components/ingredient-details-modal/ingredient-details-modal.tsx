@@ -5,7 +5,7 @@ import { useHistory, useParams } from "react-router-dom";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
-const IngredientDetailsModal = memo(() => {
+const IngredientDetailsModal: React.FC = memo(() => {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const { items: ingredients } = useSelector((store) => store.ingredients);

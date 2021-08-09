@@ -9,12 +9,12 @@ interface ISpinnerProps {
   center?: boolean;
 }
 
-export default function Spinner({
+const Spinner: React.FC<ISpinnerProps> = ({
   size = 50,
   stroke = 3,
   className,
   center = false,
-}: ISpinnerProps) {
+}) => {
   const radius = 0.4 * size;
 
   return (
@@ -37,4 +37,6 @@ export default function Spinner({
       ></circle>
     </svg>
   );
-}
+};
+
+export default Spinner;

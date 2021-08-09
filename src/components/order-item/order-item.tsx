@@ -14,7 +14,7 @@ interface IIngredientsProps {
   ingredients: IOrderIngredient[];
 }
 
-function Ingredients({ ingredients = [] }: IIngredientsProps) {
+const Ingredients: React.FC<IIngredientsProps> = ({ ingredients = [] }) => {
   const list = ingredients.slice(0, 5);
   const rest = ingredients.slice(5);
   return (
@@ -35,13 +35,13 @@ function Ingredients({ ingredients = [] }: IIngredientsProps) {
       )}
     </ul>
   );
-}
+};
 
 interface IOrderItemProps {
   order: IFullOrder;
 }
 
-const OrderItem = memo(({ order }: IOrderItemProps) => {
+const OrderItem: React.FC<IOrderItemProps> = memo(({ order }) => {
   const location = useLocation();
   const { path } = useRouteMatch();
   return (

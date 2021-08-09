@@ -8,7 +8,10 @@ interface IProtectedRouteProps extends RouteProps {
   children: React.ReactNode;
 }
 
-export function ProtectedRoute({ children, ...rest }: IProtectedRouteProps) {
+export const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
+  children,
+  ...rest
+}) => {
   const { user, userLoaded } = useAuth();
 
   if (!userLoaded) {
@@ -32,4 +35,4 @@ export function ProtectedRoute({ children, ...rest }: IProtectedRouteProps) {
       }
     />
   );
-}
+};

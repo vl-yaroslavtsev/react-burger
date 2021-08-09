@@ -6,16 +6,16 @@ interface IModalOverlayProps {
   onClose?: () => void;
 }
 
-function ModalOverlay({
+const ModalOverlay: React.FC<IModalOverlayProps> = ({
   visible = false,
   onClose = () => {},
-}: IModalOverlayProps) {
+}) => {
   return (
     <div
       className={cn(styles.container, { [styles.hidden]: !visible })}
       onClick={onClose}
     ></div>
   );
-}
+};
 
 export default ModalOverlay;

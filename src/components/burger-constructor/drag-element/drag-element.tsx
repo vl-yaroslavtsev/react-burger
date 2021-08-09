@@ -22,7 +22,11 @@ interface IDragElementProps {
   ) => void;
 }
 
-function DragElement({ item, index, onDelete = () => {} }: IDragElementProps) {
+const DragElement: React.FC<IDragElementProps> = ({
+  item,
+  index,
+  onDelete = () => {},
+}) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLLIElement>(null);
   const [isHoverTop, setHoverTop] = useState(false);
@@ -121,6 +125,6 @@ function DragElement({ item, index, onDelete = () => {} }: IDragElementProps) {
       />
     </li>
   );
-}
+};
 
 export default DragElement;

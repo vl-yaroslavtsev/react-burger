@@ -11,14 +11,14 @@ interface ISkeletonProps {
   tag?: keyof JSX.IntrinsicElements;
 }
 
-export default function Skeleton({
+const Skeleton: React.FC<ISkeletonProps> = ({
   width,
   height,
   className,
   circle = false,
   repeat = 1,
   tag: Tag = "div",
-}: ISkeletonProps) {
+}) => {
   const style = {
     ...(width ? { width } : {}),
     ...(circle ? { height: width } : {}),
@@ -48,4 +48,6 @@ export default function Skeleton({
       &nbsp;
     </Tag>
   );
-}
+};
+
+export default Skeleton;

@@ -17,7 +17,10 @@ interface IIngredientsProps {
   listRef: RefObject<HTMLUListElement>;
 }
 
-function Ingredients({ ingredients = [], listRef }: IIngredientsProps) {
+const Ingredients: React.FC<IIngredientsProps> = ({
+  ingredients = [],
+  listRef,
+}) => {
   return (
     <ul className={styles.ingredientList} ref={listRef}>
       {ingredients.map(({ image, name, count, price }, index) => (
@@ -43,48 +46,50 @@ function Ingredients({ ingredients = [], listRef }: IIngredientsProps) {
       ))}
     </ul>
   );
-}
+};
 
 interface IOrderInfoProps {
   order: IFullOrder;
   isInModal?: boolean;
 }
 
-const OrderInfo = memo(({ order, isInModal = false }: IOrderInfoProps) => {
-  const listRef = useRef<HTMLUListElement>(null);
-  const footerRef = useRef<HTMLElement>(null);
+const OrderInfo: React.FC<IOrderInfoProps> = memo(
+  ({ order, isInModal = false }) => {
+    const listRef = useRef<HTMLUListElement>(null);
+    const footerRef = useRef<HTMLElement>(null);
 
-  useScrollbar(listRef, { exclude: footerRef, maxHeight: 312, isInModal });
+    useScrollbar(listRef, { exclude: footerRef, maxHeight: 312, isInModal });
 
-  return (
-    <section className={cn(styles.container)}>
-      <h1 className="text text_type_main-medium mt-5">{order.name}</h1>
-      {order.status && (
-        <p
-          className={cn("text text_type_main-default pt-3", {
-            [styles.statusDone]: order.status === "done",
-          })}
-        >
-          {translateStatus(order.status)}
-        </p>
-      )}
-      <section className={cn("mt-15")}>
-        <h1 className="text text_type_main-medium mb-6">Состав:</h1>
-        <Ingredients ingredients={order.ingredients} listRef={listRef} />
-      </section>
-      <footer className={cn(styles.footer, "mt-10")} ref={footerRef}>
-        <span className="text text_type_main-default text_color_inactive">
-          {formatPastDate(order.createdAt)}
-        </span>
-        <div className={styles.price}>
-          <p className="text text_type_digits-default mr-2">{order.price}</p>
-          <p className="text">
-            <CurrencyIcon type="primary" />
+    return (
+      <section className={cn(styles.container)}>
+        <h1 className="text text_type_main-medium mt-5">{order.name}</h1>
+        {order.status && (
+          <p
+            className={cn("text text_type_main-default pt-3", {
+              [styles.statusDone]: order.status === "done",
+            })}
+          >
+            {translateStatus(order.status)}
           </p>
-        </div>
-      </footer>
-    </section>
-  );
-});
+        )}
+        <section className={cn("mt-15")}>
+          <h1 className="text text_type_main-medium mb-6">Состав:</h1>
+          <Ingredients ingredients={order.ingredients} listRef={listRef} />
+        </section>
+        <footer className={cn(styles.footer, "mt-10")} ref={footerRef}>
+          <span className="text text_type_main-default text_color_inactive">
+            {formatPastDate(order.createdAt)}
+          </span>
+          <div className={styles.price}>
+            <p className="text text_type_digits-default mr-2">{order.price}</p>
+            <p className="text">
+              <CurrencyIcon type="primary" />
+            </p>
+          </div>
+        </footer>
+      </section>
+    );
+  }
+);
 
 export default OrderInfo;

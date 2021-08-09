@@ -7,7 +7,10 @@ interface IIngredientAvatarProps {
   count?: number;
 }
 
-export function IngredientAvatar({ image, count = 0 }: IIngredientAvatarProps) {
+const IngredientAvatar: React.FC<IIngredientAvatarProps> = ({
+  image,
+  count = 0,
+}) => {
   return (
     <div className={styles.ingredient}>
       <img
@@ -24,6 +27,6 @@ export function IngredientAvatar({ image, count = 0 }: IIngredientAvatarProps) {
       )}
     </div>
   );
-}
+};
 
 export default IngredientAvatar;

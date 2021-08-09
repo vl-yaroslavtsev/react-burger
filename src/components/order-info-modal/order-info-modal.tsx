@@ -7,7 +7,7 @@ import { useOrders } from "../../services/orders";
 
 import Modal from "../modal/modal";
 
-const OrderInfoModal = memo(() => {
+const OrderInfoModal: React.FC = memo(() => {
   const { id } = useParams<{ id: string }>();
   const history = useHistory();
   const location = useLocation();

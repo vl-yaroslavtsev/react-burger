@@ -6,10 +6,10 @@ interface IUnauthorizedRouteProps extends RouteProps {
   children: React.ReactNode;
 }
 
-export function UnauthorizedRoute({
+export const UnauthorizedRoute: React.FC<IUnauthorizedRouteProps> = ({
   children,
   ...rest
-}: IUnauthorizedRouteProps) {
+}) => {
   const { user, userLoaded } = useAuth();
 
   if (!userLoaded) {
@@ -19,4 +19,4 @@ export function UnauthorizedRoute({
   return (
     <Route {...rest} render={() => (user ? <Redirect to="/" /> : children)} />
   );
-}
+};

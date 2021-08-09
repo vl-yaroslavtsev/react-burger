@@ -11,7 +11,11 @@ interface IHeaderItemProps {
   children: ReactNode;
 }
 
-function HeaderItem({ icon: Icon, children, path }: IHeaderItemProps) {
+const HeaderItem: React.FC<IHeaderItemProps> = ({
+  icon: Icon,
+  children,
+  path,
+}) => {
   const match = useRouteMatch({ path, exact: path === "/" });
   return (
     <Link
@@ -27,6 +31,6 @@ function HeaderItem({ icon: Icon, children, path }: IHeaderItemProps) {
       </span>
     </Link>
   );
-}
+};
 
 export default HeaderItem;

@@ -16,8 +16,8 @@ interface IIngredientProps {
   count?: number;
 }
 
-const Ingredient = memo(
-  ({ className, item, count = 0, onClick = () => {} }: IIngredientProps) => {
+const Ingredient: React.FC<IIngredientProps> = memo(
+  ({ className, item, count = 0, onClick = () => {} }) => {
     const { name, price, image } = item;
     const handleClick = (e: React.MouseEvent) => onClick(e, item);
     const [, dragRef] = useDrag({

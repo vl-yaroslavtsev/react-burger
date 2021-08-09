@@ -10,7 +10,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderItem from "./header-item/header-item";
 
-function AppHeader() {
+const AppHeader: React.FC = () => {
   return (
     <header className={cn(styles.header)}>
       <ul className={styles.content}>
@@ -43,6 +43,6 @@ function AppHeader() {
       </ul>
     </header>
   );
-}
+};
 
 export default AppHeader;
