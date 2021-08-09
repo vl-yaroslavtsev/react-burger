@@ -3,8 +3,8 @@ import cn from "classnames";
 import styles from "./skeleton.module.css";
 
 interface ISkeletonProps {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   className?: string;
   circle?: boolean;
   repeat?: number;

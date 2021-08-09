@@ -1,4 +1,4 @@
-import { useLayoutEffect, memo } from "react";
+import { useLayoutEffect } from "react";
 import cn from "classnames";
 import { useParams } from "react-router-dom";
 

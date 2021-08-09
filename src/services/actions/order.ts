@@ -1,5 +1,5 @@
 import { checkoutOrder } from "../api";
-import { AppDispatch, AppThunk, RootState } from "../types";
+import { AppDispatch, AppThunk } from "../types";
 
 export const CHECKOUT_ORDER_REQUEST = "CHECKOUT_ORDER_REQUEST";
 export const CHECKOUT_ORDER_SUCCESS = "CHECKOUT_ORDER_SUCCESS";

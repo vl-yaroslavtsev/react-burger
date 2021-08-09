@@ -1,27 +1,23 @@
-import { useRef, memo } from "react";
+import { useRef, memo, RefObject } from "react";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { formatPastDate } from "../../services/utils";
 import { useScrollbar } from "../../services/scrollbar";
+import { translateStatus } from "../../services/orders";
 
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 
+import { IFullOrder, IOrderIngredient } from "../../services/types/data";
+
 import styles from "./order-info.module.css";
 
-const statusMap = {
-  created: "Создан",
-  pending: "Готовится",
-  done: "Выполнен",
-  canceled: "Отменен",
-};
-
-function translateStatus(status) {
-  return statusMap[status] || status;
+interface IIngredientsProps {
+  ingredients: IOrderIngredient[];
+  listRef: RefObject<HTMLUListElement>;
 }
 
-function Ingredients({ ingredients = [], listRef }) {
+function Ingredients({ ingredients = [], listRef }: IIngredientsProps) {
   return (
     <ul className={styles.ingredientList} ref={listRef}>
       {ingredients.map(({ image, name, count, price }, index) => (
@@ -49,10 +45,17 @@ function Ingredients({ ingredients = [], listRef }) {
   );
 }
 
-const OrderInfo = memo(({ order, isInModal = false }) => {
-  const listRef = useRef();
-  const footerRef = useRef();
+interface IOrderInfoProps {
+  order: IFullOrder;
+  isInModal?: boolean;
+}
+
+const OrderInfo = memo(({ order, isInModal = false }: IOrderInfoProps) => {
+  const listRef = useRef<HTMLUListElement>(null);
+  const footerRef = useRef<HTMLElement>(null);
+
   useScrollbar(listRef, { exclude: footerRef, maxHeight: 312, isInModal });
+
   return (
     <section className={cn(styles.container)}>
       <h1 className="text text_type_main-medium mt-5">{order.name}</h1>
@@ -65,7 +68,7 @@ const OrderInfo = memo(({ order, isInModal = false }) => {
           {translateStatus(order.status)}
         </p>
       )}
-      <section className={cn(styles.content, "mt-15")}>
+      <section className={cn("mt-15")}>
         <h1 className="text text_type_main-medium mb-6">Состав:</h1>
         <Ingredients ingredients={order.ingredients} listRef={listRef} />
       </section>
@@ -83,19 +86,5 @@ const OrderInfo = memo(({ order, isInModal = false }) => {
     </section>
   );
 });
-
-OrderInfo.propTypes = {
-  order: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string,
-    status: PropTypes.string,
-    price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(
-      PropTypes.shape({
-        image: PropTypes.string,
-      })
-    ).isRequired,
-  }).isRequired,
-};
 
 export default OrderInfo;

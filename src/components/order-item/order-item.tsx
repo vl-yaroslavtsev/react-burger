@@ -6,19 +6,9 @@ import { Link, useRouteMatch, useLocation } from "react-router-dom";
 import { formatPastDate } from "../../services/utils";
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 import { IFullOrder, IOrderIngredient } from "../../services/types/data";
+import { translateStatus } from "../../services/orders";
 
 import styles from "./order-item.module.css";
-
-const statusMap = {
-  created: "Создан",
-  pending: "Готовится",
-  done: "Выполнен",
-  canceled: "Отменен",
-};
-
-function translateStatus(status: IFullOrder["status"]) {
-  return statusMap[status] || status;
-}
 
 interface IIngredientsProps {
   ingredients: IOrderIngredient[];

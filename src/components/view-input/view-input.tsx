@@ -1,20 +1,23 @@
-import { useState, useRef } from "react";
+import { useState, useRef, FocusEvent } from "react";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import "./view-input.module.css";
 
-export default function ViewInput({ setValue, ...props }) {
+type TViewInputProps = {
+  setValue: (value: string) => void;
+} & Required<typeof Input["defaultProps"]>;
+
+export default function ViewInput({ setValue, ...props }: TViewInputProps) {
   const [isEditMode, setEditMode] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   let iconClick = false;
 
-  const handleIconClick = (e) => {
+  const handleIconClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const el = inputRef.current;
     iconClick = true;
-    if (isEditMode) {
+    if (isEditMode && el) {
       setValue("");
       el.focus();
-    } else {
+    } else if (el) {
       setEditMode(true);
       setTimeout(() => {
         el.focus();
@@ -22,7 +25,7 @@ export default function ViewInput({ setValue, ...props }) {
     }
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = (e?: FocusEvent<HTMLInputElement>) => {
     setTimeout(() => {
       if (iconClick) {
         iconClick = false;

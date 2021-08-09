@@ -183,7 +183,7 @@ export async function updateUser(params: {
   return await fetchWithRefresh(routes.auth.user, { method: "PATCH", params });
 }
 
-export async function loadOrderById(id: number) {
+export async function loadOrderById(id: string) {
   const res = await fetch(`${routes.orders}/${id}`);
   const json = await checkResponse<{ orders: IOrder[] }>(res);
   return json.orders[0];

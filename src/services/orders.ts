@@ -69,6 +69,17 @@ function getFullOrder(
   };
 }
 
+const statusMap = {
+  created: "Создан",
+  pending: "Готовится",
+  done: "Выполнен",
+  canceled: "Отменен",
+};
+
+export function translateStatus(status: IFullOrder["status"]) {
+  return statusMap[status] || status;
+}
+
 export function useOrders(orders: IOrder[]) {
   const { items: ingredients } = useSelector((store) => store.ingredients);
 
@@ -85,7 +96,7 @@ export function useOrders(orders: IOrder[]) {
   return { ordersList };
 }
 
-export function useOrderLoad(id: number) {
+export function useOrderLoad(id: string) {
   const dispatch = useDispatch();
 
   const [serverOrder, setServerOrder] = useState<IOrder>();

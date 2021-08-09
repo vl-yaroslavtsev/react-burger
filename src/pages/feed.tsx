@@ -9,7 +9,7 @@ import { useFeedOrders } from "../services/orders";
 import styles from "./feed.module.css";
 import appStyles from "../components/app/app.module.css";
 
-interface StatisticGridItem {
+interface IStatisticGridItemProps {
   title: string;
   orders: number[];
   loading: boolean;
@@ -23,7 +23,7 @@ function StatisticGridItem({
   loading,
   className,
   complete = false,
-}: StatisticGridItem) {
+}: IStatisticGridItemProps) {
   return (
     <section className={cn(styles.statisticGridItem, className)}>
       <h2 className="text text_type_main-medium mb-6">{title}</h2>
