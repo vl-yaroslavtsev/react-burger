@@ -17,12 +17,12 @@ function AppHeader() {
         <li className={styles.contentItem}>
           <nav className={cn(styles.navigation, "mt-4 mb-4")}>
             <ul>
-              <li className={styles.navItem}>
+              <li>
                 <HeaderItem icon={BurgerIcon} path="/">
                   Конструктор
                 </HeaderItem>
               </li>
-              <li className={cn(styles.navItem, "ml-2")}>
+              <li className={cn("ml-2")}>
                 <HeaderItem icon={ListIcon} path="/feed">
                   Лента заказов
                 </HeaderItem>

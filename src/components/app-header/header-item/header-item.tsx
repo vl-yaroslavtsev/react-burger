@@ -1,10 +1,17 @@
+import { ReactNode } from "react";
 import cn from "classnames";
-import PropTypes from "prop-types";
 import { useRouteMatch, Link } from "react-router-dom";
+import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./header-item.module.css";
 
-function HeaderItem({ icon: Icon, children, path }) {
+interface IHeaderItemProps {
+  icon: typeof BurgerIcon;
+  path: string;
+  children: ReactNode;
+}
+
+function HeaderItem({ icon: Icon, children, path }: IHeaderItemProps) {
   const match = useRouteMatch({ path, exact: path === "/" });
   return (
     <Link
@@ -21,11 +28,5 @@ function HeaderItem({ icon: Icon, children, path }) {
     </Link>
   );
 }
-
-HeaderItem.propTypes = {
-  icon: PropTypes.elementType.isRequired,
-  path: PropTypes.string.isRequired,
-  children: PropTypes.node,
-};
 
 export default HeaderItem;
