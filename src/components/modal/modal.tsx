@@ -10,7 +10,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 const modalRoot = document.getElementById("react-modals") as HTMLElement;
 const ESC_KEY = "Escape";
 
-let visibleModals: React.MutableRefObject<undefined>[] = [];
+const visibleModals: React.MutableRefObject<undefined>[] = [];
 
 interface IModalProps {
   children: ReactNode;

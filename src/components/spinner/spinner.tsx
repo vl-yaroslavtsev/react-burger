@@ -33,7 +33,7 @@ export default function Spinner({
         cy={size / 2}
         r={radius}
         fill="none"
-        stroke-width={stroke}
+        strokeWidth={stroke}
       ></circle>
     </svg>
   );

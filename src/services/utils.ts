@@ -153,7 +153,7 @@ export function animate({
   draw,
   duration,
 }: IAnimateProps) {
-  let start = performance.now();
+  const start = performance.now();
   const timingFunc = timingFunctions[timing];
 
   return new Promise((resolve) => {
@@ -164,7 +164,7 @@ export function animate({
       if (timeFraction < 0) timeFraction = 0;
 
       // вычисление текущего состояния анимации
-      let progress = timingFunc(timeFraction);
+      const progress = timingFunc(timeFraction);
 
       draw(progress); // отрисовать её
 

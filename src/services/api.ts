@@ -98,7 +98,7 @@ async function fetchWithRefresh<IData>(
   { params = {}, method = "GET" } = {}
 ): Promise<IData> {
   try {
-    let options: RequestInit = {
+    const options: RequestInit = {
       method,
       headers: {
         "Content-Type": "application/json",

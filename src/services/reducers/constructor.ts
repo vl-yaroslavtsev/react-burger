@@ -68,7 +68,7 @@ export const constructorReducer = (
       };
 
     case REORDER_CONSTRUCTOR_INGREDIENTS: {
-      let items = state.items;
+      const items = state.items;
       const dropItem = items[action.dropIndex];
 
       return {

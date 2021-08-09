@@ -9,7 +9,7 @@ interface IProtectedRouteProps extends RouteProps {
 }
 
 export function ProtectedRoute({ children, ...rest }: IProtectedRouteProps) {
-  let { user, userLoaded } = useAuth();
+  const { user, userLoaded } = useAuth();
 
   if (!userLoaded) {
     return <Spinner center={true} />;

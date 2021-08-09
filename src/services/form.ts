@@ -72,7 +72,7 @@ function validateAll(
   values: { [name: string]: string },
   rules: { [name: string]: TValidationRuleValues }
 ) {
-  let errors: { [name: string]: string } = {};
+  const errors: { [name: string]: string } = {};
   for (const name of Object.keys(values)) {
     errors[name] = validate(values[name], rules[name]);
   }
