@@ -2,7 +2,7 @@ import { useLayoutEffect, memo } from "react";
 import cn from "classnames";
 import { useParams } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../services/hooks";
 
 import Skeleton from "../components/skeleton/skeleton";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";

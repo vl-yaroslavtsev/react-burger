@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useHistory } from "react-router-dom";
 import cn from "classnames";
 import PropTypes from "prop-types";

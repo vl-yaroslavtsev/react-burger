@@ -1,6 +1,5 @@
-import { memo } from "react";
-import { useCallback } from "react";
-import { useSelector } from "react-redux";
+import { memo, useCallback } from "react";
+import { useSelector } from "../../services/hooks";
 import { useHistory, useParams } from "react-router-dom";
 
 import Modal from "../modal/modal";

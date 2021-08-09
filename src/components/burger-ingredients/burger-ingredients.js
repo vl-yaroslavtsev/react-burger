@@ -1,7 +1,7 @@
 import styles from "./burger-ingredients.module.css";
 
 import { useState, useRef, useEffect, useLayoutEffect, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, Link } from "react-router-dom";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";

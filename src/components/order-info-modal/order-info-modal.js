@@ -1,8 +1,7 @@
-import { memo } from "react";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import OrderInfo from "../order-info/order-info";
 import { useHistory, useLocation, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 
 import { useOrders } from "../../services/orders";
 
