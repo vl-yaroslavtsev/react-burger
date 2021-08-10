@@ -5,7 +5,7 @@ import {
   CLEAR_CONSTRUCTOR,
 } from "../actions/constructor";
 
-import { constructorReducer as reducer } from "./constructor.js";
+import { constructorReducer as reducer } from "./constructor";
 
 describe("constructor reducer", () => {
   const initialState = {
