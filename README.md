@@ -1,7 +1,7 @@
 # React burger
 
 Бургерная на краю вселенной. Учебное приложение в рамках курса "React" на Яндекс.Практикум.  
-Пощупать можно тут: [https://vl-yaroslavtsev.github.io/react-burger/](react-burger)
+Пощупать можно тут: [react-burger](https://vl-yaroslavtsev.github.io/react-burger/)
 
 
 ## Функциональность
