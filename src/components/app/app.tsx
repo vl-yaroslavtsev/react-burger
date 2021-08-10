@@ -1,6 +1,12 @@
 import styles from "./app.module.css";
 
-import { Switch, Route, useLocation, useHistory } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  useLocation,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
 
 import { Location } from "history";
 
@@ -24,13 +30,18 @@ import OrderInfoModal from "../order-info-modal/order-info-modal";
 
 const App: React.FC = () => {
   const location = useLocation<{ background?: Location }>();
+  // для gh-pages : при перезагрузке страницы не подхватывается URL текущей страницы. Кладем его в ?p=/feed
+  const customPath = new URLSearchParams(location.search).get("p");
+  const customLocation = customPath
+    ? ({ pathname: customPath } as Location)
+    : null;
   const history = useHistory();
   const background = history.action === "PUSH" && location.state?.background;
   return (
     <div className={styles.app}>
       <AppHeader />
       <main className={styles.main}>
-        <Switch location={background || location}>
+        <Switch location={background || customLocation || location}>
           <Route path="/" exact={true}>
             <HomePage />
           </Route>
