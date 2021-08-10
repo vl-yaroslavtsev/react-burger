@@ -12,7 +12,6 @@ import { animate } from "../../services/utils";
 import { useScrollbar } from "../../services/scrollbar";
 
 import { getIngredients } from "../../services/actions/ingredients";
-import { isReturnStatement } from "typescript";
 
 const GROUP_NAME = {
   bun: "Булки",
