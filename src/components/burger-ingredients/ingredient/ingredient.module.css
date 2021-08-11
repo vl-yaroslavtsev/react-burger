@@ -1,5 +1,4 @@
 .container {
-  min-width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,6 +7,10 @@
   box-sizing: border-box;
   cursor: move;
   color: var(--text-primary-color);
+}
+
+.img {
+  max-width: 100%;
 }
 
 .price {

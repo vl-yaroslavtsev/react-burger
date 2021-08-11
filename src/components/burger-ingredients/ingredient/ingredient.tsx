@@ -32,7 +32,7 @@ const Ingredient: React.FC<IIngredientProps> = memo(
         data-test-id={`ingredient-${item._id}`}
       >
         {count > 0 && <Counter count={count} size="default" />}
-        <img src={image} width={240} height={120} className="mb-1" alt={name} />
+        <img src={image} className={cn(styles.img, "mb-1")} alt={name} />
         <p className={cn(styles.price, "text text_type_digits-default mb-1")}>
           <span className="mr-2">{price}</span>
           <CurrencyIcon type="primary" />

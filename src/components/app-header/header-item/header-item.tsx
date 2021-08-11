@@ -26,7 +26,9 @@ const HeaderItem: React.FC<IHeaderItemProps> = ({
       to={path}
     >
       <Icon type={match ? "primary" : "secondary"} />
-      <span className={cn({ text_color_inactive: !match }, "ml-2")}>
+      <span
+        className={cn(styles.text, { text_color_inactive: !match }, "ml-2")}
+      >
         {children}
       </span>
     </Link>

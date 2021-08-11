@@ -3,3 +3,13 @@
   border-radius: 40px;
   color: var(--text-primary-color);
 }
+
+.text {
+  white-space: nowrap;
+}
+
+@media only screen and (max-width: 1023px) {
+  .text {
+    display: none;
+  }
+}

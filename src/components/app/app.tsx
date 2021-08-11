@@ -1,12 +1,7 @@
+import cn from "classnames";
 import styles from "./app.module.css";
 
-import {
-  Switch,
-  Route,
-  useLocation,
-  useHistory,
-  useRouteMatch,
-} from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import { Location } from "history";
 
@@ -36,7 +31,7 @@ const App: React.FC = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={styles.main}>
+      <main className={cn(styles.main, "pl-5 pr-5")}>
         <Switch location={background || location}>
           <Route path="/" exact={true}>
             <HomePage />

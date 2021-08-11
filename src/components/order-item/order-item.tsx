@@ -53,7 +53,7 @@ const OrderItem: React.FC<IOrderItemProps> = memo(({ order }) => {
       }}
     >
       <header className={styles.header}>
-        <h2 className="text text_type_digits-default">#{order.number}</h2>
+        <h2 className="text text_type_digits-default mr-4">#{order.number}</h2>
         <span className="text text_type_main-default text_color_inactive">
           {formatPastDate(order.createdAt)}
         </span>

@@ -1,9 +1,13 @@
 .container {
-  width: 600px;
+  flex: 1 1 100%;
 }
 
 .tabs {
   display: flex;
+}
+
+.tabs > div {
+  flex-grow: 1;
 }
 
 .ingredientList {

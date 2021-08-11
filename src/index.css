@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   --text-primary-color: #f2f2f3;
 
@@ -14,4 +18,36 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+@media only screen and (max-width: 1023px) {
+  .text.text_type_main-default {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .text.text_type_main-medium {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .text.text_type_main-large {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .text.text_type_digits-default {
+    font-size: 22px;
+    line-height: 24px;
+  }
+
+  .text.text_type_digits-medium {
+    font-size: 22px;
+    line-height: 24px;
+  }
+
+  .text.text_type_digits-large {
+    font-size: 72px;
+    line-height: 80px;
+  }
 }
