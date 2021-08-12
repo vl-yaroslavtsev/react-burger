@@ -1,0 +1,21 @@
+.imageResponsive {
+  max-width: 100%;
+}
+
+.imagePreloader {
+  display: inline-block;
+  background: transparent;
+  border-radius: 8px;
+  width: var(--img-width);
+}
+
+.imagePreloaderResponsive {
+  width: 100%;
+  max-width: var(--img-width);
+}
+
+.imagePreloader::after {
+  content: "";
+  display: block;
+  padding-bottom: var(--img-height);
+}

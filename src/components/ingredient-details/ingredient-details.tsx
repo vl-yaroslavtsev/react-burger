@@ -3,30 +3,7 @@ import cn from "classnames";
 
 import styles from "./ingredient-details.module.css";
 import { IIngredient } from "../../services/types/data";
-
-function useImageLoading(src: string) {
-  const [isLoading, setLoading] = useState(true);
-
-  const loadImage = async (src: string) => {
-    if (!src) return;
-    const img = new Image();
-    img.src = src;
-
-    return new Promise((resolve, reject) => {
-      img.onload = () => resolve(src);
-      img.onerror = reject;
-    });
-  };
-
-  useEffect(() => {
-    setLoading(true);
-    if (src) {
-      loadImage(src).then(() => setLoading(false));
-    }
-  }, [src]);
-
-  return isLoading;
-}
+import LazyImage from "../lazy-image/lazy-image";
 
 interface IngredientDetailsProps {
   ingredient: IIngredient;
@@ -34,19 +11,13 @@ interface IngredientDetailsProps {
 
 const IngredientDetails: React.FC<IngredientDetailsProps> = memo(
   ({ ingredient }) => {
-    const imageLoading = useImageLoading(ingredient.image_large);
-
     return (
       <div className={cn(styles.container, "pl-15 pr-15 pb-5")}>
-        {imageLoading ? (
-          <div className={styles.imagePreloader}></div>
-        ) : (
-          <img
-            className={styles.image}
-            src={ingredient.image_large}
-            alt={ingredient.name}
-          />
-        )}
+        <LazyImage
+          src={ingredient.image_large}
+          alt={ingredient.name}
+          width={480}
+        />
         <h1
           className={cn(styles.title, "text text_type_main-medium mt-4 mb-8")}
         >

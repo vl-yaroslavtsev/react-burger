@@ -76,16 +76,19 @@ const BurgerConstructor: React.FC = () => {
     dispatch(doCheckoutOrder());
   }
 
-  const [{ isOver, canDrop }, dropIngredientsRef] = useDrop({
-    accept: "ingredient",
-    drop(item, monitor) {
-      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
+  const [{ isOver, canDrop }, dropIngredientsRef] = useDrop(
+    () => ({
+      accept: "ingredient",
+      drop(item, monitor) {
+        dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
     }),
-  });
+    [dispatch]
+  );
 
   const listRef = useRef<HTMLUListElement>(null);
   const bottomBunRef = useRef<HTMLLIElement>(null);
@@ -106,7 +109,7 @@ const BurgerConstructor: React.FC = () => {
   }
 
   return (
-    <section
+    <div
       className={cn(styles.container, "pt-25 pl-4")}
       ref={dropIngredientsRef}
       data-test-id="constructor-container"
@@ -201,7 +204,7 @@ const BurgerConstructor: React.FC = () => {
           {orderNumber && <OrderDetails orderNumber={orderNumber} />}
         </>
       </Modal>
-    </section>
+    </div>
   );
 };
 
