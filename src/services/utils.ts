@@ -185,3 +185,11 @@ export function usePrevious(value: any) {
   }, [value]);
   return ref.current;
 }
+
+export function isTouchDevice() {
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+}
