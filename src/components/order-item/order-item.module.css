@@ -5,11 +5,16 @@
   background-color: var(--background);
   display: block;
   color: var(--text-primary-color);
+  padding: calc(6 * var(--offset-base-size));
 }
 
 .header {
   display: flex;
   justify-content: space-between;
+}
+
+.title {
+  margin-top: calc(6 * var(--offset-base-size));
 }
 
 .statusDone {
@@ -20,6 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: calc(var(--offset-base-size) * 6);
 }
 
 .ingredientList {
@@ -37,4 +43,22 @@
 .price svg {
   width: 22px;
   height: 22px;
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    padding: calc(4 * var(--offset-base-size));
+  }
+
+  .title {
+    margin-top: calc(4 * var(--offset-base-size));
+  }
+
+  .ingredient {
+    margin-right: -8px;
+  }
+
+  .footer {
+    margin-top: calc(var(--offset-base-size) * 4);
+  }
 }

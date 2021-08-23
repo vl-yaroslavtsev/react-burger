@@ -131,8 +131,8 @@ const BurgerIngredients: React.FC = () => {
   );
 
   return (
-    <section className={cn(styles.container, "mr-10")}>
-      <h1 className="text text_type_main-large text mt-10 mb-5">
+    <section className={cn(styles.container)}>
+      <h1 className={cn("text text_type_main-large", styles.title)}>
         Соберите бургер
       </h1>
       <section className={styles.tabs}>
@@ -163,17 +163,12 @@ const BurgerIngredients: React.FC = () => {
               return (
                 <li key={key} data-group={key}>
                   <h2 className="text text_type_main-medium">{value}</h2>
-                  <ul
-                    className={cn(styles.ingredientList, "pl-4 pr-4 pt-6 pb-2")}
-                  >
+                  <ul className={cn(styles.ingredientList)}>
                     {ingredients
                       .filter(({ type }) => type === key)
                       .map((item, index) => {
                         return (
-                          <li
-                            className={cn(styles.ingredient, "mb-8")}
-                            key={item._id}
-                          >
+                          <li className={cn(styles.ingredient)} key={item._id}>
                             <Link
                               to={{
                                 pathname: `/ingredients/${item._id}`,

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function getCookie(name: string) {
   const matches = document.cookie.match(
@@ -192,4 +192,58 @@ export function isTouchDevice() {
     navigator.maxTouchPoints > 0 ||
     navigator.msMaxTouchPoints > 0
   );
+}
+
+/**
+ * Хук назначает выполнение callback на событие изменения ширины экрана с определенной оптимизацией
+ * @param callback Функция для выполнения при изменении ширины экрана
+ * @param props Пропсы, при изменении которых происходит сброс
+ */
+export function useWindowResize(callback: Function, props?: any[]) {
+  let running = false;
+
+  function run() {
+    callback();
+    running = false;
+  }
+
+  function onResize() {
+    if (!running) {
+      running = true;
+
+      if (window.requestAnimationFrame) {
+        window.requestAnimationFrame(run);
+      } else {
+        setTimeout(run, 66);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", onResize);
+
+    return function cleanup() {
+      window.removeEventListener("resize", onResize);
+    };
+  }, props);
+}
+
+export const getScreenSize = () => {
+  const width = window.innerWidth;
+  if (width < 768) {
+    return "mobile";
+  } else if (width < 1024) {
+    return "tablet";
+  }
+  return "desktop";
+};
+
+export function useScreenSize() {
+  const [screenSize, setScreenSize] = useState(getScreenSize());
+
+  useWindowResize(() => {
+    setScreenSize(getScreenSize());
+  }, []);
+
+  return screenSize;
 }

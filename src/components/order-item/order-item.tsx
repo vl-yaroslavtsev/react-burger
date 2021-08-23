@@ -3,7 +3,7 @@ import cn from "classnames";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { Link, useRouteMatch, useLocation } from "react-router-dom";
-import { formatPastDate } from "../../services/utils";
+import { formatPastDate, getScreenSize } from "../../services/utils";
 import IngredientAvatar from "../ingredient-avatar/ingredient-avatar";
 import { IFullOrder, IOrderIngredient } from "../../services/types/data";
 import { translateStatus } from "../../services/orders";
@@ -46,7 +46,7 @@ const OrderItem: React.FC<IOrderItemProps> = memo(({ order }) => {
   const { path } = useRouteMatch();
   return (
     <Link
-      className={cn(styles.container, "pl-6 pr-6 pb-6 pt-6")}
+      className={cn(styles.container)}
       to={{
         pathname: `${path}/${order.number}`,
         state: { background: location },
@@ -58,17 +58,19 @@ const OrderItem: React.FC<IOrderItemProps> = memo(({ order }) => {
           {formatPastDate(order.createdAt)}
         </span>
       </header>
-      <h1 className="text text_type_main-medium mt-6">{order.name}</h1>
+      <h1 className={cn("text text_type_main-medium", styles.title)}>
+        {order.name}
+      </h1>
       {order.status && (
         <p
-          className={cn("text text_type_main-default pt-2", {
+          className={cn("text text_type_main-default pt-2 tablet-hidden", {
             [styles.statusDone]: order.status === "done",
           })}
         >
           {translateStatus(order.status)}
         </p>
       )}
-      <footer className={cn(styles.footer, "mt-6")}>
+      <footer className={cn(styles.footer)}>
         <Ingredients ingredients={order.ingredients} />
         <div className={styles.price}>
           <p className="text text_type_digits-default mr-2">{order.price}</p>

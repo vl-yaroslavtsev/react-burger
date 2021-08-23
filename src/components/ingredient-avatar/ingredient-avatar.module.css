@@ -26,6 +26,8 @@
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 56px;
 }
 
 .ingredientFg {
@@ -48,7 +50,11 @@
     height: 32px;
   }
 
-  .ingredientFg {
+  .ingredient .ingredientFg {
     line-height: 28px;
+  }
+
+  .ingredientImage {
+    height: 28px;
   }
 }

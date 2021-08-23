@@ -9,6 +9,7 @@ import {
 import { useDrag } from "react-dnd";
 import { IIngredient } from "../../../services/types/data";
 import LazyImage from "../../lazy-image/lazy-image";
+import { useScreenSize } from "../../../services/utils";
 
 interface IIngredientProps {
   className?: string;
@@ -25,6 +26,9 @@ const Ingredient: React.FC<IIngredientProps> = memo(
       type: "ingredient",
       item,
     }));
+
+    const screenSize = useScreenSize();
+
     return (
       <div
         className={cn(styles.container, className)}
@@ -32,7 +36,12 @@ const Ingredient: React.FC<IIngredientProps> = memo(
         ref={dragRef}
         data-test-id={`ingredient-${item._id}`}
       >
-        {count > 0 && <Counter count={count} size="default" />}
+        {count > 0 && (
+          <Counter
+            count={count}
+            size={screenSize === "desktop" ? "default" : "small"}
+          />
+        )}
         <LazyImage src={image} className={"mb-1"} alt={name} width={240} />
         <p className={cn(styles.price, "text text_type_digits-default mb-1")}>
           <span className="mr-2">{price}</span>

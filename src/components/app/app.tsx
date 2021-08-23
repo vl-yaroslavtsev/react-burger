@@ -31,7 +31,7 @@ const App: React.FC = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={cn(styles.main, "pl-5 pr-5")}>
+      <main className={cn(styles.main)}>
         <Switch location={background || location}>
           <Route path="/" exact={true}>
             <HomePage />

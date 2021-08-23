@@ -1,11 +1,24 @@
 .container {
   flex: 1 1 100%;
+  padding-top: calc(var(--offset-base-size) * 25);
+  padding-left: calc(var(--offset-base-size) * 4);
 }
 
 .elements {
   display: flex;
   flex-direction: column;
   /* gap: calc(4 * var(--offset-base-size)); */
+}
+
+.bunElementTop {
+  margin-left: calc(var(--offset-base-size) * 8);
+  margin-right: calc(var(--offset-base-size) * 4);
+  margin-bottom: calc(var(--offset-base-size) * 4);
+}
+
+.bunElementBottom {
+  margin-left: calc(var(--offset-base-size) * 8);
+  margin-right: calc(var(--offset-base-size) * 4);
 }
 
 .dragMessage {
@@ -22,6 +35,7 @@
 
 .elementsScroll {
   composes: elements;
+  padding-right: calc(var(--offset-base-size) * 2);
 }
 
 :global(.constructor-element) {
@@ -51,4 +65,26 @@
 
 .center {
   text-align: center;
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    padding-top: calc(var(--offset-base-size) * 14);
+    padding-left: 0;
+  }
+
+  .bunElementTop {
+    margin-left: calc(var(--offset-base-size) * 4);
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .bunElementBottom {
+    margin-left: calc(var(--offset-base-size) * 4);
+    margin-right: 0;
+  }
+
+  .elementsScroll {
+    padding-right: 0;
+  }
 }

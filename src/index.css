@@ -21,6 +21,10 @@ ul {
 }
 
 @media only screen and (max-width: 1023px) {
+  .tablet-hidden {
+    display: none;
+  }
+
   .text.text_type_main-default {
     font-size: 14px;
     line-height: 20px;
@@ -49,5 +53,11 @@ ul {
   .text.text_type_digits-large {
     font-size: 72px;
     line-height: 80px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .mobile-hidden {
+    display: none;
   }
 }
