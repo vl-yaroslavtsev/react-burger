@@ -1,5 +1,6 @@
 .container {
   width: 640px;
+  max-width: 100%;
   box-sizing: border-box;
 }
 

@@ -16,7 +16,7 @@ import DragElement from "./drag-element/drag-element";
 
 import { CHECKOUT_ORDER_ERROR } from "../../services/actions/order";
 
-import { animate } from "../../services/utils";
+import { animate, useScreenSize } from "../../services/utils";
 import { useScrollbar } from "../../services/scrollbar";
 import { IConstructorIngredient } from "../../services/types/data";
 
@@ -99,6 +99,8 @@ const BurgerConstructor: React.FC = () => {
   });
 
   const history = useHistory();
+  const screenSize = useScreenSize();
+
   if (orderError === "jwt malformed") {
     dispatch({
       type: CHECKOUT_ORDER_ERROR,
@@ -170,12 +172,16 @@ const BurgerConstructor: React.FC = () => {
           </li>
         )}
       </ul>
-      <footer className={cn(styles.footer, "mt-10 mb-2")} ref={footerRef}>
+      <footer className={cn(styles.footer)} ref={footerRef}>
         <p className="text text_type_digits-medium mr-2">{totalPrice}</p>
-        <p className="text mr-10">
+        <p className={cn("text", styles.footerCurrency)}>
           <CurrencyIcon type="primary" />
         </p>
-        <Button type="primary" size="large" onClick={handleCheckoutOrder}>
+        <Button
+          type="primary"
+          size={screenSize === "desktop" ? "large" : "small"}
+          onClick={handleCheckoutOrder}
+        >
           Оформить заказ
         </Button>
       </footer>

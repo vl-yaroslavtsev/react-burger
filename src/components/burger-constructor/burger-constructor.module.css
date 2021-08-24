@@ -52,6 +52,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  margin-top: calc(var(--offset-base-size) * 10);
+  margin-bottom: calc(var(--offset-base-size) * 2);
+}
+
+.footerCurrency {
+  margin-right: calc(var(--offset-base-size) * 10);
 }
 
 .footer svg {
@@ -86,5 +92,18 @@
 
   .elementsScroll {
     padding-right: 0;
+  }
+
+  .footer {
+    margin-top: calc(var(--offset-base-size) * 4);
+  }
+
+  .footerCurrency {
+    margin-right: calc(var(--offset-base-size) * 4);
+  }
+
+  .footer svg {
+    width: 22px;
+    height: 22px;
   }
 }

@@ -1,5 +1,6 @@
 .container {
   width: 100%;
+  margin-top: calc(var(--offset-base-size) * 10);
 }
 
 .content {
@@ -8,6 +9,7 @@
 
 .orderList {
   flex-grow: 1;
+  margin-right: calc(var(--offset-base-size) * 15);
 }
 
 .statistic {
@@ -22,11 +24,19 @@
   flex: 1 1 20%;
 }
 
+.statisticGridItemTitle {
+  margin-bottom: calc(var(--offset-base-size) * 6);
+}
+
 .statisticGridItemList {
   max-height: 320px;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.statisticGridItemText {
+  margin-bottom: calc(var(--offset-base-size) * 2);
 }
 
 .success {
@@ -42,4 +52,34 @@
   width: auto;
   border-radius: 40px;
   height: 245px;
+}
+
+.statisticTotalTitle {
+  margin-top: calc(var(--offset-base-size) * 15);
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    margin-top: calc(var(--offset-base-size) * 4);
+  }
+
+  .orderList {
+    margin-right: calc(var(--offset-base-size) * 4);
+  }
+
+  .statisticGridItemTitle {
+    margin-bottom: calc(var(--offset-base-size) * 4);
+  }
+
+  .statisticGridItemList {
+    max-height: 280px;
+  }
+
+  .statisticGridItemText {
+    margin-bottom: calc(var(--offset-base-size) * 1);
+  }
+
+  .statisticTotalTitle {
+    margin-top: calc(var(--offset-base-size) * 6);
+  }
 }

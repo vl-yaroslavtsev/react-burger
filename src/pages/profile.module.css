@@ -5,6 +5,8 @@
 
 .menu {
   flex: 0 0 320px;
+  margin-top: calc(var(--offset-base-size) * 20);
+  margin-right: calc(var(--offset-base-size) * 15);
 }
 
 .menuItem {
@@ -20,6 +22,7 @@
 
 .menuFooter {
   opacity: 0.4;
+  margin-top: calc(var(--offset-base-size) * 20);
 }
 
 .orderList {
@@ -39,4 +42,16 @@
   width: auto;
   border-radius: 40px;
   height: 245px;
+}
+
+@media only screen and (max-width: 1023px) {
+  .menu {
+    flex-basis: 220px;
+    margin-top: calc(var(--offset-base-size) * 10);
+    margin-right: calc(var(--offset-base-size) * 4);
+  }
+
+  .menuFooter {
+    margin-top: calc(var(--offset-base-size) * 10);
+  }
 }

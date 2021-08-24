@@ -18,7 +18,7 @@ import { useScrollbar } from "../services/scrollbar";
 function Menu() {
   const { path } = useRouteMatch();
   return (
-    <nav className={cn(styles.menu, "mt-20 mr-15")}>
+    <nav className={cn(styles.menu)}>
       <ul className="text text_type_main-medium">
         <li>
           <NavLink
@@ -53,7 +53,7 @@ function Menu() {
       <footer
         className={cn(
           styles.menuFooter,
-          "text text_type_main-default text_color_inactive mt-20"
+          "text text_type_main-default text_color_inactive"
         )}
       >
         <Route path={path} exact>
