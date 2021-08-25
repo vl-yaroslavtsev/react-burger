@@ -8,6 +8,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import { IIngredient } from "../../../services/types/data";
+import LazyImage from "../../lazy-image/lazy-image";
+import { useScreenSize } from "../../../services/utils";
 
 interface IIngredientProps {
   className?: string;
@@ -20,19 +22,27 @@ const Ingredient: React.FC<IIngredientProps> = memo(
   ({ className, item, count = 0, onClick = () => {} }) => {
     const { name, price, image } = item;
     const handleClick = (e: React.MouseEvent) => onClick(e, item);
-    const [, dragRef] = useDrag({
+    const [, dragRef] = useDrag(() => ({
       type: "ingredient",
       item,
-    });
+    }));
+
+    const screenSize = useScreenSize();
+
     return (
-      <section
+      <div
         className={cn(styles.container, className)}
         onClick={handleClick}
         ref={dragRef}
         data-test-id={`ingredient-${item._id}`}
       >
-        {count > 0 && <Counter count={count} size="default" />}
-        <img src={image} width={240} height={120} className="mb-1" alt={name} />
+        {count > 0 && (
+          <Counter
+            count={count}
+            size={screenSize === "desktop" ? "default" : "small"}
+          />
+        )}
+        <LazyImage src={image} className={"mb-1"} alt={name} width={240} />
         <p className={cn(styles.price, "text text_type_digits-default mb-1")}>
           <span className="mr-2">{price}</span>
           <CurrencyIcon type="primary" />
@@ -40,7 +50,7 @@ const Ingredient: React.FC<IIngredientProps> = memo(
         <p className={cn(styles.title, "text text_type_main-default")}>
           {name}
         </p>
-      </section>
+      </div>
     );
   }
 );

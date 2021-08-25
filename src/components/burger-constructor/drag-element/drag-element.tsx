@@ -8,7 +8,7 @@ import {
 import { useDrag, useDrop } from "react-dnd";
 
 import { REORDER_CONSTRUCTOR_INGREDIENTS } from "../../../services/actions/constructor";
-import { animate, usePrevious } from "../../../services/utils";
+import { animate, usePrevious, useScreenSize } from "../../../services/utils";
 import { IConstructorIngredient } from "../../../services/types/data";
 
 import styles from "./drag-element.module.css";
@@ -100,21 +100,26 @@ const DragElement: React.FC<IDragElementProps> = ({
 
   dragTargetRef(dropTargetRef(ref));
 
+  const screenSize = useScreenSize();
+  const padding = screenSize === "desktop" ? 16 : 0;
+  const defHeight = screenSize === "desktop" ? 80 : 56;
+
   return (
     <li
-      className={cn(styles.container, "pb-4")}
+      className={cn(styles.container)}
       ref={ref}
       style={{
         opacity: isDrag ? 0 : 1,
         display: dragLeave && didDrop ? "none" : "",
         marginTop: isDrag && overLeave ? -height : 0,
-        paddingBottom: !isDrag && isOver && !isHoverTop ? 80 + 16 * 2 : 16,
-        paddingTop: !isDrag && isOver && isHoverTop ? 80 + 16 : 0,
+        paddingBottom:
+          !isDrag && isOver && !isHoverTop ? defHeight + padding * 2 : padding,
+        paddingTop: !isDrag && isOver && isHoverTop ? defHeight + padding : 0,
         transitionDuration: isTransition ? "0.3s" : "0s",
       }}
       data-test-id={`ctr-item-${item._id}`}
     >
-      <i className={cn(styles.dragItem, "mr-2")}>
+      <i className={cn(styles.dragItem)}>
         <DragIcon type="primary" />
       </i>
       <ConstructorElement

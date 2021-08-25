@@ -1,4 +1,5 @@
 import cn from "classnames";
+import LazyImage from "../lazy-image/lazy-image";
 
 import styles from "./ingredient-avatar.module.css";
 
@@ -13,11 +14,11 @@ const IngredientAvatar: React.FC<IIngredientAvatarProps> = ({
 }) => {
   return (
     <div className={styles.ingredient}>
-      <img
+      <LazyImage
         src={image}
         className={styles.ingredientImage}
         width={112}
-        height={56}
+        responsive={false}
         alt="ingredient"
       />
       {count > 0 && (

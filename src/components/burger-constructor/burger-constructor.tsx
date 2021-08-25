@@ -76,16 +76,19 @@ const BurgerConstructor: React.FC = () => {
     dispatch(doCheckoutOrder());
   }
 
-  const [{ isOver, canDrop }, dropIngredientsRef] = useDrop({
-    accept: "ingredient",
-    drop(item, monitor) {
-      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
+  const [{ isOver, canDrop }, dropIngredientsRef] = useDrop(
+    () => ({
+      accept: "ingredient",
+      drop(item, monitor) {
+        dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, item });
+      },
+      collect: (monitor) => ({
+        isOver: monitor.isOver(),
+        canDrop: monitor.canDrop(),
+      }),
     }),
-  });
+    [dispatch]
+  );
 
   const listRef = useRef<HTMLUListElement>(null);
   const bottomBunRef = useRef<HTMLLIElement>(null);
@@ -106,8 +109,8 @@ const BurgerConstructor: React.FC = () => {
   }
 
   return (
-    <section
-      className={cn(styles.container, "pt-25 pl-4")}
+    <div
+      className={cn(styles.container)}
       ref={dropIngredientsRef}
       data-test-id="constructor-container"
     >
@@ -127,7 +130,7 @@ const BurgerConstructor: React.FC = () => {
           </li>
         )}
         {bunItem && (
-          <li className="ml-8 mr-4 mb-4" data-test-id="ctr-bun-top">
+          <li className={styles.bunElementTop} data-test-id="ctr-bun-top">
             <ConstructorElement
               type="top"
               isLocked={true}
@@ -138,10 +141,7 @@ const BurgerConstructor: React.FC = () => {
           </li>
         )}
         <li>
-          <ul
-            className={cn(styles.elementsScroll, "noselect pr-2")}
-            ref={listRef}
-          >
+          <ul className={cn(styles.elementsScroll, "noselect")} ref={listRef}>
             {items.map((el, index) => {
               return (
                 <DragElement
@@ -156,7 +156,7 @@ const BurgerConstructor: React.FC = () => {
         </li>
         {bunItem && (
           <li
-            className="ml-8 mr-4"
+            className={styles.bunElementBottom}
             ref={bottomBunRef}
             data-test-id="ctr-bun-bottom"
           >
@@ -201,7 +201,7 @@ const BurgerConstructor: React.FC = () => {
           {orderNumber && <OrderDetails orderNumber={orderNumber} />}
         </>
       </Modal>
-    </section>
+    </div>
   );
 };
 

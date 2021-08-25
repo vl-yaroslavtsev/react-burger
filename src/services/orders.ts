@@ -231,7 +231,7 @@ export function useProfileOrders() {
     }
   }, [dispatch, ingredients.length]);
 
-  let { ordersList } = useOrders(orders);
+  const { ordersList } = useOrders(orders);
 
   ordersList.sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()

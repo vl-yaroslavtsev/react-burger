@@ -26,6 +26,8 @@
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
+  width: auto;
+  height: 56px;
 }
 
 .ingredientFg {
@@ -40,4 +42,19 @@
   text-align: center;
   line-height: 60px;
   font-style: normal;
+}
+
+@media only screen and (max-width: 1023px) {
+  .ingredient {
+    width: 32px;
+    height: 32px;
+  }
+
+  .ingredient .ingredientFg {
+    line-height: 28px;
+  }
+
+  .ingredientImage {
+    height: 28px;
+  }
 }

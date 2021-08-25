@@ -1,15 +1,27 @@
 .container {
-  width: 600px;
+  flex: 1 1 100%;
+  margin-right: calc(var(--offset-base-size) * 10);
+}
+
+.container .title {
+  margin: calc(var(--offset-base-size) * 10) 0 calc(var(--offset-base-size) * 5)
+    0;
 }
 
 .tabs {
   display: flex;
 }
 
+.tabs > div {
+  flex-grow: 1;
+}
+
 .ingredientList {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: calc(var(--offset-base-size) * 6) calc(var(--offset-base-size) * 4)
+    calc(var(--offset-base-size) * 2) calc(var(--offset-base-size) * 4);
 }
 
 .ingredients {
@@ -20,6 +32,7 @@
 .ingredient {
   flex: 0 1 calc(50% - 3 * var(--offset-base-size));
   cursor: pointer;
+  margin-bottom: calc(var(--offset-base-size) * 8);
 }
 
 .enter {
@@ -40,4 +53,29 @@
 
 .error {
   color: red;
+}
+
+@media only screen and (max-width: 1023px) {
+  .container {
+    margin-right: calc(var(--offset-base-size) * 4);
+  }
+
+  .ingredientList {
+    padding: calc(var(--offset-base-size) * 4) 0
+      calc(var(--offset-base-size) * 3) 0;
+  }
+
+  .ingredient {
+    margin-bottom: calc(var(--offset-base-size) * 3);
+  }
+
+  .container .title {
+    margin: calc(var(--offset-base-size) * 4) 0 0 0;
+  }
+
+  .tabs > div {
+    max-width: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }

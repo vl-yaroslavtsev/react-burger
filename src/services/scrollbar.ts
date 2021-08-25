@@ -1,5 +1,6 @@
 import { RefObject, useLayoutEffect } from "react";
 import appStyles from "../components/app/app.module.css";
+import { useWindowResize } from "./utils";
 
 interface IUseScrollbarExtraParams {
   exclude?: RefObject<HTMLElement> | RefObject<HTMLElement>[];
@@ -25,7 +26,7 @@ export function useScrollbar(
     arrExclude = [exclude];
   }
 
-  useLayoutEffect(() => {
+  const updateScrollbar = () => {
     const el = ref.current;
 
     if (!el) return;
@@ -52,10 +53,23 @@ export function useScrollbar(
       el.style.maxHeight = `calc(100vh - ${aroundSpace})`;
     }
     el.classList.add(appStyles.customScrollbar);
+  };
 
+  useLayoutEffect(() => {
+    updateScrollbar();
     return () => {
+      const el = ref.current;
+      if (!el) return;
       el.classList.remove(appStyles.customScrollbar);
       el.style.maxHeight = "";
     };
   }, [ref, maxHeight, isInModal, arrExclude, ...props]);
+
+  useWindowResize(updateScrollbar, [
+    ref,
+    maxHeight,
+    isInModal,
+    arrExclude,
+    ...props,
+  ]);
 }
