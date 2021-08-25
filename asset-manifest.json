@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "./static/css/main.d0270878.chunk.css",
-    "main.js": "./static/js/main.a31ac6a1.chunk.js",
-    "main.js.map": "./static/js/main.a31ac6a1.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.c494a2b2.js",
-    "runtime-main.js.map": "./static/js/runtime-main.c494a2b2.js.map",
-    "static/css/2.8bd8731b.chunk.css": "./static/css/2.8bd8731b.chunk.css",
-    "static/js/2.fb9450db.chunk.js": "./static/js/2.fb9450db.chunk.js",
-    "static/js/2.fb9450db.chunk.js.map": "./static/js/2.fb9450db.chunk.js.map",
-    "static/js/3.6e0e0af3.chunk.js": "./static/js/3.6e0e0af3.chunk.js",
-    "static/js/3.6e0e0af3.chunk.js.map": "./static/js/3.6e0e0af3.chunk.js.map",
+    "main.css": "./static/css/main.ca424217.chunk.css",
+    "main.js": "./static/js/main.f6530d94.chunk.js",
+    "main.js.map": "./static/js/main.f6530d94.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.6939b400.js",
+    "runtime-main.js.map": "./static/js/runtime-main.6939b400.js.map",
+    "static/css/2.dc0a481e.chunk.css": "./static/css/2.dc0a481e.chunk.css",
+    "static/js/2.cfce15fb.chunk.js": "./static/js/2.cfce15fb.chunk.js",
+    "static/js/2.cfce15fb.chunk.js.map": "./static/js/2.cfce15fb.chunk.js.map",
+    "static/js/3.2c34e970.chunk.js": "./static/js/3.2c34e970.chunk.js",
+    "static/js/3.2c34e970.chunk.js.map": "./static/js/3.2c34e970.chunk.js.map",
     "index.html": "./index.html",
-    "static/css/2.8bd8731b.chunk.css.map": "./static/css/2.8bd8731b.chunk.css.map",
-    "static/css/main.d0270878.chunk.css.map": "./static/css/main.d0270878.chunk.css.map",
-    "static/js/2.fb9450db.chunk.js.LICENSE.txt": "./static/js/2.fb9450db.chunk.js.LICENSE.txt",
+    "static/css/2.dc0a481e.chunk.css.map": "./static/css/2.dc0a481e.chunk.css.map",
+    "static/css/main.ca424217.chunk.css.map": "./static/css/main.ca424217.chunk.css.map",
+    "static/js/2.cfce15fb.chunk.js.LICENSE.txt": "./static/js/2.cfce15fb.chunk.js.LICENSE.txt",
     "static/media/fonts.css": "./static/media/iceland.77ad7fc2.woff",
-    "static/media/done.fb9f8534.svg": "./static/media/done.fb9f8534.svg"
+    "static/media/done.7341dd32.svg": "./static/media/done.7341dd32.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.c494a2b2.js",
-    "static/css/2.8bd8731b.chunk.css",
-    "static/js/2.fb9450db.chunk.js",
-    "static/css/main.d0270878.chunk.css",
-    "static/js/main.a31ac6a1.chunk.js"
+    "static/js/runtime-main.6939b400.js",
+    "static/css/2.dc0a481e.chunk.css",
+    "static/js/2.cfce15fb.chunk.js",
+    "static/css/main.ca424217.chunk.css",
+    "static/js/main.f6530d94.chunk.js"
   ]
 }
