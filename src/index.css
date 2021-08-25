@@ -20,6 +20,15 @@ ul {
   padding: 0;
 }
 
+/* исправляем ошибку компонента кнопка из Я.Практикум */
+button[class*="button_button_size_small"] {
+  font-family: "Jet Brains Mono";
+}
+
+.text.text_type_main-small {
+  font-family: "Jet Brains Mono";
+}
+
 @media only screen and (max-width: 1023px) {
   .tablet-hidden {
     display: none;

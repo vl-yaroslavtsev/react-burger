@@ -15,7 +15,7 @@ const AppHeader: React.FC = () => {
     <header className={cn(styles.header)}>
       <ul className={styles.content}>
         <li className={styles.contentItem}>
-          <nav className={cn(styles.navigation, "mt-4 mb-4")}>
+          <nav className={cn(styles.navigation)}>
             <ul>
               <li>
                 <HeaderItem icon={BurgerIcon} path="/">

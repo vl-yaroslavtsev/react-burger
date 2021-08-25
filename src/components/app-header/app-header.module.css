@@ -27,6 +27,18 @@
   text-align: right;
 }
 
+.navigation {
+  margin-top: calc(var(--offset-base-size) * 4);
+  margin-bottom: calc(var(--offset-base-size) * 4);
+}
+
 .navigation ul {
   display: flex;
+}
+
+@media only screen and (max-width: 1023px) {
+  .navigation {
+    margin-top: calc(var(--offset-base-size) * 1);
+    margin-bottom: calc(var(--offset-base-size) * 1);
+  }
 }

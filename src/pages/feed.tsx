@@ -26,7 +26,14 @@ function StatisticGridItem({
 }: IStatisticGridItemProps) {
   return (
     <section className={cn(styles.statisticGridItem, className)}>
-      <h2 className="text text_type_main-medium mb-6">{title}</h2>
+      <h2
+        className={cn(
+          "text text_type_main-medium",
+          styles.statisticGridItemTitle
+        )}
+      >
+        {title}
+      </h2>
       <ul
         className={cn(
           styles.statisticGridItemList,
@@ -38,7 +45,7 @@ function StatisticGridItem({
       >
         {loading && <Skeleton repeat={3} className="mb-2" tag="li" />}
         {orders.map((order, index) => (
-          <li className="mb-2" key={index}>
+          <li className={styles.statisticGridItemText} key={index}>
             {order}
           </li>
         ))}
@@ -64,7 +71,7 @@ export function FeedPage() {
   } = useFeedOrders();
 
   return (
-    <section className={cn(styles.container, "mt-10")}>
+    <section className={cn(styles.container)}>
       <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
       <section className={styles.content}>
         {error && (
@@ -72,7 +79,7 @@ export function FeedPage() {
             Что-то пошло не так. {error}
           </p>
         )}
-        <ul className={cn(styles.orderList, "mr-15")} ref={orderListRef}>
+        <ul className={cn(styles.orderList)} ref={orderListRef}>
           {loading && (
             <Skeleton
               className={cn(styles.skeletonOrder, "mb-4 mr-2")}
@@ -103,7 +110,12 @@ export function FeedPage() {
           </section>
           {total > 0 && (
             <>
-              <h2 className="text text_type_main-medium mt-15">
+              <h2
+                className={cn(
+                  "text text_type_main-medium",
+                  styles.statisticTotalTitle
+                )}
+              >
                 Выполнено за все время:
               </h2>
               <p
@@ -114,7 +126,12 @@ export function FeedPage() {
               >
                 {total}
               </p>
-              <h2 className="text text_type_main-medium mt-15">
+              <h2
+                className={cn(
+                  "text text_type_main-medium",
+                  styles.statisticTotalTitle
+                )}
+              >
                 Выполнено за сегодня:
               </h2>
               <p

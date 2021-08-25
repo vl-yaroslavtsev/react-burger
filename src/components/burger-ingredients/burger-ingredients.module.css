@@ -20,7 +20,7 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  padding: calc(var(--offset-base-size) * 6) calc(var(--offset-base-size) * 4)
+  padding: calc(var(--offset-base-size) * 10) calc(var(--offset-base-size) * 4)
     calc(var(--offset-base-size) * 2) calc(var(--offset-base-size) * 4);
 }
 

@@ -6,7 +6,7 @@ import ViewInput from "../view-input/view-input";
 import { useFormSubmit } from "../../services/form";
 import { useAuth } from "../../services/auth";
 import { updateUser } from "../../services/api";
-import { isEqual } from "../../services/utils";
+import { isEqual, useScreenSize } from "../../services/utils";
 
 import { SET_USER } from "../../services/actions/user";
 
@@ -27,6 +27,8 @@ const ProfileForm: React.FC = () => {
   } = useFormSubmit({
     onSubmit: updateUser,
   });
+
+  const screenSize = useScreenSize();
 
   if (!user) {
     return null;
@@ -61,7 +63,7 @@ const ProfileForm: React.FC = () => {
   }
 
   return (
-    <form className={cn(styles.form, "mt-20")} onSubmit={handleSubmit}>
+    <form className={cn(styles.form)} onSubmit={handleSubmit}>
       {error && (
         <p className={cn(styles.error, "text text_type_main-default mb-4")}>
           {error}
@@ -110,7 +112,10 @@ const ProfileForm: React.FC = () => {
         >
           Отмена
         </a>
-        <Button type="primary" size="medium">
+        <Button
+          type="primary"
+          size={screenSize === "desktom" ? "medium" : "small"}
+        >
           Сохранить
         </Button>
       </footer>
